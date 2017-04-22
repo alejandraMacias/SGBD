@@ -11,3 +11,6 @@ C:\Users\Alejansra\Documents\Visual Studio 2012\Projects\SGBD\SGBD\bin\Debug\Ent
 C:\Users\Alejansra\Documents\Visual Studio 2012\Projects\SGBD\SGBD\bin\Debug\EntityFramework.xml
 C:\Users\Alejansra\Documents\Visual Studio 2012\Projects\SGBD\SGBD\obj\Debug\SGBD.exe
 C:\Users\Alejansra\Documents\Visual Studio 2012\Projects\SGBD\SGBD\obj\Debug\SGBD.pdb
+C:\Users\Milan\Documents\Visual Studio 2015\Projects\SGBD\SGBD\bin\Debug\SGBD.exe.config
+C:\Users\Milan\Documents\Visual Studio 2015\Projects\SGBD\SGBD\obj\Debug\SGBD.exe
+C:\Users\Milan\Documents\Visual Studio 2015\Projects\SGBD\SGBD\obj\Debug\SGBD.pdb
