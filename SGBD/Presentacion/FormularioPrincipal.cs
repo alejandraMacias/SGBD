@@ -46,5 +46,35 @@ namespace SGBD
             Stream stream = new FileStream(openFileDialog1.FileName, FileMode.Open, FileAccess.Read, FileShare.None);
             stream.Close();
         }
+
+        private void altaEntidad(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bajaEntidad(object sender, EventArgs e)
+        {
+
+        }
+
+        private void modificacionEntidad(object sender, EventArgs e)
+        {
+
+        }
+
+        private void altaAtributo(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bajaAtributo(object sender, EventArgs e)
+        {
+
+        }
+
+        private void modificacionAtributo(object sender, EventArgs e)
+        {
+
+        }
     }
 }

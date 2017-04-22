@@ -8,9 +8,9 @@ namespace SGBD.Datos
 {
     class Atributo
     {
-        public char nom;
+        public string nom;
         public int tipo;
         public int tam;
-        public char tipoClave;
+        public string tipoClave;
     }
 }
