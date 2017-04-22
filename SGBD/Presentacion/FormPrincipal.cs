@@ -25,7 +25,9 @@ namespace SGBD
 
         private void Form_Load(object sender, EventArgs e)
         {
-            var conString = "Data Source=AM-PC;Initial Catalog=Database;Integrated Security=True;";
+            // Data Source=AM-PC;Initial Catalog=Database;Integrated Security=True;
+            // Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True;
+            var conString = Properties.Settings.Default.ConnectionString;
             coneccion = new SqlConnection(conString);
             coneccion.Open();
             SqlCommand cmd = new SqlCommand("select count(*) from test", coneccion);
