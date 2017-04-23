@@ -1,37 +1,29 @@
-﻿using System;
+﻿using SGBD.Datos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SGBD
 {
     public partial class Form1 : Form
     {
-        public SqlConnection coneccion;
+        private Diccionario diccionario;
 
         public Form1()
         {
             InitializeComponent();
+            diccionario = Diccionario.Instancia;
         }
 
         private void Form_Load(object sender, EventArgs e)
         {
-            // Data Source=AM-PC;Initial Catalog=Database;Integrated Security=True;
-            // Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True;
-            var conString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True;";
-            coneccion = new SqlConnection(conString);
-            coneccion.Open();
-            SqlCommand cmd = new SqlCommand("select count(*) from test", coneccion);
-            var registros = cmd.ExecuteScalar().ToString();
+            var p = diccionario.EjecutaPrueba();
         }
 
         private void abrirSGBDToolStripMenuItem_Click(object sender, EventArgs e)
@@ -75,6 +67,11 @@ namespace SGBD
         private void modificacionAtributo(object sender, EventArgs e)
         {
 
+        }
+
+        private void Form_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            diccionario.Dispose();
         }
     }
 }

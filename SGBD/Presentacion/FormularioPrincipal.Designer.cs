@@ -83,19 +83,19 @@
             // abrirSGBDToolStripMenuItem
             // 
             this.abrirSGBDToolStripMenuItem.Name = "abrirSGBDToolStripMenuItem";
-            this.abrirSGBDToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.abrirSGBDToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.abrirSGBDToolStripMenuItem.Text = "Abrir ";
             this.abrirSGBDToolStripMenuItem.Click += new System.EventHandler(this.abrirSGBDToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(106, 6);
             // 
             // crearSGBDToolStripMenuItem
             // 
             this.crearSGBDToolStripMenuItem.Name = "crearSGBDToolStripMenuItem";
-            this.crearSGBDToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.crearSGBDToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.crearSGBDToolStripMenuItem.Text = "Nuevo";
             // 
             // entidadToolStripMenuItem
@@ -239,6 +239,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "SGBD";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_FormClosing);
             this.Load += new System.EventHandler(this.Form_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
