@@ -28,14 +28,14 @@ namespace SGBD
 
         private void abrirSGBDToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openFileDialog1.ShowDialog();
+            abrirArchivo.ShowDialog();
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
             IFormatter formatter = new BinaryFormatter();
 
-            Stream stream = new FileStream(openFileDialog1.FileName, FileMode.Open, FileAccess.Read, FileShare.None);
+            Stream stream = new FileStream(abrirArchivo.FileName, FileMode.Open, FileAccess.Read, FileShare.None);
             stream.Close();
         }
 

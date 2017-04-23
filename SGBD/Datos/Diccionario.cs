@@ -22,7 +22,7 @@ namespace SGBD.Datos
             listaEntidad = new List<Entidad>();
             // Data Source=AM-PC;Initial Catalog=Database;Integrated Security=True;
             // Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True
-            coneccion = new SqlConnection(@"Data Source=AM-PC;Initial Catalog=Database;Integrated Security=True;");
+            coneccion = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True");
             coneccion.Open();
         }
 
