@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SGBD.Datos
 {
+    [Serializable()]
     class Atributo
     {
         public string nom;

@@ -49,7 +49,7 @@
             this.mainContainer = new System.Windows.Forms.SplitContainer();
             this.dataContainer = new System.Windows.Forms.SplitContainer();
             this.consultasTextBox = new System.Windows.Forms.TextBox();
-            this.guardarArchivo = new System.Windows.Forms.SaveFileDialog();
+            this.nuevoArchivo = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainContainer)).BeginInit();
             this.mainContainer.Panel2.SuspendLayout();
@@ -84,20 +84,21 @@
             // abrirSGBDToolStripMenuItem
             // 
             this.abrirSGBDToolStripMenuItem.Name = "abrirSGBDToolStripMenuItem";
-            this.abrirSGBDToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.abrirSGBDToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.abrirSGBDToolStripMenuItem.Text = "Abrir ";
             this.abrirSGBDToolStripMenuItem.Click += new System.EventHandler(this.abrirSGBDToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(106, 6);
             // 
             // crearSGBDToolStripMenuItem
             // 
             this.crearSGBDToolStripMenuItem.Name = "crearSGBDToolStripMenuItem";
-            this.crearSGBDToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.crearSGBDToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.crearSGBDToolStripMenuItem.Text = "Nuevo";
+            this.crearSGBDToolStripMenuItem.Click += new System.EventHandler(this.crearSGBDToolStripMenuItem_Click);
             // 
             // entidadToolStripMenuItem
             // 
@@ -230,6 +231,10 @@
             this.consultasTextBox.Size = new System.Drawing.Size(578, 118);
             this.consultasTextBox.TabIndex = 0;
             // 
+            // nuevoArchivo
+            // 
+            this.nuevoArchivo.FileOk += new System.ComponentModel.CancelEventHandler(this.nuevoArchivo_FileOk);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -241,7 +246,6 @@
             this.Name = "Form1";
             this.Text = "SGBD";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_FormClosing);
-            this.Load += new System.EventHandler(this.Form_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.mainContainer.Panel2.ResumeLayout(false);
@@ -279,7 +283,7 @@
         private System.Windows.Forms.SplitContainer mainContainer;
         private System.Windows.Forms.SplitContainer dataContainer;
         private System.Windows.Forms.TextBox consultasTextBox;
-        private System.Windows.Forms.SaveFileDialog guardarArchivo;
+        private System.Windows.Forms.SaveFileDialog nuevoArchivo;
     }
 }
 

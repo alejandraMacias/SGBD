@@ -21,21 +21,42 @@ namespace SGBD
             diccionario = Diccionario.Instancia;
         }
 
-        private void Form_Load(object sender, EventArgs e)
-        {
-            var p = diccionario.EjecutaPrueba();
-        }
-
         private void abrirSGBDToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            abrirArchivo.AddExtension = true;
+            abrirArchivo.DefaultExt = ".db";
+            abrirArchivo.Filter = "Diccionario (*.db)|*.db";
+            abrirArchivo.InitialDirectory = Application.StartupPath;
             abrirArchivo.ShowDialog();
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
-            IFormatter formatter = new BinaryFormatter();
+            Stream stream = File.Open(abrirArchivo.FileName, FileMode.Open, FileAccess.Read, FileShare.None);
+            BinaryFormatter formatter = new BinaryFormatter();
 
-            Stream stream = new FileStream(abrirArchivo.FileName, FileMode.Open, FileAccess.Read, FileShare.None);
+            diccionario.Crea(abrirArchivo.SafeFileName.Replace(".db", ""));
+            diccionario.listaEntidad = (List<Entidad>)formatter.Deserialize(stream);
+            stream.Close();
+        }
+
+        private void crearSGBDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            nuevoArchivo.AddExtension = true;
+            nuevoArchivo.DefaultExt = ".db";
+            nuevoArchivo.Filter = "Diccionario (*.db)|*.db";
+            abrirArchivo.InitialDirectory = Application.StartupPath;
+            nuevoArchivo.ShowDialog();
+        }
+
+        private void nuevoArchivo_FileOk(object sender, CancelEventArgs e)
+        {
+            Stream stream = File.Open(nuevoArchivo.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
+            BinaryFormatter formatter = new BinaryFormatter();
+            string[] pathDiccionario = nuevoArchivo.FileName.Split('\\');
+
+            diccionario.Crea(pathDiccionario[pathDiccionario.Length - 1].Replace(".db", ""));
+            formatter.Serialize(stream, diccionario.listaEntidad);
             stream.Close();
         }
 
