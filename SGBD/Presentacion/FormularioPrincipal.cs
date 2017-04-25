@@ -1,4 +1,5 @@
 ﻿using SGBD.Datos;
+using SGBD.Presentacion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,8 +36,7 @@ namespace SGBD
             Stream stream = File.Open(abrirArchivo.FileName, FileMode.Open, FileAccess.Read, FileShare.None);
             BinaryFormatter formatter = new BinaryFormatter();
 
-            diccionario.Crea(abrirArchivo.SafeFileName.Replace(".db", ""));
-            diccionario.listaEntidad = (List<Entidad>)formatter.Deserialize(stream);
+            diccionario.Abrir(abrirArchivo.SafeFileName.Replace(".db", ""), (List<Entidad>)formatter.Deserialize(stream));
             stream.Close();
         }
 
@@ -55,19 +55,23 @@ namespace SGBD
             BinaryFormatter formatter = new BinaryFormatter();
             string[] pathDiccionario = nuevoArchivo.FileName.Split('\\');
 
-            diccionario.Crea(pathDiccionario[pathDiccionario.Length - 1].Replace(".db", ""));
-            formatter.Serialize(stream, diccionario.listaEntidad);
+            diccionario.Crear(pathDiccionario[pathDiccionario.Length - 1].Replace(".db", ""));
+            formatter.Serialize(stream, diccionario.Entidades);
             stream.Close();
         }
 
         private void altaEntidad(object sender, EventArgs e)
         {
+            AltaEntidad dialogo = new AltaEntidad();
 
+            dialogo.ShowDialog();
         }
 
         private void bajaEntidad(object sender, EventArgs e)
         {
-
+            BajaEntidad dialogo = new BajaEntidad();
+            
+            dialogo.ShowDialog();
         }
 
         private void modificacionEntidad(object sender, EventArgs e)

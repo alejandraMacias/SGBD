@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SGBD.Datos
 {
@@ -13,7 +16,7 @@ namespace SGBD.Datos
         public static Diccionario Instancia { get { return lazy.Value; } }
 
         private SqlConnection coneccion;        
-        public List<Entidad> listaEntidad;
+        private List<Entidad> listaEntidad;
         private string nombre;
 
         /// <summary>
@@ -21,16 +24,26 @@ namespace SGBD.Datos
         /// </summary>
         public string Nombre { get { return nombre; } }
 
+        public List<Entidad> Entidades { get { return listaEntidad; } }
+
         private Diccionario()
         {
             listaEntidad = new List<Entidad>();
             // Data Source=AM-PC;Initial Catalog=Database;Integrated Security=True;
-            // Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True;
-            coneccion = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True;");
+            // Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True
+            coneccion = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True;Connect Timeout=10");
             coneccion.Open();
         }
 
-        public void Crea(string nombre)
+        public void Abrir(string nombre, List<Entidad> entidades)
+        {
+            // Asignación del nombre del diccionario.
+            this.nombre = nombre;
+            // Asignación de entidades.
+            listaEntidad = entidades;
+        }
+
+        public void Crear(string nombre)
         {
             StringBuilder cadenaEliminacionEsquema = new StringBuilder();
             SqlCommand sentenciaEliminarEsquema;
@@ -49,6 +62,44 @@ namespace SGBD.Datos
             // Ejecución de sentencias.
             sentenciaEliminarEsquema.ExecuteNonQuery();
             sentenciaCrearEsquema.ExecuteNonQuery();
+        }
+
+        public bool AltaEntidad(string nombre)
+        {
+            bool resultado;
+
+            listaEntidad.Add(new Entidad(nombre));
+            resultado = true;
+
+            Stream stream = File.Open(this.nombre + ".db", FileMode.Create, FileAccess.Write, FileShare.None);
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream, Entidades);
+            stream.Close();
+
+            return resultado;
+        }
+
+        public bool BajaEntidad(string nombre)
+        {
+            bool resultado;
+            Entidad entidadAEliminar = listaEntidad.Find(e => e.Nombre == nombre);
+
+            if (entidadAEliminar != null)
+            {
+                listaEntidad.Remove(entidadAEliminar);
+                resultado = true;
+
+                Stream stream = File.Open(this.nombre + ".db", FileMode.Create, FileAccess.Write, FileShare.None);
+                BinaryFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(stream, Entidades);
+                stream.Close();
+            }
+            else
+            {
+                resultado = false;
+            }
+
+            return resultado;
         }
 
         public void Dispose()
