@@ -30,8 +30,8 @@
         {
             this.butonBaja = new System.Windows.Forms.Button();
             this.butonCancelar = new System.Windows.Forms.Button();
-            this.textoEntidad = new System.Windows.Forms.TextBox();
             this.etiqetaEntidad = new System.Windows.Forms.Label();
+            this.entidades = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // butonBaja
@@ -55,13 +55,6 @@
             this.butonCancelar.Text = "Cancelar";
             this.butonCancelar.UseVisualStyleBackColor = true;
             // 
-            // textoEntidad
-            // 
-            this.textoEntidad.Location = new System.Drawing.Point(12, 40);
-            this.textoEntidad.Name = "textoEntidad";
-            this.textoEntidad.Size = new System.Drawing.Size(313, 20);
-            this.textoEntidad.TabIndex = 2;
-            // 
             // etiqetaEntidad
             // 
             this.etiqetaEntidad.AutoSize = true;
@@ -71,13 +64,21 @@
             this.etiqetaEntidad.TabIndex = 3;
             this.etiqetaEntidad.Text = "Nombre";
             // 
+            // entidades
+            // 
+            this.entidades.FormattingEnabled = true;
+            this.entidades.Location = new System.Drawing.Point(12, 38);
+            this.entidades.Name = "entidades";
+            this.entidades.Size = new System.Drawing.Size(313, 21);
+            this.entidades.TabIndex = 4;
+            // 
             // BajaEntidad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(346, 114);
+            this.Controls.Add(this.entidades);
             this.Controls.Add(this.etiqetaEntidad);
-            this.Controls.Add(this.textoEntidad);
             this.Controls.Add(this.butonCancelar);
             this.Controls.Add(this.butonBaja);
             this.Name = "BajaEntidad";
@@ -92,7 +93,7 @@
 
         private System.Windows.Forms.Button butonBaja;
         private System.Windows.Forms.Button butonCancelar;
-        private System.Windows.Forms.TextBox textoEntidad;
         private System.Windows.Forms.Label etiqetaEntidad;
+        private System.Windows.Forms.ComboBox entidades;
     }
 }

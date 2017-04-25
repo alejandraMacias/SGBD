@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SGBD.Datos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,21 @@ namespace SGBD.Presentacion
 {
     public partial class ModificaEntidad : Form
     {
+        Diccionario diccionario = Diccionario.Instancia;
+
         public ModificaEntidad()
         {
             InitializeComponent();
+        }
+
+        private void ModificaEntidad_Load(object sender, EventArgs e)
+        {
+            entidades.DataSource = diccionario.Entidades;
+        }
+
+        private void botonModifica_Click(object sender, EventArgs e)
+        {
+            diccionario.ModificaEntidad(entidades.SelectedItem.ToString(), nuevoNombre.Text);
         }
     }
 }

@@ -10,6 +10,22 @@ using System.Windows.Forms;
 
 namespace SGBD.Datos
 {
+    // Argumentos para el evento de actualización.
+    public class ActualizacionEntidadEventArgs : EventArgs
+    {
+        private string mensaje;
+
+        public ActualizacionEntidadEventArgs(string mensaje)
+        {
+            this.mensaje = mensaje;
+        }
+
+        /// <summary>
+        /// Indica la acción realizada sobre la entidad.
+        /// </summary>
+        public string Mensaje { get { return mensaje; } }
+    }
+
     class Diccionario: IDisposable
     {
         private static readonly Lazy<Diccionario> lazy = new Lazy<Diccionario>(() => new Diccionario());
@@ -24,15 +40,38 @@ namespace SGBD.Datos
         /// </summary>
         public string Nombre { get { return nombre; } }
 
+
+        /// <summary>
+        /// Entidades contenidas dentro del diccionario.
+        /// </summary>
         public List<Entidad> Entidades { get { return listaEntidad; } }
+
+        /// <summary>
+        /// Provocado al actualizarse una entidad en el diccionario.
+        /// </summary>
+        public event EventHandler<ActualizacionEntidadEventArgs> ActualizacionEntidad;
 
         private Diccionario()
         {
             listaEntidad = new List<Entidad>();
             // Data Source=AM-PC;Initial Catalog=Database;Integrated Security=True;
+            // Data Source=BECARIOS-PC\SQLEXPRESS;Initial Catalog=Database;Integrated Security=True;
             // Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True
-            coneccion = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True;Connect Timeout=10");
+            coneccion = new SqlConnection(@"Data Source=BECARIOS-PC\SQLEXPRESS;Initial Catalog=Database;Integrated Security=True;Connect Timeout=10");
             coneccion.Open();
+        }
+
+        /// <summary>
+        /// Provocado al actualizarse una entidad en el diccionario de datos.
+        /// </summary>
+        /// <param name="e"></param>
+        protected virtual void OnActualizacionEntidad(ActualizacionEntidadEventArgs e)
+        {
+            EventHandler<ActualizacionEntidadEventArgs> handler = ActualizacionEntidad;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
         }
 
         public void Abrir(string nombre, List<Entidad> entidades)
@@ -76,6 +115,7 @@ namespace SGBD.Datos
             formatter.Serialize(stream, Entidades);
             stream.Close();
 
+            OnActualizacionEntidad(new ActualizacionEntidadEventArgs(string.Format("Entidad {0} agregada", nombre)));
             return resultado;
         }
 
@@ -99,6 +139,31 @@ namespace SGBD.Datos
                 resultado = false;
             }
 
+            OnActualizacionEntidad(new ActualizacionEntidadEventArgs(string.Format("Entidad {0} eliminada", nombre)));
+            return resultado;
+        }
+
+        public bool ModificaEntidad(string nombre, string nuevoNombre)
+        {
+            bool resultado;
+            Entidad entidadAModificar = listaEntidad.Find(e => e.Nombre == nombre);
+
+            if (entidadAModificar != null)
+            {
+                entidadAModificar.Nombre = nuevoNombre;
+                resultado = true;
+
+                Stream stream = File.Open(this.nombre + ".db", FileMode.Create, FileAccess.Write, FileShare.None);
+                BinaryFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(stream, Entidades);
+                stream.Close();
+            }
+            else
+            {
+                resultado = false;
+            }
+
+            OnActualizacionEntidad(new ActualizacionEntidadEventArgs(string.Format("Entidad {0} modificada", nombre)));
             return resultado;
         }
 

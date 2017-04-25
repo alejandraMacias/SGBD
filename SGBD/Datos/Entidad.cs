@@ -10,14 +10,17 @@ namespace SGBD.Datos
     class Entidad
     {
         public List<Atributo> listaAtributo;
-        private string nombre;
-
-        public string Nombre { get { return nombre; } }
+        public string Nombre { get; set; }
 
         public Entidad(string nombre)
         {
-            this.nombre = nombre;
+            Nombre = nombre;
             listaAtributo = new List<Atributo>();
+        }
+
+        public override string ToString()
+        {
+            return Nombre;
         }
     }
 }

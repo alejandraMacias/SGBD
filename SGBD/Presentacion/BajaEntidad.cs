@@ -13,6 +13,8 @@ namespace SGBD.Presentacion
 {
     public partial class BajaEntidad : Form
     {
+        Diccionario diccionario = Diccionario.Instancia;
+
         public BajaEntidad()
         {
             InitializeComponent();
@@ -20,13 +22,12 @@ namespace SGBD.Presentacion
 
         private void BajaEntidad_Load(object sender, EventArgs e)
         {
+            entidades.DataSource = diccionario.Entidades;
         }
 
         private void butonBaja_Click(object sender, EventArgs e)
         {
-            Diccionario diccionario = Diccionario.Instancia;
-
-            diccionario.BajaEntidad(textoEntidad.Text);
+            diccionario.BajaEntidad(entidades.SelectedItem.ToString());
         }
     }
 }

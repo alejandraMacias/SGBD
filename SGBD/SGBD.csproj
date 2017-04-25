@@ -70,7 +70,6 @@
     <Compile Include="Datos\Atributo.cs" />
     <Compile Include="Datos\Diccionario.cs" />
     <Compile Include="Datos\Entidad.cs" />
-    <Compile Include="Logica\Principal.cs" />
     <Compile Include="Presentacion\AltaEntidad.cs">
       <SubType>Form</SubType>
     </Compile>

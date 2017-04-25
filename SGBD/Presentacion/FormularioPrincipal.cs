@@ -20,6 +20,12 @@ namespace SGBD
         {
             InitializeComponent();
             diccionario = Diccionario.Instancia;
+            diccionario.ActualizacionEntidad += diccionario_ActualizacionEntidad;
+        }
+
+        void diccionario_ActualizacionEntidad(object sender, ActualizacionEntidadEventArgs e)
+        {
+            MessageBox.Show(e.Mensaje);
         }
 
         private void abrirSGBDToolStripMenuItem_Click(object sender, EventArgs e)
@@ -45,7 +51,7 @@ namespace SGBD
             nuevoArchivo.AddExtension = true;
             nuevoArchivo.DefaultExt = ".db";
             nuevoArchivo.Filter = "Diccionario (*.db)|*.db";
-            abrirArchivo.InitialDirectory = Application.StartupPath;
+            nuevoArchivo.InitialDirectory = Application.StartupPath;
             nuevoArchivo.ShowDialog();
         }
 
@@ -76,7 +82,9 @@ namespace SGBD
 
         private void modificacionEntidad(object sender, EventArgs e)
         {
+            ModificaEntidad dialogo = new ModificaEntidad();
 
+            dialogo.ShowDialog();
         }
 
         private void altaAtributo(object sender, EventArgs e)

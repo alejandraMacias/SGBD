@@ -48,7 +48,7 @@
             this.abrirArchivo = new System.Windows.Forms.OpenFileDialog();
             this.mainContainer = new System.Windows.Forms.SplitContainer();
             this.dataContainer = new System.Windows.Forms.SplitContainer();
-            this.consultasTextBox = new System.Windows.Forms.TextBox();
+            this.consultasSQL = new System.Windows.Forms.TextBox();
             this.nuevoArchivo = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainContainer)).BeginInit();
@@ -115,31 +115,31 @@
             // altaToolStripMenuItem
             // 
             this.altaToolStripMenuItem.Name = "altaToolStripMenuItem";
-            this.altaToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.altaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.altaToolStripMenuItem.Text = "Alta";
             this.altaToolStripMenuItem.Click += new System.EventHandler(this.altaEntidad);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(141, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             // 
             // bajaToolStripMenuItem
             // 
             this.bajaToolStripMenuItem.Name = "bajaToolStripMenuItem";
-            this.bajaToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.bajaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.bajaToolStripMenuItem.Text = "Baja";
             this.bajaToolStripMenuItem.Click += new System.EventHandler(this.bajaEntidad);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(141, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
             // modificacionToolStripMenuItem
             // 
             this.modificacionToolStripMenuItem.Name = "modificacionToolStripMenuItem";
-            this.modificacionToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.modificacionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.modificacionToolStripMenuItem.Text = "Modificacion";
             this.modificacionToolStripMenuItem.Click += new System.EventHandler(this.modificacionEntidad);
             // 
@@ -215,21 +215,21 @@
             // 
             // dataContainer.Panel2
             // 
-            this.dataContainer.Panel2.Controls.Add(this.consultasTextBox);
+            this.dataContainer.Panel2.Controls.Add(this.consultasSQL);
             this.dataContainer.Size = new System.Drawing.Size(584, 378);
             this.dataContainer.SplitterDistance = 250;
             this.dataContainer.TabIndex = 0;
             // 
-            // consultasTextBox
+            // consultasSQL
             // 
-            this.consultasTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.consultasSQL.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.consultasTextBox.Location = new System.Drawing.Point(3, 3);
-            this.consultasTextBox.Multiline = true;
-            this.consultasTextBox.Name = "consultasTextBox";
-            this.consultasTextBox.Size = new System.Drawing.Size(578, 118);
-            this.consultasTextBox.TabIndex = 0;
+            this.consultasSQL.Location = new System.Drawing.Point(3, 3);
+            this.consultasSQL.Multiline = true;
+            this.consultasSQL.Name = "consultasSQL";
+            this.consultasSQL.Size = new System.Drawing.Size(578, 118);
+            this.consultasSQL.TabIndex = 0;
             // 
             // nuevoArchivo
             // 
@@ -282,7 +282,7 @@
         private System.Windows.Forms.ToolStripMenuItem modificacionToolStripMenuItem1;
         private System.Windows.Forms.SplitContainer mainContainer;
         private System.Windows.Forms.SplitContainer dataContainer;
-        private System.Windows.Forms.TextBox consultasTextBox;
+        private System.Windows.Forms.TextBox consultasSQL;
         private System.Windows.Forms.SaveFileDialog nuevoArchivo;
     }
 }

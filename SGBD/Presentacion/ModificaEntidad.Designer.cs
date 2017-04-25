@@ -29,56 +29,81 @@
         private void InitializeComponent()
         {
             this.etiquetaEntidad = new System.Windows.Forms.Label();
-            this.textoModificar = new System.Windows.Forms.TextBox();
-            this.butonModifica = new System.Windows.Forms.Button();
+            this.botonModifica = new System.Windows.Forms.Button();
             this.butonCancelar = new System.Windows.Forms.Button();
+            this.entidades = new System.Windows.Forms.ComboBox();
+            this.nuevoNombre = new System.Windows.Forms.TextBox();
+            this.etiquetaNuevoNombre = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // etiquetaEntidad
             // 
             this.etiquetaEntidad.AutoSize = true;
-            this.etiquetaEntidad.Location = new System.Drawing.Point(13, 23);
+            this.etiquetaEntidad.Location = new System.Drawing.Point(9, 9);
             this.etiquetaEntidad.Name = "etiquetaEntidad";
             this.etiquetaEntidad.Size = new System.Drawing.Size(44, 13);
             this.etiquetaEntidad.TabIndex = 0;
             this.etiquetaEntidad.Text = "Nombre";
             // 
-            // textoModificar
+            // botonModifica
             // 
-            this.textoModificar.Location = new System.Drawing.Point(16, 48);
-            this.textoModificar.Name = "textoModificar";
-            this.textoModificar.Size = new System.Drawing.Size(241, 20);
-            this.textoModificar.TabIndex = 1;
-            // 
-            // butonModifica
-            // 
-            this.butonModifica.Location = new System.Drawing.Point(16, 85);
-            this.butonModifica.Name = "butonModifica";
-            this.butonModifica.Size = new System.Drawing.Size(75, 23);
-            this.butonModifica.TabIndex = 2;
-            this.butonModifica.Text = "Modifica";
-            this.butonModifica.UseVisualStyleBackColor = true;
+            this.botonModifica.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.botonModifica.Location = new System.Drawing.Point(12, 135);
+            this.botonModifica.Name = "botonModifica";
+            this.botonModifica.Size = new System.Drawing.Size(75, 23);
+            this.botonModifica.TabIndex = 2;
+            this.botonModifica.Text = "Modifica";
+            this.botonModifica.UseVisualStyleBackColor = true;
+            this.botonModifica.Click += new System.EventHandler(this.botonModifica_Click);
             // 
             // butonCancelar
             // 
-            this.butonCancelar.Location = new System.Drawing.Point(232, 85);
+            this.butonCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.butonCancelar.Location = new System.Drawing.Point(254, 135);
             this.butonCancelar.Name = "butonCancelar";
             this.butonCancelar.Size = new System.Drawing.Size(75, 23);
             this.butonCancelar.TabIndex = 3;
             this.butonCancelar.Text = "Cancelar";
             this.butonCancelar.UseVisualStyleBackColor = true;
             // 
+            // entidades
+            // 
+            this.entidades.FormattingEnabled = true;
+            this.entidades.Location = new System.Drawing.Point(12, 34);
+            this.entidades.Name = "entidades";
+            this.entidades.Size = new System.Drawing.Size(317, 21);
+            this.entidades.TabIndex = 4;
+            // 
+            // nuevoNombre
+            // 
+            this.nuevoNombre.Location = new System.Drawing.Point(12, 94);
+            this.nuevoNombre.Name = "nuevoNombre";
+            this.nuevoNombre.Size = new System.Drawing.Size(317, 20);
+            this.nuevoNombre.TabIndex = 5;
+            // 
+            // etiquetaNuevoNombre
+            // 
+            this.etiquetaNuevoNombre.AutoSize = true;
+            this.etiquetaNuevoNombre.Location = new System.Drawing.Point(12, 73);
+            this.etiquetaNuevoNombre.Name = "etiquetaNuevoNombre";
+            this.etiquetaNuevoNombre.Size = new System.Drawing.Size(44, 13);
+            this.etiquetaNuevoNombre.TabIndex = 6;
+            this.etiquetaNuevoNombre.Text = "Nombre";
+            // 
             // ModificaEntidad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(341, 125);
+            this.ClientSize = new System.Drawing.Size(341, 170);
+            this.Controls.Add(this.etiquetaNuevoNombre);
+            this.Controls.Add(this.nuevoNombre);
+            this.Controls.Add(this.entidades);
             this.Controls.Add(this.butonCancelar);
-            this.Controls.Add(this.butonModifica);
-            this.Controls.Add(this.textoModificar);
+            this.Controls.Add(this.botonModifica);
             this.Controls.Add(this.etiquetaEntidad);
             this.Name = "ModificaEntidad";
             this.Text = "ModificaEntidad";
+            this.Load += new System.EventHandler(this.ModificaEntidad_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -87,8 +112,10 @@
         #endregion
 
         private System.Windows.Forms.Label etiquetaEntidad;
-        private System.Windows.Forms.TextBox textoModificar;
-        private System.Windows.Forms.Button butonModifica;
+        private System.Windows.Forms.Button botonModifica;
         private System.Windows.Forms.Button butonCancelar;
+        private System.Windows.Forms.ComboBox entidades;
+        private System.Windows.Forms.TextBox nuevoNombre;
+        private System.Windows.Forms.Label etiquetaNuevoNombre;
     }
 }
