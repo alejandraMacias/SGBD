@@ -26,6 +26,22 @@ namespace SGBD.Datos
         public string Mensaje { get { return mensaje; } }
     }
 
+    // Argumentos para el evento de actualización.
+    public class ActualizacionAtributoEventArgs : EventArgs
+    {
+        private string mensaje;
+
+        public ActualizacionAtributoEventArgs(string mensaje)
+        {
+            this.mensaje = mensaje;
+        }
+
+        /// <summary>
+        /// Indica la acción realizada sobre la entidad.
+        /// </summary>
+        public string Mensaje { get { return mensaje; } }
+    }
+
     class Diccionario: IDisposable
     {
         private static readonly Lazy<Diccionario> lazy = new Lazy<Diccionario>(() => new Diccionario());
@@ -66,6 +82,10 @@ namespace SGBD.Datos
         /// Provocado al actualizarse una entidad en el diccionario.
         /// </summary>
         public event EventHandler<ActualizacionEntidadEventArgs> ActualizacionEntidad;
+        /// <summary>
+        /// Provocado al actualizarse una entidad en el diccionario.
+        /// </summary>
+        public event EventHandler<ActualizacionAtributoEventArgs> ActualizacionAtributo;
 
         private Diccionario()
         {
@@ -73,7 +93,7 @@ namespace SGBD.Datos
             // Data Source=AM-PC;Initial Catalog=Database;Integrated Security=True;
             // Data Source=BECARIOS-PC\SQLEXPRESS;Initial Catalog=Database;Integrated Security=True;
             // Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True
-            coneccion = new SqlConnection(@"Data Source=BECARIOS-PC\SQLEXPRESS;Initial Catalog=Database;Integrated Security=True;Connect Timeout=10");
+            coneccion = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True");
             coneccion.Open();
         }
 
@@ -84,6 +104,19 @@ namespace SGBD.Datos
         protected virtual void OnActualizacionEntidad(ActualizacionEntidadEventArgs e)
         {
             EventHandler<ActualizacionEntidadEventArgs> handler = ActualizacionEntidad;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        /// <summary>
+        /// Provocado al actualizarse una entidad en el diccionario de datos.
+        /// </summary>
+        /// <param name="e"></param>
+        protected virtual void OnActualizacionAtributo(ActualizacionAtributoEventArgs e)
+        {
+            EventHandler<ActualizacionAtributoEventArgs> handler = ActualizacionAtributo;
             if (handler != null)
             {
                 handler(this, e);
@@ -167,13 +200,29 @@ namespace SGBD.Datos
             return resultado;
         }
 
-        public bool AltaAtributo(Entidad entidadActual, string nombreAtributo, TipoAtributo tipo, ClaveAtributo clave, Entidad entidadClave, int? longitud)
+        public bool AltaAtributo(Entidad entidadActual, string nombreAtributo, TipoAtributo tipoAtributo, ClaveAtributo clave, Entidad entidadClave, int longitud)
         {
             bool resultado;
+            Atributo atributoNuevo = null;
 
-            //listaEntidad.Add(new Entidad(nombre));
+            switch (tipoAtributo)
+            {
+                case TipoAtributo.Entero:
+                    atributoNuevo = new Entero(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
+                    break;
+                case TipoAtributo.Flotante:
+                    atributoNuevo = new Flotante(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
+                    break;
+                case TipoAtributo.Caracter:
+                    atributoNuevo = new Caracter(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
+                    break;
+                case TipoAtributo.Cadena:
+                    atributoNuevo = new Cadena(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
+                    break;
+            }
+            entidadActual.Atributos.AddLast(atributoNuevo);
             resultado = true;
-            //OnActualizacionEntidad(new ActualizacionEntidadEventArgs(string.Format("Entidad {0} agregada", nombre)));
+            OnActualizacionAtributo(new ActualizacionAtributoEventArgs(string.Format("Atributo {0} agregado", nombreAtributo)));
             return resultado;
         }
 

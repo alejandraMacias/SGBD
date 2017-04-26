@@ -46,7 +46,7 @@
             this.etiquetaEntidadReferenciada = new System.Windows.Forms.Label();
             this.seleccionEntidadReferencia = new System.Windows.Forms.ComboBox();
             this.etiquetaAtributo = new System.Windows.Forms.Label();
-            this.atributo = new System.Windows.Forms.TextBox();
+            this.atributoPrimario = new System.Windows.Forms.TextBox();
             this.seleccionEntidad = new System.Windows.Forms.ComboBox();
             this.etiquetaEntidad = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.longitud)).BeginInit();
@@ -243,13 +243,13 @@
             this.etiquetaAtributo.TabIndex = 19;
             this.etiquetaAtributo.Text = "Atributo";
             // 
-            // atributo
+            // atributoPrimario
             // 
-            this.atributo.Location = new System.Drawing.Point(13, 297);
-            this.atributo.Name = "atributo";
-            this.atributo.ReadOnly = true;
-            this.atributo.Size = new System.Drawing.Size(280, 20);
-            this.atributo.TabIndex = 20;
+            this.atributoPrimario.Location = new System.Drawing.Point(13, 297);
+            this.atributoPrimario.Name = "atributoPrimario";
+            this.atributoPrimario.ReadOnly = true;
+            this.atributoPrimario.Size = new System.Drawing.Size(280, 20);
+            this.atributoPrimario.TabIndex = 20;
             // 
             // seleccionEntidad
             // 
@@ -275,7 +275,7 @@
             this.ClientSize = new System.Drawing.Size(306, 371);
             this.Controls.Add(this.seleccionEntidad);
             this.Controls.Add(this.etiquetaEntidad);
-            this.Controls.Add(this.atributo);
+            this.Controls.Add(this.atributoPrimario);
             this.Controls.Add(this.etiquetaAtributo);
             this.Controls.Add(this.seleccionEntidadReferencia);
             this.Controls.Add(this.etiquetaEntidadReferenciada);
@@ -319,7 +319,7 @@
         private System.Windows.Forms.Label etiquetaEntidadReferenciada;
         private System.Windows.Forms.ComboBox seleccionEntidadReferencia;
         private System.Windows.Forms.Label etiquetaAtributo;
-        private System.Windows.Forms.TextBox atributo;
+        private System.Windows.Forms.TextBox atributoPrimario;
         private System.Windows.Forms.ComboBox seleccionEntidad;
         private System.Windows.Forms.Label etiquetaEntidad;
     }

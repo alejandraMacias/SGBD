@@ -21,6 +21,12 @@ namespace SGBD
             InitializeComponent();
             diccionario = Diccionario.Instancia;
             diccionario.ActualizacionEntidad += diccionario_ActualizacionEntidad;
+            diccionario.ActualizacionAtributo += diccionario_ActualizacionAtributo;
+        }
+
+        void diccionario_ActualizacionAtributo(object sender, ActualizacionAtributoEventArgs e)
+        {
+            GuardaDiccionario();
         }
 
         void diccionario_ActualizacionEntidad(object sender, ActualizacionEntidadEventArgs e)

@@ -6,14 +6,17 @@ using System.Threading.Tasks;
 
 namespace SGBD.Datos
 {
+    [Serializable()]
     class Caracter : Atributo
     {
-        public Caracter(string nombre, string tipo, Diccionario.ClaveAtributo tipoClave)
+        public Caracter(string nombre, Diccionario.TipoAtributo tipoAtributo,
+            Diccionario.ClaveAtributo tipoClave, int longitud, Entidad claveForanea)
         {
             this.nombre = nombre;
-            this.tipo = tipo;
-            this.longitud = 1;
+            this.tipoAtributo = tipoAtributo;
+            this.longitud = longitud;
             this.tipoClave = tipoClave;
+            this.claveForanea = claveForanea;
         }
     }
 }

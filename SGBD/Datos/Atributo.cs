@@ -10,23 +10,25 @@ namespace SGBD.Datos
     abstract class Atributo
     {
         protected string nombre;
-        protected string tipo;
+        protected Diccionario.TipoAtributo tipoAtributo;
         protected int longitud;
         protected Diccionario.ClaveAtributo tipoClave;
+        protected Entidad claveForanea;
 
         public string Nombre { get { return nombre; } }
-        public string Tipo { get { return tipo; } }
+        public Diccionario.TipoAtributo Tipo { get { return tipoAtributo; } }
         public int Longitud { get { return longitud; } }
         public Diccionario.ClaveAtributo TipoClave { get { return tipoClave; } }
+        public Entidad ClaveForanea { get { return claveForanea; } }
 
         public void ActualizaNombre(string nombre)
         {
             this.nombre = nombre;
         }
 
-        public void ActualizaTipo(string tipo)
+        public void ActualizaTipo(Diccionario.TipoAtributo tipoAtributo)
         {
-            this.tipo = tipo;
+            this.tipoAtributo = tipoAtributo;
         }
     }
 }

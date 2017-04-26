@@ -6,14 +6,17 @@ using System.Threading.Tasks;
 
 namespace SGBD.Datos
 {
+    [Serializable()]
     class Flotante : Atributo
     {
-        public Flotante(string nombre, string tipo, Diccionario.ClaveAtributo tipoClave) 
+        public Flotante(string nombre, Diccionario.TipoAtributo tipoAtributo,
+            Diccionario.ClaveAtributo tipoClave, int longitud, Entidad claveForanea)
         {
             this.nombre = nombre;
-            this.tipo = tipo;
-            this.longitud = 8;
+            this.tipoAtributo = tipoAtributo;
+            this.longitud = longitud;
             this.tipoClave = tipoClave;
+            this.claveForanea = claveForanea;
         }
     }
 }
