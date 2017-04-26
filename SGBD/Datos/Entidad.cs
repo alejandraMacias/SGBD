@@ -9,13 +9,15 @@ namespace SGBD.Datos
     [Serializable()]
     class Entidad
     {
-        public List<Atributo> listaAtributo;
+        private LinkedList<Atributo> atributos;
         public string Nombre { get; set; }
+
+        public LinkedList<Atributo> Atributos { get { return atributos; } }
 
         public Entidad(string nombre)
         {
             Nombre = nombre;
-            listaAtributo = new List<Atributo>();
+            atributos = new LinkedList<Atributo>();
         }
 
         public override string ToString()

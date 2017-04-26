@@ -8,7 +8,7 @@ namespace SGBD.Datos
 {
     class Flotante : Atributo
     {
-        public Flotante(string nombre, string tipo, Diccionario.Clave tipoClave) 
+        public Flotante(string nombre, string tipo, Diccionario.ClaveAtributo tipoClave) 
         {
             this.nombre = nombre;
             this.tipo = tipo;

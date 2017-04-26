@@ -12,12 +12,12 @@ namespace SGBD.Datos
         protected string nombre;
         protected string tipo;
         protected int longitud;
-        protected Diccionario.Clave tipoClave;
+        protected Diccionario.ClaveAtributo tipoClave;
 
         public string Nombre { get { return nombre; } }
         public string Tipo { get { return tipo; } }
         public int Longitud { get { return longitud; } }
-        public Diccionario.Clave TipoClave { get { return tipoClave; } }
+        public Diccionario.ClaveAtributo TipoClave { get { return tipoClave; } }
 
         public void ActualizaNombre(string nombre)
         {

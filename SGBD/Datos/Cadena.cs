@@ -8,7 +8,7 @@ namespace SGBD.Datos
 {
     class Cadena : Atributo
     {
-        public Cadena(string nombre, string tipo, int longitud, Diccionario.Clave tipoClave)
+        public Cadena(string nombre, string tipo, int longitud, Diccionario.ClaveAtributo tipoClave)
         {
             this.nombre = nombre;
             this.tipo = tipo;

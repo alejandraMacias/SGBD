@@ -38,10 +38,21 @@ namespace SGBD.Datos
         /// <summary>
         /// Claves válidas para un atributo.
         /// </summary>
-        public enum Clave
+        public enum ClaveAtributo
         {
+            SinClave,
             Primaria,
             Foranea
+        }
+        /// <summary>
+        /// Tipos de datos.
+        /// </summary>
+        public enum TipoAtributo
+        {
+            Entero,
+            Flotante,
+            Caracter,
+            Cadena
         }
         /// <summary>
         /// Nombre del diccionario.
@@ -62,7 +73,7 @@ namespace SGBD.Datos
             // Data Source=AM-PC;Initial Catalog=Database;Integrated Security=True;
             // Data Source=BECARIOS-PC\SQLEXPRESS;Initial Catalog=Database;Integrated Security=True;
             // Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True
-            coneccion = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True;Connect Timeout=10");
+            coneccion = new SqlConnection(@"Data Source=BECARIOS-PC\SQLEXPRESS;Initial Catalog=Database;Integrated Security=True;Connect Timeout=10");
             coneccion.Open();
         }
 
@@ -114,12 +125,6 @@ namespace SGBD.Datos
 
             listaEntidad.Add(new Entidad(nombre));
             resultado = true;
-
-            Stream stream = File.Open(this.nombre + ".db", FileMode.Create, FileAccess.Write, FileShare.None);
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(stream, Entidades);
-            stream.Close();
-
             OnActualizacionEntidad(new ActualizacionEntidadEventArgs(string.Format("Entidad {0} agregada", nombre)));
             return resultado;
         }
@@ -133,11 +138,6 @@ namespace SGBD.Datos
             {
                 listaEntidad.Remove(entidadAEliminar);
                 resultado = true;
-
-                Stream stream = File.Open(this.nombre + ".db", FileMode.Create, FileAccess.Write, FileShare.None);
-                BinaryFormatter formatter = new BinaryFormatter();
-                formatter.Serialize(stream, Entidades);
-                stream.Close();
             }
             else
             {
@@ -157,11 +157,6 @@ namespace SGBD.Datos
             {
                 entidadAModificar.Nombre = nuevoNombre;
                 resultado = true;
-
-                Stream stream = File.Open(this.nombre + ".db", FileMode.Create, FileAccess.Write, FileShare.None);
-                BinaryFormatter formatter = new BinaryFormatter();
-                formatter.Serialize(stream, Entidades);
-                stream.Close();
             }
             else
             {
@@ -169,6 +164,16 @@ namespace SGBD.Datos
             }
 
             OnActualizacionEntidad(new ActualizacionEntidadEventArgs(string.Format("Entidad {0} modificada", nombre)));
+            return resultado;
+        }
+
+        public bool AltaAtributo(Entidad entidadActual, string nombreAtributo, TipoAtributo tipo, ClaveAtributo clave, Entidad entidadClave, int? longitud)
+        {
+            bool resultado;
+
+            //listaEntidad.Add(new Entidad(nombre));
+            resultado = true;
+            //OnActualizacionEntidad(new ActualizacionEntidadEventArgs(string.Format("Entidad {0} agregada", nombre)));
             return resultado;
         }
 

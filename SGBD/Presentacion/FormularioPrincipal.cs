@@ -25,7 +25,7 @@ namespace SGBD
 
         void diccionario_ActualizacionEntidad(object sender, ActualizacionEntidadEventArgs e)
         {
-            //MessageBox.Show(e.Mensaje);
+            GuardaDiccionario();
         }
 
         private void abrirSGBDToolStripMenuItem_Click(object sender, EventArgs e)
@@ -57,13 +57,10 @@ namespace SGBD
 
         private void nuevoArchivo_FileOk(object sender, CancelEventArgs e)
         {
-            Stream stream = File.Open(nuevoArchivo.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
-            BinaryFormatter formatter = new BinaryFormatter();
             string[] pathDiccionario = nuevoArchivo.FileName.Split('\\');
 
             diccionario.Crear(pathDiccionario[pathDiccionario.Length - 1].Replace(".db", ""));
-            formatter.Serialize(stream, diccionario.Entidades);
-            stream.Close();
+            GuardaDiccionario();
         }
 
         private void altaEntidad(object sender, EventArgs e)
@@ -107,6 +104,14 @@ namespace SGBD
         private void Form_FormClosing(object sender, FormClosingEventArgs e)
         {
             diccionario.Dispose();
+        }
+
+        private void GuardaDiccionario()
+        {
+            Stream stream = File.Open(diccionario.Nombre + ".db", FileMode.Create, FileAccess.Write, FileShare.None);
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream, diccionario.Entidades);
+            stream.Close();
         }
     }
 }

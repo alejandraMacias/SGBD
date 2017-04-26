@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SGBD.Datos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,64 @@ namespace SGBD.Presentacion
 {
     public partial class AltaAtributo : Form
     {
+        private Diccionario.ClaveAtributo claveAtributo;
+        private Diccionario.TipoAtributo tipoAtributo;
+        private Diccionario diccionarioDatos = Diccionario.Instancia;
+        private Entidad entidadClave;
+
         public AltaAtributo()
         {
             InitializeComponent();
+            seleccionEntidad.DataSource = diccionarioDatos.Entidades;
+            seleccionEntidadReferencia.DataSource = diccionarioDatos.Entidades.FindAll(entidad => entidad.Atributos.
+                FirstOrDefault(a => a.TipoClave == Diccionario.ClaveAtributo.Primaria) != null );
+        }
+
+        private void opcionEntero_CheckedChanged(object sender, EventArgs e)
+        {
+            tipoAtributo = Diccionario.TipoAtributo.Entero;
+        }
+
+        private void opcionFlotante_CheckedChanged(object sender, EventArgs e)
+        {
+            tipoAtributo = Diccionario.TipoAtributo.Flotante;
+        }
+
+        private void opcionCaracter_CheckedChanged(object sender, EventArgs e)
+        {
+            tipoAtributo = Diccionario.TipoAtributo.Caracter;
+        }
+
+        private void Cadena_CheckedChanged(object sender, EventArgs e)
+        {
+            tipoAtributo = Diccionario.TipoAtributo.Cadena;
+        }
+
+        private void claveNO_CheckedChanged(object sender, EventArgs e)
+        {
+            claveAtributo = Diccionario.ClaveAtributo.SinClave;
+        }
+
+        private void clavePrimaria_CheckedChanged(object sender, EventArgs e)
+        {
+            claveAtributo = Diccionario.ClaveAtributo.Primaria;
+        }
+
+        private void claveForanea_CheckedChanged(object sender, EventArgs e)
+        {
+            claveAtributo = Diccionario.ClaveAtributo.Foranea;
+        }
+
+        private void botonAgregar_Click(object sender, EventArgs e)
+        {
+            Entidad entidadActual = seleccionEntidad.SelectedItem as Entidad;
+
+            diccionarioDatos.AltaAtributo(entidadActual, nombreAtributo.Text, tipoAtributo, claveAtributo, entidadClave, (int)longitud.Value);
+        }
+
+        private void seleccionEntidadReferencia_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            entidadClave = diccionarioDatos.Entidades.Find(entidad => entidad.Nombre == seleccionEntidadReferencia.SelectedItem.ToString());
         }
     }
 }

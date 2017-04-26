@@ -8,7 +8,7 @@ namespace SGBD.Datos
 {
     class Entero : Atributo
     {
-        public Entero(string nombre, string tipo, Diccionario.Clave tipoClave)
+        public Entero(string nombre, string tipo, Diccionario.ClaveAtributo tipoClave)
         {
             this.nombre = nombre;
             this.tipo = tipo;

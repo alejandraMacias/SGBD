@@ -8,7 +8,7 @@ namespace SGBD.Datos
 {
     class Caracter : Atributo
     {
-        public Caracter(string nombre, string tipo, Diccionario.Clave tipoClave)
+        public Caracter(string nombre, string tipo, Diccionario.ClaveAtributo tipoClave)
         {
             this.nombre = nombre;
             this.tipo = tipo;
