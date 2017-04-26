@@ -53,9 +53,9 @@
             this.etiquetaNombre.AutoSize = true;
             this.etiquetaNombre.Location = new System.Drawing.Point(10, 9);
             this.etiquetaNombre.Name = "etiquetaNombre";
-            this.etiquetaNombre.Size = new System.Drawing.Size(44, 13);
+            this.etiquetaNombre.Size = new System.Drawing.Size(82, 13);
             this.etiquetaNombre.TabIndex = 0;
-            this.etiquetaNombre.Text = "Nombre";
+            this.etiquetaNombre.Text = "Nombre atributo";
             // 
             // nombreAtributo
             // 
