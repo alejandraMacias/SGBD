@@ -25,7 +25,7 @@ namespace SGBD
 
         void diccionario_ActualizacionEntidad(object sender, ActualizacionEntidadEventArgs e)
         {
-            MessageBox.Show(e.Mensaje);
+            //MessageBox.Show(e.Mensaje);
         }
 
         private void abrirSGBDToolStripMenuItem_Click(object sender, EventArgs e)
@@ -89,7 +89,9 @@ namespace SGBD
 
         private void altaAtributo(object sender, EventArgs e)
         {
+            AltaAtributo dialogo = new AltaAtributo();
 
+            dialogo.ShowDialog();
         }
 
         private void bajaAtributo(object sender, EventArgs e)

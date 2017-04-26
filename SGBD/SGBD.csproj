@@ -68,8 +68,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Datos\Atributo.cs" />
+    <Compile Include="Datos\Cadena.cs" />
+    <Compile Include="Datos\Caracter.cs" />
     <Compile Include="Datos\Diccionario.cs" />
+    <Compile Include="Datos\Entero.cs" />
     <Compile Include="Datos\Entidad.cs" />
+    <Compile Include="Datos\Flotante.cs" />
+    <Compile Include="Presentacion\AltaAtributo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\AltaAtributo.Designer.cs">
+      <DependentUpon>AltaAtributo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\AltaEntidad.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +106,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Presentacion\AltaAtributo.resx">
+      <DependentUpon>AltaAtributo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\AltaEntidad.resx">
       <DependentUpon>AltaEntidad.cs</DependentUpon>
     </EmbeddedResource>

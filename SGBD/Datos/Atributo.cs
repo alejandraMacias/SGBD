@@ -7,11 +7,26 @@ using System.Threading.Tasks;
 namespace SGBD.Datos
 {
     [Serializable()]
-    class Atributo
+    abstract class Atributo
     {
-        public string nom;
-        public int tipo;
-        public int tam;
-        public string tipoClave;
+        protected string nombre;
+        protected string tipo;
+        protected int longitud;
+        protected Diccionario.Clave tipoClave;
+
+        public string Nombre { get { return nombre; } }
+        public string Tipo { get { return tipo; } }
+        public int Longitud { get { return longitud; } }
+        public Diccionario.Clave TipoClave { get { return tipoClave; } }
+
+        public void ActualizaNombre(string nombre)
+        {
+            this.nombre = nombre;
+        }
+
+        public void ActualizaTipo(string tipo)
+        {
+            this.tipo = tipo;
+        }
     }
 }

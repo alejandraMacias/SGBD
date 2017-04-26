@@ -36,16 +36,21 @@ namespace SGBD.Datos
         private string nombre;
 
         /// <summary>
+        /// Claves válidas para un atributo.
+        /// </summary>
+        public enum Clave
+        {
+            Primaria,
+            Foranea
+        }
+        /// <summary>
         /// Nombre del diccionario.
         /// </summary>
         public string Nombre { get { return nombre; } }
-
-
         /// <summary>
         /// Entidades contenidas dentro del diccionario.
         /// </summary>
         public List<Entidad> Entidades { get { return listaEntidad; } }
-
         /// <summary>
         /// Provocado al actualizarse una entidad en el diccionario.
         /// </summary>
@@ -57,7 +62,7 @@ namespace SGBD.Datos
             // Data Source=AM-PC;Initial Catalog=Database;Integrated Security=True;
             // Data Source=BECARIOS-PC\SQLEXPRESS;Initial Catalog=Database;Integrated Security=True;
             // Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True
-            coneccion = new SqlConnection(@"Data Source=BECARIOS-PC\SQLEXPRESS;Initial Catalog=Database;Integrated Security=True;Connect Timeout=10");
+            coneccion = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True;Connect Timeout=10");
             coneccion.Open();
         }
 
