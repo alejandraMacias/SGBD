@@ -97,7 +97,7 @@ namespace SGBD.Datos
             // Data Source=AM-PC;Initial Catalog=Database;Integrated Security=True;
             // Data Source=BECARIOS-PC\SQLEXPRESS;Initial Catalog=Database;Integrated Security=True;
             // Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True
-            coneccion = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True");
+            coneccion = new SqlConnection(@"Data Source=BECARIOS-PC\SQLEXPRESS;Initial Catalog=Database;Integrated Security=True;");
             coneccion.Open();
         }
 
@@ -252,8 +252,23 @@ namespace SGBD.Datos
 
             entidadActual.Atributos.Remove(atributoAEliminar);
             resultado = true;
-            OnActualizacionAtributo(new ActualizacionAtributoEventArgs(
-                string.Format("Atributo {0} eliminado", atributoAEliminar.Nombre)));
+            OnActualizacionAtributo(new ActualizacionAtributoEventArgs(string.Format("Atributo {0} eliminado", atributoAEliminar.Nombre)));
+            return resultado;
+        }
+
+        /// <summary>
+        ///  Funcion que da de alta un atributo 
+        /// </summary>
+        public bool ModificaAtributo(Atributo atributoAModificar, TipoAtributo tipoAtributo, ClaveAtributo clave, Entidad entidadClave, int longitud)
+        {
+            bool resultado;
+
+            atributoAModificar.ActualizaTipo(tipoAtributo);
+            atributoAModificar.ActualizaClave(clave);
+            atributoAModificar.ActualizaLongitud(longitud);
+            atributoAModificar.ActualizaClaveForanea(entidadClave);
+            resultado = true;
+            OnActualizacionAtributo(new ActualizacionAtributoEventArgs(string.Format("Atributo {0} modificado", atributoAModificar.Nombre)));
             return resultado;
         }
 

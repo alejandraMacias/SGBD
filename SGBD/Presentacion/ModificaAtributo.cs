@@ -82,7 +82,7 @@ namespace SGBD.Presentacion
             {
                 entidadClave = null;
             }
-            //diccionarioDatos.AltaAtributo(entidadActual, nombreAtributo.Text, tipoAtributo, claveAtributo, entidadClave, (int)longitud.Value);
+            diccionarioDatos.ModificaAtributo(seleccionAtributo.SelectedItem as Atributo, tipoAtributo, claveAtributo, entidadClave, (int)longitud.Value);
         }
 
         private void seleccionEntidadReferencia_SelectedIndexChanged(object sender, EventArgs e)
@@ -94,6 +94,51 @@ namespace SGBD.Presentacion
         private void seleccionEntidad_SelectedIndexChanged(object sender, EventArgs e)
         {
             seleccionAtributo.DataSource = (seleccionEntidad.SelectedItem as Entidad).Atributos.ToList();
+            if ((seleccionAtributo.DataSource as List<Atributo>).Count == 0)
+            {
+                seleccionAtributo.Text = string.Empty;
+            }
+        }
+
+        private void seleccionAtributo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Atributo atributoSeleccionado = seleccionAtributo.SelectedItem as Atributo;
+
+            if (atributoSeleccionado != null)
+            {
+                switch (atributoSeleccionado.Tipo)
+                {
+                    case Diccionario.TipoAtributo.Entero:
+                        opcionEntero.Checked = true;
+                        break;
+                    case Diccionario.TipoAtributo.Flotante:
+                        opcionFlotante.Checked = true;
+                        break;
+                    case Diccionario.TipoAtributo.Caracter:
+                        opcionCaracter.Checked = true;
+                        break;
+                    case Diccionario.TipoAtributo.Cadena:
+                        Cadena.Checked = true;
+                        break;
+                }
+                longitud.Value = atributoSeleccionado.Longitud;
+                switch (atributoSeleccionado.TipoClave)
+                {
+                    case Diccionario.ClaveAtributo.SinClave:
+                        claveNO.Checked = true;
+                        break;
+                    case Diccionario.ClaveAtributo.Primaria:
+                        clavePrimaria.Checked = true;
+                        break;
+                    case Diccionario.ClaveAtributo.Foranea:
+                        claveForanea.Checked = true;
+                        break;
+                }
+                if (atributoSeleccionado.ClaveForanea != null)
+                {
+                    seleccionEntidadReferencia.SelectedItem = atributoSeleccionado.ClaveForanea;
+                }
+            }
         }
     }
 }

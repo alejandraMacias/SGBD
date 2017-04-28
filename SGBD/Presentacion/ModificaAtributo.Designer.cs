@@ -233,7 +233,7 @@
             this.botonAgregar.Name = "botonAgregar";
             this.botonAgregar.Size = new System.Drawing.Size(75, 23);
             this.botonAgregar.TabIndex = 27;
-            this.botonAgregar.Text = "Agregar";
+            this.botonAgregar.Text = "Aceptar";
             this.botonAgregar.UseVisualStyleBackColor = true;
             this.botonAgregar.Click += new System.EventHandler(this.botonAgregar_Click);
             // 
@@ -258,9 +258,9 @@
             this.etiquetaNombre.AutoSize = true;
             this.etiquetaNombre.Location = new System.Drawing.Point(10, 56);
             this.etiquetaNombre.Name = "etiquetaNombre";
-            this.etiquetaNombre.Size = new System.Drawing.Size(82, 13);
+            this.etiquetaNombre.Size = new System.Drawing.Size(43, 13);
             this.etiquetaNombre.TabIndex = 23;
-            this.etiquetaNombre.Text = "Nombre atributo";
+            this.etiquetaNombre.Text = "Atributo";
             // 
             // seleccionAtributo
             // 
@@ -269,6 +269,7 @@
             this.seleccionAtributo.Name = "seleccionAtributo";
             this.seleccionAtributo.Size = new System.Drawing.Size(280, 21);
             this.seleccionAtributo.TabIndex = 37;
+            this.seleccionAtributo.SelectedIndexChanged += new System.EventHandler(this.seleccionAtributo_SelectedIndexChanged);
             // 
             // ModificaAtributo
             // 
@@ -290,6 +291,7 @@
             this.Controls.Add(this.etiquetaLongitud);
             this.Controls.Add(this.etiquetaNombre);
             this.Name = "ModificaAtributo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ModificaAtributo";
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();

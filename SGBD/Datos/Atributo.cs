@@ -25,8 +25,6 @@ namespace SGBD.Datos
         public Diccionario.ClaveAtributo TipoClave { get { return tipoClave; } }
         public Entidad ClaveForanea { get { return claveForanea; } }
 
-
-
         public void ActualizaNombre(string nombre)
         {
             this.nombre = nombre;
@@ -35,6 +33,21 @@ namespace SGBD.Datos
         public void ActualizaTipo(Diccionario.TipoAtributo tipoAtributo)
         {
             this.tipoAtributo = tipoAtributo;
+        }
+
+        public void ActualizaClave(Diccionario.ClaveAtributo tipoClave)
+        {
+            this.tipoClave = tipoClave;
+        }
+
+        public void ActualizaLongitud(int longitud)
+        {
+            this.longitud = longitud;
+        }
+
+        public void ActualizaClaveForanea(Entidad clave)
+        {
+            this.claveForanea = clave;
         }
 
         public override string ToString()
