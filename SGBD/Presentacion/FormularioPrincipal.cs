@@ -34,6 +34,12 @@ namespace SGBD
             GuardaDiccionario();
         }
 
+
+        /// <summary>
+        /// Abre el archivo
+        /// Se asigna una extencion al archivo
+        /// Establecer el directorio inicial de archivo.
+        /// </summary>
         private void abrirSGBDToolStripMenuItem_Click(object sender, EventArgs e)
         {
             abrirArchivo.AddExtension = true;
@@ -43,6 +49,9 @@ namespace SGBD
             abrirArchivo.ShowDialog();
         }
 
+        /// <summary>
+        /// Abre un archivo  con acceso de solo lectura 
+        /// </summary>
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
             Stream stream = File.Open(abrirArchivo.FileName, FileMode.Open, FileAccess.Read, FileShare.None);
@@ -52,6 +61,11 @@ namespace SGBD
             stream.Close();
         }
 
+        /// <summary>
+        /// Crear archivo
+        /// Se asigna una extencion al archivo
+        /// Establecer el directorio inicial de archivo.
+        /// </summary>
         private void crearSGBDToolStripMenuItem_Click(object sender, EventArgs e)
         {
             nuevoArchivo.AddExtension = true;
@@ -61,6 +75,9 @@ namespace SGBD
             nuevoArchivo.ShowDialog();
         }
 
+        /// <summary>
+        /// Especifica información de ruta de acceso.
+        /// </summary>
         private void nuevoArchivo_FileOk(object sender, CancelEventArgs e)
         {
             string[] pathDiccionario = nuevoArchivo.FileName.Split('\\');
@@ -69,6 +86,9 @@ namespace SGBD
             GuardaDiccionario();
         }
 
+        /// <summary>
+        /// Mostrar el cuadro de diálogo para dar de alta una entidad.
+        /// </summary>
         private void altaEntidad(object sender, EventArgs e)
         {
             AltaEntidad dialogo = new AltaEntidad();
@@ -76,6 +96,9 @@ namespace SGBD
             dialogo.ShowDialog();
         }
 
+        /// <summary>
+        /// Mostrar el cuadro de diálogo para dar de baja una entidad.
+        /// </summary>
         private void bajaEntidad(object sender, EventArgs e)
         {
             BajaEntidad dialogo = new BajaEntidad();
@@ -83,6 +106,9 @@ namespace SGBD
             dialogo.ShowDialog();
         }
 
+        /// <summary>
+        /// Mostrar el cuadro de diálogo para modificar una entidad.
+        /// </summary>
         private void modificacionEntidad(object sender, EventArgs e)
         {
             ModificaEntidad dialogo = new ModificaEntidad();
@@ -90,6 +116,9 @@ namespace SGBD
             dialogo.ShowDialog();
         }
 
+        /// <summary>
+        /// Mostrar el cuadro de diálogo para dar de alta una atributo
+        /// </summary>
         private void altaAtributo(object sender, EventArgs e)
         {
             AltaAtributo dialogo = new AltaAtributo();
@@ -97,21 +126,37 @@ namespace SGBD
             dialogo.ShowDialog();
         }
 
+        /// <summary>
+        /// Mostrar el cuadro de diálogo para dar de baja un atributo
+        /// </summary>
         private void bajaAtributo(object sender, EventArgs e)
         {
+            BajaAtributo dialogo = new BajaAtributo();
 
+            dialogo.ShowDialog();
         }
 
+        /// <summary>
+        /// Mostrar el cuadro de diálogo para dar modificarun atributo.
+        /// </summary>
         private void modificacionAtributo(object sender, EventArgs e)
         {
+            ModificaAtributo dialogo = new ModificaAtributo();
 
+            dialogo.ShowDialog();
         }
 
+        /// <summary>
+        /// Libera todos los recursos asociados al formulario.
+        /// </summary>
         private void Form_FormClosing(object sender, FormClosingEventArgs e)
         {
             diccionario.Dispose();
         }
 
+        /// <summary>
+        /// Guarda el archivo 
+        /// </summary>
         private void GuardaDiccionario()
         {
             Stream stream = File.Open(diccionario.Nombre + ".db", FileMode.Create, FileAccess.Write, FileShare.None);

@@ -82,6 +82,7 @@
             this.Controls.Add(this.butonCancelar);
             this.Controls.Add(this.butonBaja);
             this.Name = "BajaEntidad";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "BajaEntidad";
             this.Load += new System.EventHandler(this.BajaEntidad_Load);
             this.ResumeLayout(false);

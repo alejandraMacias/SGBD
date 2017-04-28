@@ -10,7 +10,9 @@ using System.Windows.Forms;
 
 namespace SGBD.Datos
 {
-    // Argumentos para el evento de actualización.
+    /// <summary>
+    ///  Argumentos para el evento de actualización.
+    /// </summary>
     public class ActualizacionEntidadEventArgs : EventArgs
     {
         private string mensaje;
@@ -26,7 +28,9 @@ namespace SGBD.Datos
         public string Mensaje { get { return mensaje; } }
     }
 
-    // Argumentos para el evento de actualización.
+    /// <summary>
+    ///  Argumentos para el evento de actualización.
+    /// </summary>
     public class ActualizacionAtributoEventArgs : EventArgs
     {
         private string mensaje;
@@ -152,6 +156,9 @@ namespace SGBD.Datos
             sentenciaCrearEsquema.ExecuteNonQuery();
         }
 
+        /// <summary>
+        ///  Funcion que da de alta una entidad y la añade a una lista de entidades
+        /// </summary>
         public bool AltaEntidad(string nombre)
         {
             bool resultado;
@@ -162,6 +169,10 @@ namespace SGBD.Datos
             return resultado;
         }
 
+        /// <summary>
+        ///  Funcion que da de baja o elimina una entidad 
+        ///  Si la entidad a eliminar es encontrada es removida
+        /// </summary>
         public bool BajaEntidad(string nombre)
         {
             bool resultado;
@@ -181,6 +192,9 @@ namespace SGBD.Datos
             return resultado;
         }
 
+        /// <summary>
+        ///  Funcion que da modifica una entidad 
+        /// </summary>
         public bool ModificaEntidad(string nombre, string nuevoNombre)
         {
             bool resultado;
@@ -200,6 +214,9 @@ namespace SGBD.Datos
             return resultado;
         }
 
+        /// <summary>
+        ///  Funcion que da de alta un atributo 
+        /// </summary>
         public bool AltaAtributo(Entidad entidadActual, string nombreAtributo, TipoAtributo tipoAtributo, ClaveAtributo clave, Entidad entidadClave, int longitud)
         {
             bool resultado;
@@ -226,6 +243,23 @@ namespace SGBD.Datos
             return resultado;
         }
 
+        /// <summary>
+        ///  Funcion que da de baja un atributo 
+        /// </summary>
+        public bool BajaAtributo(Entidad entidadActual, Atributo atributoAEliminar)
+        {
+            bool resultado;
+
+            entidadActual.Atributos.Remove(atributoAEliminar);
+            resultado = true;
+            OnActualizacionAtributo(new ActualizacionAtributoEventArgs(
+                string.Format("Atributo {0} eliminado", atributoAEliminar.Nombre)));
+            return resultado;
+        }
+
+        /// <summary>
+        /// Libera todos los recursos utilizados por el objeto
+        /// </summary>
         public void Dispose()
         {
             coneccion.Close();

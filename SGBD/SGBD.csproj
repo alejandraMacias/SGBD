@@ -86,6 +86,12 @@
     <Compile Include="Presentacion\AltaEntidad.Designer.cs">
       <DependentUpon>AltaEntidad.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentacion\BajaAtributo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\BajaAtributo.Designer.cs">
+      <DependentUpon>BajaAtributo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\BajaEntidad.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +103,12 @@
     </Compile>
     <Compile Include="Presentacion\FormularioPrincipal.Designer.cs">
       <DependentUpon>FormularioPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\ModificaAtributo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\ModificaAtributo.Designer.cs">
+      <DependentUpon>ModificaAtributo.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\ModificaEntidad.cs">
       <SubType>Form</SubType>
@@ -112,11 +124,17 @@
     <EmbeddedResource Include="Presentacion\AltaEntidad.resx">
       <DependentUpon>AltaEntidad.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\BajaAtributo.resx">
+      <DependentUpon>BajaAtributo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\BajaEntidad.resx">
       <DependentUpon>BajaEntidad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\FormularioPrincipal.resx">
       <DependentUpon>FormularioPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\ModificaAtributo.resx">
+      <DependentUpon>ModificaAtributo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\ModificaEntidad.resx">
       <DependentUpon>ModificaEntidad.cs</DependentUpon>

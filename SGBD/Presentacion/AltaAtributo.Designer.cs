@@ -288,6 +288,7 @@
             this.Controls.Add(this.nombreAtributo);
             this.Controls.Add(this.etiquetaNombre);
             this.Name = "AltaAtributo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AltaAtributo";
             ((System.ComponentModel.ISupportInitialize)(this.longitud)).EndInit();
             this.groupBox1.ResumeLayout(false);

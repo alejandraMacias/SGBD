@@ -81,6 +81,7 @@
             this.Controls.Add(this.etiquetaEntidad);
             this.Controls.Add(this.textoEntidad);
             this.Name = "AltaEntidad";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AltaEntidad";
             this.ResumeLayout(false);
             this.PerformLayout();
