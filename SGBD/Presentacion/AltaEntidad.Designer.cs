@@ -80,6 +80,9 @@
             this.Controls.Add(this.botonCancelar);
             this.Controls.Add(this.etiquetaEntidad);
             this.Controls.Add(this.textoEntidad);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AltaEntidad";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AltaEntidad";

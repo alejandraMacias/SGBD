@@ -27,13 +27,29 @@ namespace SGBD
         void diccionario_ActualizacionAtributo(object sender, ActualizacionAtributoEventArgs e)
         {
             GuardaDiccionario();
+            AcualizaTreeView();
         }
 
         void diccionario_ActualizacionEntidad(object sender, ActualizacionEntidadEventArgs e)
         {
             GuardaDiccionario();
+            AcualizaTreeView();
         }
 
+        private void AcualizaTreeView()
+        {
+            elementosDiccionario.Nodes.Clear();
+            foreach (var entidad in diccionario.Entidades)
+            {
+                var nodo = new TreeNode(entidad.ToString());
+                foreach (var atributo in entidad.Atributos)
+                {
+                    nodo.Nodes.Add(atributo.ToString());
+                }
+                elementosDiccionario.Nodes.Add(nodo);
+                elementosDiccionario.ExpandAll();
+            }
+        }
 
         /// <summary>
         /// Abre el archivo
@@ -58,6 +74,7 @@ namespace SGBD
             BinaryFormatter formatter = new BinaryFormatter();
 
             diccionario.Abrir(abrirArchivo.SafeFileName.Replace(".db", ""), (List<Entidad>)formatter.Deserialize(stream));
+            AcualizaTreeView();
             stream.Close();
         }
 
@@ -83,6 +100,7 @@ namespace SGBD
             string[] pathDiccionario = nuevoArchivo.FileName.Split('\\');
 
             diccionario.Crear(pathDiccionario[pathDiccionario.Length - 1].Replace(".db", ""));
+            AcualizaTreeView();
             GuardaDiccionario();
         }
 

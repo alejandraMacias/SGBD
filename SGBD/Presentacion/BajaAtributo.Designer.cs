@@ -103,6 +103,9 @@
             this.Controls.Add(this.etiquetaAtributo);
             this.Controls.Add(this.butonCancelar);
             this.Controls.Add(this.botonBaja);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "BajaAtributo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "BajaAtributo";

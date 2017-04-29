@@ -258,6 +258,7 @@
             this.seleccionEntidad.Name = "seleccionEntidad";
             this.seleccionEntidad.Size = new System.Drawing.Size(280, 21);
             this.seleccionEntidad.TabIndex = 22;
+            this.seleccionEntidad.SelectedIndexChanged += new System.EventHandler(this.seleccionEntidad_SelectedIndexChanged);
             // 
             // etiquetaEntidad
             // 
@@ -287,6 +288,9 @@
             this.Controls.Add(this.etiquetaLongitud);
             this.Controls.Add(this.nombreAtributo);
             this.Controls.Add(this.etiquetaNombre);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AltaAtributo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AltaAtributo";

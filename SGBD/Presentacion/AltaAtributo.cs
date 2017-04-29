@@ -90,5 +90,20 @@ namespace SGBD.Presentacion
             entidadClave = diccionarioDatos.Entidades.Find(entidad => entidad.Nombre == seleccionEntidadReferencia.SelectedItem.ToString());
             atributoPrimario.Text = entidadClave.Atributos.First(a => a.TipoClave == Diccionario.ClaveAtributo.Primaria).Nombre;
         }
+
+        private void seleccionEntidad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var entidadActual = seleccionEntidad.SelectedItem as Entidad;
+            Atributo atributoPrimario = entidadActual.Atributos.FirstOrDefault(a => a.TipoClave == Diccionario.ClaveAtributo.Primaria);
+
+            if (atributoPrimario != null)
+            {
+                clavePrimaria.Enabled = false;
+            }
+            else
+            {
+                clavePrimaria.Enabled = true;
+            }
+        }
     }
 }

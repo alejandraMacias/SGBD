@@ -50,23 +50,30 @@
             this.dataContainer = new System.Windows.Forms.SplitContainer();
             this.consultasSQL = new System.Windows.Forms.TextBox();
             this.nuevoArchivo = new System.Windows.Forms.SaveFileDialog();
+            this.elementosDiccionario = new System.Windows.Forms.TreeView();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainContainer)).BeginInit();
+            this.mainContainer.Panel1.SuspendLayout();
             this.mainContainer.Panel2.SuspendLayout();
             this.mainContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataContainer)).BeginInit();
+            this.dataContainer.Panel1.SuspendLayout();
             this.dataContainer.Panel2.SuspendLayout();
             this.dataContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.Color.LightSteelBlue;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.archivoToolStripMenuItem,
             this.entidadToolStripMenuItem,
             this.atriibutoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.menuStrip1.Size = new System.Drawing.Size(768, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
@@ -115,31 +122,31 @@
             // altaToolStripMenuItem
             // 
             this.altaToolStripMenuItem.Name = "altaToolStripMenuItem";
-            this.altaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.altaToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.altaToolStripMenuItem.Text = "Alta";
             this.altaToolStripMenuItem.Click += new System.EventHandler(this.altaEntidad);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(141, 6);
             // 
             // bajaToolStripMenuItem
             // 
             this.bajaToolStripMenuItem.Name = "bajaToolStripMenuItem";
-            this.bajaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.bajaToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.bajaToolStripMenuItem.Text = "Baja";
             this.bajaToolStripMenuItem.Click += new System.EventHandler(this.bajaEntidad);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(141, 6);
             // 
             // modificacionToolStripMenuItem
             // 
             this.modificacionToolStripMenuItem.Name = "modificacionToolStripMenuItem";
-            this.modificacionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.modificacionToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.modificacionToolStripMenuItem.Text = "Modificacion";
             this.modificacionToolStripMenuItem.Click += new System.EventHandler(this.modificacionEntidad);
             // 
@@ -198,6 +205,10 @@
             this.mainContainer.Location = new System.Drawing.Point(0, 24);
             this.mainContainer.Name = "mainContainer";
             // 
+            // mainContainer.Panel1
+            // 
+            this.mainContainer.Panel1.Controls.Add(this.elementosDiccionario);
+            // 
             // mainContainer.Panel2
             // 
             this.mainContainer.Panel2.Controls.Add(this.dataContainer);
@@ -212,6 +223,10 @@
             this.dataContainer.Location = new System.Drawing.Point(0, 0);
             this.dataContainer.Name = "dataContainer";
             this.dataContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // dataContainer.Panel1
+            // 
+            this.dataContainer.Panel1.Controls.Add(this.dataGridView1);
             // 
             // dataContainer.Panel2
             // 
@@ -228,12 +243,34 @@
             this.consultasSQL.Location = new System.Drawing.Point(3, 3);
             this.consultasSQL.Multiline = true;
             this.consultasSQL.Name = "consultasSQL";
-            this.consultasSQL.Size = new System.Drawing.Size(578, 118);
+            this.consultasSQL.Size = new System.Drawing.Size(569, 109);
             this.consultasSQL.TabIndex = 0;
             // 
             // nuevoArchivo
             // 
             this.nuevoArchivo.FileOk += new System.ComponentModel.CancelEventHandler(this.nuevoArchivo_FileOk);
+            // 
+            // elementosDiccionario
+            // 
+            this.elementosDiccionario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.elementosDiccionario.Location = new System.Drawing.Point(12, 3);
+            this.elementosDiccionario.Name = "elementosDiccionario";
+            this.elementosDiccionario.Size = new System.Drawing.Size(165, 363);
+            this.elementosDiccionario.TabIndex = 0;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(569, 244);
+            this.dataGridView1.TabIndex = 0;
             // 
             // Form1
             // 
@@ -248,13 +285,16 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.mainContainer.Panel1.ResumeLayout(false);
             this.mainContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainContainer)).EndInit();
             this.mainContainer.ResumeLayout(false);
+            this.dataContainer.Panel1.ResumeLayout(false);
             this.dataContainer.Panel2.ResumeLayout(false);
             this.dataContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataContainer)).EndInit();
             this.dataContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -284,6 +324,8 @@
         private System.Windows.Forms.SplitContainer dataContainer;
         private System.Windows.Forms.TextBox consultasSQL;
         private System.Windows.Forms.SaveFileDialog nuevoArchivo;
+        private System.Windows.Forms.TreeView elementosDiccionario;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 

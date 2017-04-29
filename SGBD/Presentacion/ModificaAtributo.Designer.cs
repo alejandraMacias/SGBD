@@ -290,6 +290,9 @@
             this.Controls.Add(this.longitud);
             this.Controls.Add(this.etiquetaLongitud);
             this.Controls.Add(this.etiquetaNombre);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ModificaAtributo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ModificaAtributo";

@@ -81,6 +81,9 @@
             this.Controls.Add(this.etiqetaEntidad);
             this.Controls.Add(this.butonCancelar);
             this.Controls.Add(this.butonBaja);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "BajaEntidad";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "BajaEntidad";

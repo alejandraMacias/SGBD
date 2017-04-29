@@ -101,6 +101,9 @@
             this.Controls.Add(this.butonCancelar);
             this.Controls.Add(this.botonModifica);
             this.Controls.Add(this.etiquetaEntidad);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ModificaEntidad";
             this.Text = "ModificaEntidad";
             this.Load += new System.EventHandler(this.ModificaEntidad_Load);
