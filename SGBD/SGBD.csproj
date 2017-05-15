@@ -80,6 +80,12 @@
     <Compile Include="Presentacion\AltaAtributo.Designer.cs">
       <DependentUpon>AltaAtributo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentacion\AltaDato.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\AltaDato.Designer.cs">
+      <DependentUpon>AltaDato.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\AltaEntidad.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +126,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Presentacion\AltaAtributo.resx">
       <DependentUpon>AltaAtributo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\AltaDato.resx">
+      <DependentUpon>AltaDato.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\AltaEntidad.resx">
       <DependentUpon>AltaEntidad.cs</DependentUpon>

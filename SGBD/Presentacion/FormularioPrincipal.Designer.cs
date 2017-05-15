@@ -47,11 +47,13 @@
             this.modificacionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.abrirArchivo = new System.Windows.Forms.OpenFileDialog();
             this.mainContainer = new System.Windows.Forms.SplitContainer();
+            this.elementosDiccionario = new System.Windows.Forms.TreeView();
             this.dataContainer = new System.Windows.Forms.SplitContainer();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.consultasSQL = new System.Windows.Forms.TextBox();
             this.nuevoArchivo = new System.Windows.Forms.SaveFileDialog();
-            this.elementosDiccionario = new System.Windows.Forms.TreeView();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.datoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.altaDatoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainContainer)).BeginInit();
             this.mainContainer.Panel1.SuspendLayout();
@@ -70,7 +72,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.archivoToolStripMenuItem,
             this.entidadToolStripMenuItem,
-            this.atriibutoToolStripMenuItem});
+            this.atriibutoToolStripMenuItem,
+            this.datoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -216,6 +219,16 @@
             this.mainContainer.SplitterDistance = 180;
             this.mainContainer.TabIndex = 1;
             // 
+            // elementosDiccionario
+            // 
+            this.elementosDiccionario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.elementosDiccionario.Location = new System.Drawing.Point(12, 3);
+            this.elementosDiccionario.Name = "elementosDiccionario";
+            this.elementosDiccionario.Size = new System.Drawing.Size(165, 363);
+            this.elementosDiccionario.TabIndex = 0;
+            // 
             // dataContainer
             // 
             this.dataContainer.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -235,6 +248,18 @@
             this.dataContainer.SplitterDistance = 250;
             this.dataContainer.TabIndex = 0;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(569, 244);
+            this.dataGridView1.TabIndex = 0;
+            // 
             // consultasSQL
             // 
             this.consultasSQL.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -250,27 +275,20 @@
             // 
             this.nuevoArchivo.FileOk += new System.ComponentModel.CancelEventHandler(this.nuevoArchivo_FileOk);
             // 
-            // elementosDiccionario
+            // datoToolStripMenuItem
             // 
-            this.elementosDiccionario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.elementosDiccionario.Location = new System.Drawing.Point(12, 3);
-            this.elementosDiccionario.Name = "elementosDiccionario";
-            this.elementosDiccionario.Size = new System.Drawing.Size(165, 363);
-            this.elementosDiccionario.TabIndex = 0;
+            this.datoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.altaDatoMenuItem});
+            this.datoToolStripMenuItem.Name = "datoToolStripMenuItem";
+            this.datoToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.datoToolStripMenuItem.Text = "Dato";
             // 
-            // dataGridView1
+            // altaDatoMenuItem
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(569, 244);
-            this.dataGridView1.TabIndex = 0;
+            this.altaDatoMenuItem.Name = "altaDatoMenuItem";
+            this.altaDatoMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.altaDatoMenuItem.Text = "Alta";
+            this.altaDatoMenuItem.Click += new System.EventHandler(this.altaDatoMenuItem_Click);
             // 
             // Form1
             // 
@@ -326,6 +344,8 @@
         private System.Windows.Forms.SaveFileDialog nuevoArchivo;
         private System.Windows.Forms.TreeView elementosDiccionario;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ToolStripMenuItem datoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem altaDatoMenuItem;
     }
 }
 

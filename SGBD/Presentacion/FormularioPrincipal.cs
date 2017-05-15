@@ -182,5 +182,12 @@ namespace SGBD
             formatter.Serialize(stream, diccionario.Entidades);
             stream.Close();
         }
+
+        private void altaDatoMenuItem_Click(object sender, EventArgs e)
+        {
+            AltaDato dialogo = new AltaDato();
+
+            dialogo.ShowDialog();
+        }
     }
 }
