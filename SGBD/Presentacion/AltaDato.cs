@@ -22,6 +22,9 @@ namespace SGBD.Presentacion
             seleccionEntidad.DataSource = diccionarioDatos.Entidades;
         }
 
+        /// <summary>
+        /// Se dan de alta los datos en un atributo determinado 
+        /// </summary>
         private void seleccionEntidad_SelectedIndexChanged(object sender, EventArgs e)
         {
             var entidadActual = seleccionEntidad.SelectedItem as Entidad;

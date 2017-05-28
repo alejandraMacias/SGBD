@@ -28,6 +28,9 @@ namespace SGBD.Presentacion
             seleccionEntidadReferencia.Enabled = false;
         }
 
+        /// <summary>
+        /// Se asignan valores a la opcion Entero
+        /// </summary>
         private void opcionEntero_CheckedChanged(object sender, EventArgs e)
         {
             tipoAtributo = Diccionario.TipoAtributo.Entero;
@@ -35,6 +38,9 @@ namespace SGBD.Presentacion
             longitud.Enabled = false;
         }
 
+        /// <summary>
+        /// Se asignan valores a la opcion Flotante
+        /// </summary>
         private void opcionFlotante_CheckedChanged(object sender, EventArgs e)
         {
             tipoAtributo = Diccionario.TipoAtributo.Flotante;
@@ -42,6 +48,9 @@ namespace SGBD.Presentacion
             longitud.Enabled = false;
         }
 
+        /// <summary>
+        /// Se asignan valores a la opcion Caracter
+        /// </summary>
         private void opcionCaracter_CheckedChanged(object sender, EventArgs e)
         {
             tipoAtributo = Diccionario.TipoAtributo.Caracter;
@@ -49,6 +58,9 @@ namespace SGBD.Presentacion
             longitud.Enabled = false;
         }
 
+        /// <summary>
+        /// Se asignan valores a la opcion Cadena
+        /// </summary>
         private void Cadena_CheckedChanged(object sender, EventArgs e)
         {
             tipoAtributo = Diccionario.TipoAtributo.Cadena;
@@ -56,24 +68,36 @@ namespace SGBD.Presentacion
             longitud.Enabled = true;
         }
 
+        /// <summary>
+        /// Activa cuando no hay clave
+        /// </summary>
         private void claveNO_CheckedChanged(object sender, EventArgs e)
         {
             claveAtributo = Diccionario.ClaveAtributo.SinClave;
             seleccionEntidadReferencia.Enabled = claveForanea.Checked;
         }
 
+        /// <summary>
+        /// Activa cuando la clave es primaria
+        /// </summary>
         private void clavePrimaria_CheckedChanged(object sender, EventArgs e)
         {
             claveAtributo = Diccionario.ClaveAtributo.Primaria;
             seleccionEntidadReferencia.Enabled = claveForanea.Checked;
         }
 
+        /// <summary>
+        /// Activa cuando la clave es foranea
+        /// </summary>
         private void claveForanea_CheckedChanged(object sender, EventArgs e)
         {
             claveAtributo = Diccionario.ClaveAtributo.Foranea;
             seleccionEntidadReferencia.Enabled = claveForanea.Checked;
         }
 
+        /// <summary>
+        /// Da de alta un atributo con todas sus caracteristicas
+        /// </summary>
         private void botonAgregar_Click(object sender, EventArgs e)
         {
             Entidad entidadActual = seleccionEntidad.SelectedItem as Entidad;
@@ -91,6 +115,9 @@ namespace SGBD.Presentacion
             atributoPrimario.Text = entidadClave.Atributos.First(a => a.TipoClave == Diccionario.ClaveAtributo.Primaria).Nombre;
         }
 
+        /// <summary>
+        /// Valida si la entidad actual contiene un atributo con clave primario
+        /// </summary>
         private void seleccionEntidad_SelectedIndexChanged(object sender, EventArgs e)
         {
             var entidadActual = seleccionEntidad.SelectedItem as Entidad;

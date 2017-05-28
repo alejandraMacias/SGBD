@@ -25,6 +25,7 @@ namespace SGBD.Presentacion
             entidades.DataSource = diccionario.Entidades;
         }
 
+
         private void botonModifica_Click(object sender, EventArgs e)
         {
             diccionario.ModificaEntidad(entidades.SelectedItem.ToString(), nuevoNombre.Text);

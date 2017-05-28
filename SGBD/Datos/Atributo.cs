@@ -30,21 +30,34 @@ namespace SGBD.Datos
             this.nombre = nombre;
         }
 
+        /// <summary>
+        /// Actualiza el tipo de atributo 
+        /// </summary>
         public void ActualizaTipo(Diccionario.TipoAtributo tipoAtributo)
         {
             this.tipoAtributo = tipoAtributo;
         }
 
+        /// <summary>
+        /// Actualiza el tipo de clave del atributo 
+        /// </summary>
         public void ActualizaClave(Diccionario.ClaveAtributo tipoClave)
         {
             this.tipoClave = tipoClave;
         }
 
+
+        /// <summary>
+        /// Actualiza la longutud del atributo 
+        /// </summary>
         public void ActualizaLongitud(int longitud)
         {
             this.longitud = longitud;
         }
 
+        /// <summary>
+        /// Actualiza la clave foranea
+        /// </summary>
         public void ActualizaClaveForanea(Entidad clave)
         {
             this.claveForanea = clave;

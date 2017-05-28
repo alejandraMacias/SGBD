@@ -18,6 +18,9 @@ namespace SGBD.Presentacion
             InitializeComponent();
         }
 
+        /// <summary>
+        /// El evento se desencadena se hace clic en el control. 
+        /// </summary>
         private void botonAgregar_Click(object sender, EventArgs e)
         {
             Diccionario diccionario = Diccionario.Instancia;

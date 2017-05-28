@@ -22,6 +22,7 @@ namespace SGBD.Presentacion
 
         private void seleccionEntidad_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //Obtener el elemento seleccionado actualmente
             seleccionAtributo.DataSource = (seleccionEntidad.SelectedItem as Entidad).Atributos.ToList();
         }
 
