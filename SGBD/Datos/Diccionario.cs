@@ -97,7 +97,7 @@ namespace SGBD.Datos
             // Data Source=AM-PC;Initial Catalog=Database;Integrated Security=True;
             // Data Source=BECARIOS-PC\SQLEXPRESS;Initial Catalog=Database;Integrated Security=True;
             // Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True
-            coneccion = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True;");
+            coneccion = new SqlConnection(@"Data Source=BECARIOS-PC\SQLEXPRESS;Initial Catalog=Database;Integrated Security=True;");
             coneccion.Open();
         }
 
@@ -162,8 +162,18 @@ namespace SGBD.Datos
         public bool AltaEntidad(string nombre)
         {
             bool resultado;
-
+            StringBuilder cadenaSentencia = new StringBuilder();
+            SqlCommand sentencia;
+            
+            // Construcción de la cadena empleada para crear la entidad.
+            cadenaSentencia.Append("CREATE TABLE {0}(_id bigint identity)");
+            // Inicialización de los comandos empleados para crear la entidad.
+            sentencia = new SqlCommand(string.Format(cadenaSentencia.ToString(), nombre), coneccion);
+            // Ejecución de sentencias.
+            sentencia.ExecuteNonQuery();
+            // Adición de entidad a la lista de entidades.
             listaEntidad.Add(new Entidad(nombre));
+
             resultado = true;
             OnActualizacionEntidad(new ActualizacionEntidadEventArgs(string.Format("Entidad {0} agregada", nombre)));
             return resultado;
@@ -180,6 +190,16 @@ namespace SGBD.Datos
 
             if (entidadAEliminar != null)
             {
+                StringBuilder cadenaSentencia = new StringBuilder();
+                SqlCommand sentencia;
+
+                // Construcción de la cadena empleada para eliminar la entidad.
+                cadenaSentencia.Append("DROP TABLE {0}");
+                // Inicialización de los comandos empleados para eliminar la entidad.
+                sentencia = new SqlCommand(string.Format(cadenaSentencia.ToString(), nombre), coneccion);
+                // Ejecución de sentencias.
+                sentencia.ExecuteNonQuery();
+
                 listaEntidad.Remove(entidadAEliminar);
                 resultado = true;
             }
@@ -202,6 +222,16 @@ namespace SGBD.Datos
 
             if (entidadAModificar != null)
             {
+                StringBuilder cadenaSentencia = new StringBuilder();
+                SqlCommand sentencia;
+
+                // Construcción de la cadena empleada para modificar la entidad.
+                cadenaSentencia.Append("EXEC sp_rename '{0}', '{1}'");
+                // Inicialización de los comandos empleados para modificar la entidad.
+                sentencia = new SqlCommand(string.Format(cadenaSentencia.ToString(), nombre, nuevoNombre), coneccion);
+                // Ejecución de sentencias.
+                sentencia.ExecuteNonQuery();
+
                 entidadAModificar.Nombre = nuevoNombre;
                 resultado = true;
             }
@@ -221,20 +251,79 @@ namespace SGBD.Datos
         {
             bool resultado;
             Atributo atributoNuevo = null;
+            StringBuilder cadenaSentencia = new StringBuilder();
+            SqlCommand sentencia;
 
             switch (tipoAtributo)
             {
                 case TipoAtributo.Entero:
                     atributoNuevo = new Entero(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
+                    // Construcción de la cadena empleada para agregar el atributo.
+                    cadenaSentencia.Append("ALTER TABLE {0} ADD {1} bigint {2} {3}");
+                    sentencia = new SqlCommand(
+                        string.Format(
+                        cadenaSentencia.ToString(), 
+                        entidadActual.Nombre, 
+                        nombreAtributo, 
+                        clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : "", 
+                        entidadClave != null ? "FOREIGN KEY REFERENCES " + entidadClave.Nombre + "(" + entidadClave.Atributos.FirstOrDefault(a => a.TipoClave == ClaveAtributo.Primaria).Nombre + ")" : ""
+                        ),
+                        coneccion
+                    );
+                    // Ejecución de sentencias.
+                    sentencia.ExecuteNonQuery();
                     break;
                 case TipoAtributo.Flotante:
                     atributoNuevo = new Flotante(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
+                    // Construcción de la cadena empleada para agregar el atributo.
+                    cadenaSentencia.Append("ALTER TABLE {0} ADD {1} decimal {2} {3}");
+                    sentencia = new SqlCommand(
+                        string.Format(
+                        cadenaSentencia.ToString(), 
+                        entidadActual.Nombre, 
+                        nombreAtributo, 
+                        clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : "", 
+                        entidadClave != null ? "FOREIGN KEY REFERENCES " + entidadClave.Nombre + "(" + entidadClave.Atributos.FirstOrDefault(a => a.TipoClave == ClaveAtributo.Primaria).Nombre + ")" : ""
+                        ),
+                        coneccion
+                    );
+                    // Ejecución de sentencias.
+                    sentencia.ExecuteNonQuery();
                     break;
                 case TipoAtributo.Caracter:
                     atributoNuevo = new Caracter(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
+                    // Construcción de la cadena empleada para agregar el atributo.
+                    cadenaSentencia.Append("ALTER TABLE {0} ADD {1} nvarchar(1) {2} {3}");
+                    sentencia = new SqlCommand(
+                        string.Format(
+                        cadenaSentencia.ToString(), 
+                        entidadActual.Nombre, 
+                        nombreAtributo, 
+                        clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : "", 
+                        entidadClave != null ? "FOREIGN KEY REFERENCES " + entidadClave.Nombre + "(" + entidadClave.Atributos.FirstOrDefault(a => a.TipoClave == ClaveAtributo.Primaria).Nombre + ")" : ""
+                        ),
+                        coneccion
+                    );
+                    // Ejecución de sentencias.
+                    sentencia.ExecuteNonQuery();
                     break;
                 case TipoAtributo.Cadena:
                     atributoNuevo = new Cadena(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
+                    // Construcción de la cadena empleada para agregar el atributo.
+                    cadenaSentencia.Append("ALTER TABLE {0} ADD {1} nvarchar({2}) {3} {4}");
+                    sentencia = new SqlCommand(
+                        string.Format(
+                        cadenaSentencia.ToString(), 
+                        entidadActual.Nombre, 
+                        nombreAtributo, 
+                        longitud,
+                        clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : "", 
+                        entidadClave != null ? "FOREIGN KEY REFERENCES " + entidadClave.Nombre + "(" + entidadClave.Atributos.FirstOrDefault(a => a.TipoClave == ClaveAtributo.Primaria).Nombre + ")" : ""
+                        ),
+                        coneccion
+                    );
+                    // Ejecución de sentencias.
+                    sentencia.ExecuteNonQuery();
                     break;
             }
             entidadActual.Atributos.AddLast(atributoNuevo);
@@ -249,6 +338,15 @@ namespace SGBD.Datos
         public bool BajaAtributo(Entidad entidadActual, Atributo atributoAEliminar)
         {
             bool resultado;
+            StringBuilder cadenaSentencia = new StringBuilder();
+            SqlCommand sentencia;
+
+            // Construcción de la cadena empleada para modificar la entidad.
+            cadenaSentencia.Append("ALTER TABLE {0} DROP COLUMN {1} ");
+            // Inicialización de los comandos empleados para modificar la entidad.
+            sentencia = new SqlCommand(string.Format(cadenaSentencia.ToString(), entidadActual.Nombre, atributoAEliminar.Nombre), coneccion);
+            // Ejecución de sentencias.
+            sentencia.ExecuteNonQuery();
 
             entidadActual.Atributos.Remove(atributoAEliminar);
             resultado = true;
@@ -259,14 +357,13 @@ namespace SGBD.Datos
         /// <summary>
         ///  Funcion que da de alta un atributo 
         /// </summary>
-        public bool ModificaAtributo(Atributo atributoAModificar, TipoAtributo tipoAtributo, ClaveAtributo clave, Entidad entidadClave, int longitud)
+        public bool ModificaAtributo(Entidad entidadActual, Atributo atributoAModificar, TipoAtributo tipoAtributo, ClaveAtributo clave, Entidad entidadClave, int longitud)
         {
             bool resultado;
 
-            atributoAModificar.ActualizaTipo(tipoAtributo);
-            atributoAModificar.ActualizaClave(clave);
-            atributoAModificar.ActualizaLongitud(longitud);
-            atributoAModificar.ActualizaClaveForanea(entidadClave);
+            this.BajaAtributo(entidadActual, atributoAModificar);
+            this.AltaAtributo(entidadActual, atributoAModificar.Nombre, tipoAtributo, clave, entidadClave, longitud);
+
             resultado = true;
             OnActualizacionAtributo(new ActualizacionAtributoEventArgs(string.Format("Atributo {0} modificado", atributoAModificar.Nombre)));
             return resultado;

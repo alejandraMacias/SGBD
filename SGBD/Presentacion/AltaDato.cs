@@ -33,15 +33,48 @@ namespace SGBD.Presentacion
             panelDatos.Controls.Clear();
             foreach (var atributo in entidadActual.Atributos)
             {
-                var controlAtributo = new TextBox();
+                Control controlAtributo;
                 var etiquetaAtributo = new Label();
 
+                switch (atributo.Tipo) 
+                {
+                    case Diccionario.TipoAtributo.Cadena:
+                        controlAtributo = new TextBox();
+                        (controlAtributo as TextBox).Size = new Size(333, 21);
+                        (controlAtributo as TextBox).AccessibleName = atributo.Nombre;
+                        break;
+                    case Diccionario.TipoAtributo.Caracter:
+                        controlAtributo = new TextBox();
+                        (controlAtributo as TextBox).Size = new Size(333, 21);
+                        (controlAtributo as TextBox).MaxLength = 1;
+                        (controlAtributo as TextBox).AccessibleName = atributo.Nombre;
+                        break;
+                    case Diccionario.TipoAtributo.Entero:
+                        controlAtributo = new NumericUpDown();
+                        (controlAtributo as NumericUpDown).Size = new Size(333, 21);
+                        (controlAtributo as NumericUpDown).Maximum = 9223372036854775807;
+                        (controlAtributo as NumericUpDown).Minimum = -9223372036854775808;
+                        (controlAtributo as NumericUpDown).AccessibleName = atributo.Nombre;
+                        break;
+                    case Diccionario.TipoAtributo.Flotante:
+                        controlAtributo = new NumericUpDown();
+                        (controlAtributo as NumericUpDown).Size = new Size(333, 21);
+                        (controlAtributo as NumericUpDown).Maximum = 9223372036854775807;
+                        (controlAtributo as NumericUpDown).Minimum = -9223372036854775808;
+                        (controlAtributo as NumericUpDown).DecimalPlaces = 2;
+                        (controlAtributo as NumericUpDown).AccessibleName = atributo.Nombre;
+                        break;
+                    default:
+                        controlAtributo = new TextBox();
+                        (controlAtributo as TextBox).Size = new Size(333, 21);
+                        (controlAtributo as TextBox).AccessibleName = atributo.Nombre;
+                        break;
+                }
                 etiquetaAtributo.Text = atributo.Nombre;
                 etiquetaAtributo.Size = new Size(333, 21);
                 etiquetaAtributo.Location = new Point(3, posicionX);
                 posicionX += 22;
                 panelDatos.Controls.Add(etiquetaAtributo);
-                controlAtributo.Size = new Size(333, 21);
                 controlAtributo.Location = new Point(3, posicionX);
                 controlAtributo.AccessibleName = atributo.Nombre;
                 posicionX += 30;

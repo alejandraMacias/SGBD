@@ -21,7 +21,7 @@ namespace SGBD.Presentacion
         public ModificaAtributo()
         {
             InitializeComponent();
-            seleccionEntidad.DataSource = diccionarioDatos.Entidades;
+            seleccionEntidad.DataSource = diccionarioDatos.Entidades.FindAll(e => e.Atributos.ToList().FindAll(a => a.TipoClave != Diccionario.ClaveAtributo.Primaria).Count > 0);
             seleccionEntidadReferencia.DataSource = diccionarioDatos.Entidades.FindAll(entidad => entidad.Atributos.
                 FirstOrDefault(a => a.TipoClave == Diccionario.ClaveAtributo.Primaria) != null );
             longitud.Enabled = false;
@@ -82,7 +82,7 @@ namespace SGBD.Presentacion
             {
                 entidadClave = null;
             }
-            diccionarioDatos.ModificaAtributo(seleccionAtributo.SelectedItem as Atributo, tipoAtributo, claveAtributo, entidadClave, (int)longitud.Value);
+            diccionarioDatos.ModificaAtributo(entidadActual, seleccionAtributo.SelectedItem as Atributo, tipoAtributo, claveAtributo, entidadClave, (int)longitud.Value);
         }
 
         private void seleccionEntidadReferencia_SelectedIndexChanged(object sender, EventArgs e)
@@ -93,10 +93,21 @@ namespace SGBD.Presentacion
 
         private void seleccionEntidad_SelectedIndexChanged(object sender, EventArgs e)
         {
-            seleccionAtributo.DataSource = (seleccionEntidad.SelectedItem as Entidad).Atributos.ToList();
+            Entidad entidadSeleccionada = (seleccionEntidad.SelectedItem as Entidad);
+            Atributo atributoPrimario = entidadSeleccionada.Atributos.FirstOrDefault(a => a.TipoClave == Diccionario.ClaveAtributo.Primaria);
+
+            seleccionAtributo.DataSource = entidadSeleccionada.Atributos.ToList().FindAll(a => a.TipoClave != Diccionario.ClaveAtributo.Primaria);
             if ((seleccionAtributo.DataSource as List<Atributo>).Count == 0)
             {
                 seleccionAtributo.Text = string.Empty;
+            }
+            if (atributoPrimario != null)
+            {
+                clavePrimaria.Enabled = false;
+            }
+            else
+            {
+                clavePrimaria.Enabled = true;
             }
         }
 
