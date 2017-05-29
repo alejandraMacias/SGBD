@@ -209,5 +209,19 @@ namespace SGBD
             dataGridDatos.DataSource = diccionario.Consulta(consultasSQL.Text);
             dataGridDatos.ClearSelection();
         }
+
+        private void bajaDato_Click(object sender, EventArgs e)
+        {
+            BajaDato dialogo = new BajaDato();
+
+            dialogo.ShowDialog();
+        }
+
+        private void modificaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ModificaDato dialogo = new ModificaDato();
+
+            dialogo.ShowDialog();
+        }
     }
 }

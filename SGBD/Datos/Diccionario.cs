@@ -98,7 +98,7 @@ namespace SGBD.Datos
             // Data Source=AM-PC;Initial Catalog=Database;Integrated Security=True;
             // Data Source=BECARIOS-PC\SQLEXPRESS;Initial Catalog=Database;Integrated Security=True;
             // Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True
-            coneccion = new SqlConnection(@"Data Source=BECARIOS-PC\SQLEXPRESS;Initial Catalog=Database;Integrated Security=True;");
+            coneccion = new SqlConnection(@"Data Source=DESKTOP-VQ4NJNJ;Initial Catalog=Database;Integrated Security=True;");
             coneccion.Open();
         }
 
@@ -428,13 +428,7 @@ namespace SGBD.Datos
             SqlDataAdapter adaptador = new SqlDataAdapter();
             DataSet ds = new DataSet();
 
-            consulta.Append("SELECT ");
-            foreach(var atributo in entidad.Atributos)
-            {
-                consulta.Append(atributo.Nombre + ",");
-            }
-            consulta.Remove(consulta.Length - 1, 1);
-            consulta.AppendFormat(" FROM {0}", entidad.Nombre);
+            consulta.AppendFormat("SELECT * FROM {0}", entidad.Nombre);
             SqlCommand cmd = new SqlCommand(consulta.ToString(), coneccion);
 
             try
@@ -469,8 +463,22 @@ namespace SGBD.Datos
             {
                 return null;
             }
+        }
 
+        public bool Sentencia(string sentencia)
+        {
+            SqlDataAdapter adaptador = new SqlDataAdapter();
+            SqlCommand cmd = new SqlCommand(sentencia, coneccion);
 
+            try
+            {
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         /// <summary>

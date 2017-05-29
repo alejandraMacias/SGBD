@@ -47,14 +47,18 @@
             this.modificacionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.datoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.altaDatoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.bajaDato = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.modificaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.abrirArchivo = new System.Windows.Forms.OpenFileDialog();
             this.mainContainer = new System.Windows.Forms.SplitContainer();
             this.elementosDiccionario = new System.Windows.Forms.TreeView();
             this.dataContainer = new System.Windows.Forms.SplitContainer();
             this.dataGridDatos = new System.Windows.Forms.DataGridView();
+            this.botonConsulta = new System.Windows.Forms.Button();
             this.consultasSQL = new System.Windows.Forms.TextBox();
             this.nuevoArchivo = new System.Windows.Forms.SaveFileDialog();
-            this.botonConsulta = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainContainer)).BeginInit();
             this.mainContainer.Panel1.SuspendLayout();
@@ -200,7 +204,11 @@
             // datoToolStripMenuItem
             // 
             this.datoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.altaDatoMenuItem});
+            this.altaDatoMenuItem,
+            this.toolStripSeparator6,
+            this.bajaDato,
+            this.toolStripSeparator7,
+            this.modificaToolStripMenuItem});
             this.datoToolStripMenuItem.Name = "datoToolStripMenuItem";
             this.datoToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.datoToolStripMenuItem.Text = "Dato";
@@ -208,9 +216,33 @@
             // altaDatoMenuItem
             // 
             this.altaDatoMenuItem.Name = "altaDatoMenuItem";
-            this.altaDatoMenuItem.Size = new System.Drawing.Size(95, 22);
+            this.altaDatoMenuItem.Size = new System.Drawing.Size(152, 22);
             this.altaDatoMenuItem.Text = "Alta";
             this.altaDatoMenuItem.Click += new System.EventHandler(this.altaDatoMenuItem_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(149, 6);
+            // 
+            // bajaDato
+            // 
+            this.bajaDato.Name = "bajaDato";
+            this.bajaDato.Size = new System.Drawing.Size(152, 22);
+            this.bajaDato.Text = "Baja";
+            this.bajaDato.Click += new System.EventHandler(this.bajaDato_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(149, 6);
+            // 
+            // modificaToolStripMenuItem
+            // 
+            this.modificaToolStripMenuItem.Name = "modificaToolStripMenuItem";
+            this.modificaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.modificaToolStripMenuItem.Text = "Modifica";
+            this.modificaToolStripMenuItem.Click += new System.EventHandler(this.modificaToolStripMenuItem_Click);
             // 
             // abrirArchivo
             // 
@@ -277,6 +309,17 @@
             this.dataGridDatos.Size = new System.Drawing.Size(569, 297);
             this.dataGridDatos.TabIndex = 0;
             // 
+            // botonConsulta
+            // 
+            this.botonConsulta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.botonConsulta.Location = new System.Drawing.Point(497, 122);
+            this.botonConsulta.Name = "botonConsulta";
+            this.botonConsulta.Size = new System.Drawing.Size(75, 23);
+            this.botonConsulta.TabIndex = 1;
+            this.botonConsulta.Text = "Ejecutar";
+            this.botonConsulta.UseVisualStyleBackColor = true;
+            this.botonConsulta.Click += new System.EventHandler(this.botonConsulta_Click);
+            // 
             // consultasSQL
             // 
             this.consultasSQL.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -291,17 +334,6 @@
             // nuevoArchivo
             // 
             this.nuevoArchivo.FileOk += new System.ComponentModel.CancelEventHandler(this.nuevoArchivo_FileOk);
-            // 
-            // botonConsulta
-            // 
-            this.botonConsulta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.botonConsulta.Location = new System.Drawing.Point(497, 122);
-            this.botonConsulta.Name = "botonConsulta";
-            this.botonConsulta.Size = new System.Drawing.Size(75, 23);
-            this.botonConsulta.TabIndex = 1;
-            this.botonConsulta.Text = "Ejecutar";
-            this.botonConsulta.UseVisualStyleBackColor = true;
-            this.botonConsulta.Click += new System.EventHandler(this.botonConsulta_Click);
             // 
             // Form1
             // 
@@ -360,6 +392,10 @@
         private System.Windows.Forms.ToolStripMenuItem datoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem altaDatoMenuItem;
         private System.Windows.Forms.Button botonConsulta;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripMenuItem bajaDato;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripMenuItem modificaToolStripMenuItem;
     }
 }
 
