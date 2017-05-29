@@ -45,15 +45,16 @@
             this.bajaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.modificacionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.datoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.altaDatoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.abrirArchivo = new System.Windows.Forms.OpenFileDialog();
             this.mainContainer = new System.Windows.Forms.SplitContainer();
             this.elementosDiccionario = new System.Windows.Forms.TreeView();
             this.dataContainer = new System.Windows.Forms.SplitContainer();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridDatos = new System.Windows.Forms.DataGridView();
             this.consultasSQL = new System.Windows.Forms.TextBox();
             this.nuevoArchivo = new System.Windows.Forms.SaveFileDialog();
-            this.datoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.altaDatoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.botonConsulta = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainContainer)).BeginInit();
             this.mainContainer.Panel1.SuspendLayout();
@@ -63,7 +64,7 @@
             this.dataContainer.Panel1.SuspendLayout();
             this.dataContainer.Panel2.SuspendLayout();
             this.dataContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridDatos)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -196,6 +197,21 @@
             this.modificacionToolStripMenuItem1.Text = "Modificacion";
             this.modificacionToolStripMenuItem1.Click += new System.EventHandler(this.modificacionAtributo);
             // 
+            // datoToolStripMenuItem
+            // 
+            this.datoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.altaDatoMenuItem});
+            this.datoToolStripMenuItem.Name = "datoToolStripMenuItem";
+            this.datoToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.datoToolStripMenuItem.Text = "Dato";
+            // 
+            // altaDatoMenuItem
+            // 
+            this.altaDatoMenuItem.Name = "altaDatoMenuItem";
+            this.altaDatoMenuItem.Size = new System.Drawing.Size(95, 22);
+            this.altaDatoMenuItem.Text = "Alta";
+            this.altaDatoMenuItem.Click += new System.EventHandler(this.altaDatoMenuItem_Click);
+            // 
             // abrirArchivo
             // 
             this.abrirArchivo.FileName = "openFileDialog1";
@@ -215,7 +231,7 @@
             // mainContainer.Panel2
             // 
             this.mainContainer.Panel2.Controls.Add(this.dataContainer);
-            this.mainContainer.Size = new System.Drawing.Size(768, 378);
+            this.mainContainer.Size = new System.Drawing.Size(768, 459);
             this.mainContainer.SplitterDistance = 180;
             this.mainContainer.TabIndex = 1;
             // 
@@ -226,7 +242,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.elementosDiccionario.Location = new System.Drawing.Point(12, 3);
             this.elementosDiccionario.Name = "elementosDiccionario";
-            this.elementosDiccionario.Size = new System.Drawing.Size(165, 363);
+            this.elementosDiccionario.Size = new System.Drawing.Size(165, 444);
             this.elementosDiccionario.TabIndex = 0;
             // 
             // dataContainer
@@ -239,26 +255,27 @@
             // 
             // dataContainer.Panel1
             // 
-            this.dataContainer.Panel1.Controls.Add(this.dataGridView1);
+            this.dataContainer.Panel1.Controls.Add(this.dataGridDatos);
             // 
             // dataContainer.Panel2
             // 
+            this.dataContainer.Panel2.Controls.Add(this.botonConsulta);
             this.dataContainer.Panel2.Controls.Add(this.consultasSQL);
-            this.dataContainer.Size = new System.Drawing.Size(584, 378);
-            this.dataContainer.SplitterDistance = 250;
+            this.dataContainer.Size = new System.Drawing.Size(584, 459);
+            this.dataContainer.SplitterDistance = 303;
             this.dataContainer.TabIndex = 0;
             // 
-            // dataGridView1
+            // dataGridDatos
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dataGridDatos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(569, 244);
-            this.dataGridView1.TabIndex = 0;
+            this.dataGridDatos.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridDatos.Location = new System.Drawing.Point(3, 3);
+            this.dataGridDatos.Name = "dataGridDatos";
+            this.dataGridDatos.Size = new System.Drawing.Size(569, 297);
+            this.dataGridDatos.TabIndex = 0;
             // 
             // consultasSQL
             // 
@@ -268,33 +285,29 @@
             this.consultasSQL.Location = new System.Drawing.Point(3, 3);
             this.consultasSQL.Multiline = true;
             this.consultasSQL.Name = "consultasSQL";
-            this.consultasSQL.Size = new System.Drawing.Size(569, 109);
+            this.consultasSQL.Size = new System.Drawing.Size(569, 113);
             this.consultasSQL.TabIndex = 0;
             // 
             // nuevoArchivo
             // 
             this.nuevoArchivo.FileOk += new System.ComponentModel.CancelEventHandler(this.nuevoArchivo_FileOk);
             // 
-            // datoToolStripMenuItem
+            // botonConsulta
             // 
-            this.datoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.altaDatoMenuItem});
-            this.datoToolStripMenuItem.Name = "datoToolStripMenuItem";
-            this.datoToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.datoToolStripMenuItem.Text = "Dato";
-            // 
-            // altaDatoMenuItem
-            // 
-            this.altaDatoMenuItem.Name = "altaDatoMenuItem";
-            this.altaDatoMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.altaDatoMenuItem.Text = "Alta";
-            this.altaDatoMenuItem.Click += new System.EventHandler(this.altaDatoMenuItem_Click);
+            this.botonConsulta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.botonConsulta.Location = new System.Drawing.Point(497, 122);
+            this.botonConsulta.Name = "botonConsulta";
+            this.botonConsulta.Size = new System.Drawing.Size(75, 23);
+            this.botonConsulta.TabIndex = 1;
+            this.botonConsulta.Text = "Ejecutar";
+            this.botonConsulta.UseVisualStyleBackColor = true;
+            this.botonConsulta.Click += new System.EventHandler(this.botonConsulta_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(768, 402);
+            this.ClientSize = new System.Drawing.Size(768, 483);
             this.Controls.Add(this.mainContainer);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -312,7 +325,7 @@
             this.dataContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataContainer)).EndInit();
             this.dataContainer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridDatos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -343,9 +356,10 @@
         private System.Windows.Forms.TextBox consultasSQL;
         private System.Windows.Forms.SaveFileDialog nuevoArchivo;
         private System.Windows.Forms.TreeView elementosDiccionario;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridDatos;
         private System.Windows.Forms.ToolStripMenuItem datoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem altaDatoMenuItem;
+        private System.Windows.Forms.Button botonConsulta;
     }
 }
 

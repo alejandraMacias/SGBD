@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -259,69 +260,89 @@ namespace SGBD.Datos
                 case TipoAtributo.Entero:
                     atributoNuevo = new Entero(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
                     // Construcción de la cadena empleada para agregar el atributo.
-                    cadenaSentencia.Append("ALTER TABLE {0} ADD {1} bigint {2} {3}");
-                    sentencia = new SqlCommand(
-                        string.Format(
-                        cadenaSentencia.ToString(), 
-                        entidadActual.Nombre, 
-                        nombreAtributo, 
-                        clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : "", 
-                        entidadClave != null ? "FOREIGN KEY REFERENCES " + entidadClave.Nombre + "(" + entidadClave.Atributos.FirstOrDefault(a => a.TipoClave == ClaveAtributo.Primaria).Nombre + ")" : ""
-                        ),
-                        coneccion
-                    );
+                    cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD {1} bigint {2}",
+                        entidadActual.Nombre,
+                        nombreAtributo,
+                        clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : ""
+                        );
+                    if (entidadClave != null)
+                    {
+                        cadenaSentencia.AppendFormat("; ALTER TABLE {0} ADD CONSTRAINT FK_{1}_{0} FOREIGN KEY ({4}) REFERENCES {2}({3})",
+                            entidadActual.Nombre,
+                            nombreAtributo,
+                            entidadClave.Nombre,
+                            entidadClave.Atributos.FirstOrDefault(a => a.TipoClave == ClaveAtributo.Primaria).Nombre,
+                            nombreAtributo
+                            );
+                    }
+                    sentencia = new SqlCommand(cadenaSentencia.ToString(), coneccion);
                     // Ejecución de sentencias.
                     sentencia.ExecuteNonQuery();
                     break;
                 case TipoAtributo.Flotante:
                     atributoNuevo = new Flotante(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
                     // Construcción de la cadena empleada para agregar el atributo.
-                    cadenaSentencia.Append("ALTER TABLE {0} ADD {1} decimal {2} {3}");
-                    sentencia = new SqlCommand(
-                        string.Format(
-                        cadenaSentencia.ToString(), 
-                        entidadActual.Nombre, 
-                        nombreAtributo, 
-                        clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : "", 
-                        entidadClave != null ? "FOREIGN KEY REFERENCES " + entidadClave.Nombre + "(" + entidadClave.Atributos.FirstOrDefault(a => a.TipoClave == ClaveAtributo.Primaria).Nombre + ")" : ""
-                        ),
-                        coneccion
-                    );
+                    cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD {1} decimal {2}",
+                        entidadActual.Nombre,
+                        nombreAtributo,
+                        clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : ""
+                        );
+                    if (entidadClave != null)
+                    {
+                        cadenaSentencia.AppendFormat("; ALTER TABLE {0} ADD CONSTRAINT FK_{1}_{0} FOREIGN KEY ({4}) REFERENCES {2}({3})",
+                            entidadActual.Nombre,
+                            nombreAtributo,
+                            entidadClave.Nombre,
+                            entidadClave.Atributos.FirstOrDefault(a => a.TipoClave == ClaveAtributo.Primaria).Nombre,
+                            nombreAtributo
+                            );
+                    }
+                    sentencia = new SqlCommand(cadenaSentencia.ToString(), coneccion);
                     // Ejecución de sentencias.
                     sentencia.ExecuteNonQuery();
                     break;
                 case TipoAtributo.Caracter:
                     atributoNuevo = new Caracter(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
                     // Construcción de la cadena empleada para agregar el atributo.
-                    cadenaSentencia.Append("ALTER TABLE {0} ADD {1} nvarchar(1) {2} {3}");
-                    sentencia = new SqlCommand(
-                        string.Format(
-                        cadenaSentencia.ToString(), 
-                        entidadActual.Nombre, 
-                        nombreAtributo, 
-                        clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : "", 
-                        entidadClave != null ? "FOREIGN KEY REFERENCES " + entidadClave.Nombre + "(" + entidadClave.Atributos.FirstOrDefault(a => a.TipoClave == ClaveAtributo.Primaria).Nombre + ")" : ""
-                        ),
-                        coneccion
-                    );
+                    cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD {1} nvarchar(1) {2}",
+                        entidadActual.Nombre,
+                        nombreAtributo,
+                        clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : ""
+                        );
+                    if (entidadClave != null)
+                    {
+                        cadenaSentencia.AppendFormat("; ALTER TABLE {0} ADD CONSTRAINT FK_{1}_{0} FOREIGN KEY ({4}) REFERENCES {2}({3})",
+                            entidadActual.Nombre,
+                            nombreAtributo,
+                            entidadClave.Nombre,
+                            entidadClave.Atributos.FirstOrDefault(a => a.TipoClave == ClaveAtributo.Primaria).Nombre,
+                            nombreAtributo
+                            );
+                    }
+                    sentencia = new SqlCommand(cadenaSentencia.ToString(), coneccion);
                     // Ejecución de sentencias.
                     sentencia.ExecuteNonQuery();
                     break;
                 case TipoAtributo.Cadena:
                     atributoNuevo = new Cadena(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
                     // Construcción de la cadena empleada para agregar el atributo.
-                    cadenaSentencia.Append("ALTER TABLE {0} ADD {1} nvarchar({2}) {3} {4}");
-                    sentencia = new SqlCommand(
-                        string.Format(
-                        cadenaSentencia.ToString(), 
-                        entidadActual.Nombre, 
-                        nombreAtributo, 
-                        longitud,
-                        clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : "", 
-                        entidadClave != null ? "FOREIGN KEY REFERENCES " + entidadClave.Nombre + "(" + entidadClave.Atributos.FirstOrDefault(a => a.TipoClave == ClaveAtributo.Primaria).Nombre + ")" : ""
-                        ),
-                        coneccion
-                    );
+                    cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD {1}  nvarchar({3}) {2}",
+                        entidadActual.Nombre,
+                        nombreAtributo,
+                        clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : "",
+                        longitud
+                        );
+                    if (entidadClave != null)
+                    {
+                        cadenaSentencia.AppendFormat("; ALTER TABLE {0} ADD CONSTRAINT FK_{1}_{0} FOREIGN KEY ({4}) REFERENCES {2}({3})",
+                            entidadActual.Nombre,
+                            nombreAtributo,
+                            entidadClave.Nombre,
+                            entidadClave.Atributos.FirstOrDefault(a => a.TipoClave == ClaveAtributo.Primaria).Nombre,
+                            nombreAtributo
+                            );
+                    }
+                    sentencia = new SqlCommand(cadenaSentencia.ToString(), coneccion);
                     // Ejecución de sentencias.
                     sentencia.ExecuteNonQuery();
                     break;
@@ -367,6 +388,89 @@ namespace SGBD.Datos
             resultado = true;
             OnActualizacionAtributo(new ActualizacionAtributoEventArgs(string.Format("Atributo {0} modificado", atributoAModificar.Nombre)));
             return resultado;
+        }
+
+        public bool AltaDato(Entidad entidad, List<Control> controles)
+        {
+            bool resultado;
+            StringBuilder cadenaSentencia = new StringBuilder();
+            SqlCommand sentencia;
+
+            // Construcción de la cadena empleada para modificar la entidad.
+            cadenaSentencia.Append("INSERT INTO {0} VALUES (");
+            foreach(Control control in controles)
+            {
+                if(control is TextBox) 
+                {
+                    var valor = (control as TextBox).Text;
+                    cadenaSentencia.Append("'" + valor + "',");
+                }
+                else if (control is NumericUpDown)
+                {
+                    var valor = (control as NumericUpDown).Value.ToString();
+                    cadenaSentencia.Append("'" + valor + "',");
+                }
+            }
+            cadenaSentencia.Remove(cadenaSentencia.Length - 1, 1);
+            cadenaSentencia.Append(")");
+            // Inicialización de los comandos empleados para modificar la entidad.
+            sentencia = new SqlCommand(string.Format(cadenaSentencia.ToString(), entidad.Nombre), coneccion);
+            // Ejecución de sentencias.
+            sentencia.ExecuteNonQuery();
+
+            resultado = true;
+            return resultado;
+        }
+
+        public DataTable ConsultaTodo(Entidad entidad)
+        {
+            StringBuilder consulta = new StringBuilder();
+            SqlDataAdapter adaptador = new SqlDataAdapter();
+            DataSet ds = new DataSet();
+
+            consulta.Append("SELECT ");
+            foreach(var atributo in entidad.Atributos)
+            {
+                consulta.Append(atributo.Nombre + ",");
+            }
+            consulta.Remove(consulta.Length - 1, 1);
+            consulta.AppendFormat(" FROM {0}", entidad.Nombre);
+            SqlCommand cmd = new SqlCommand(consulta.ToString(), coneccion);
+
+            try
+            {
+                adaptador.SelectCommand = cmd;
+                adaptador.Fill(ds);
+                adaptador.Dispose();
+                cmd.Dispose();
+                return ds.Tables[0];
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public DataTable Consulta(string consulta)
+        {
+            SqlDataAdapter adaptador = new SqlDataAdapter();
+            DataSet ds = new DataSet();
+            SqlCommand cmd = new SqlCommand(consulta, coneccion);
+
+            try
+            {
+                adaptador.SelectCommand = cmd;
+                adaptador.Fill(ds);
+                adaptador.Dispose();
+                cmd.Dispose();
+                return ds.Tables[0];
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+
         }
 
         /// <summary>

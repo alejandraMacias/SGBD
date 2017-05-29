@@ -41,6 +41,7 @@ namespace SGBD.Presentacion
                     case Diccionario.TipoAtributo.Cadena:
                         controlAtributo = new TextBox();
                         (controlAtributo as TextBox).Size = new Size(333, 21);
+                        (controlAtributo as TextBox).MaxLength = atributo.Longitud;
                         (controlAtributo as TextBox).AccessibleName = atributo.Nombre;
                         break;
                     case Diccionario.TipoAtributo.Caracter:
@@ -70,6 +71,7 @@ namespace SGBD.Presentacion
                         (controlAtributo as TextBox).AccessibleName = atributo.Nombre;
                         break;
                 }
+                etiquetaAtributo.AccessibleName = "label";
                 etiquetaAtributo.Text = atributo.Nombre;
                 etiquetaAtributo.Size = new Size(333, 21);
                 etiquetaAtributo.Location = new Point(3, posicionX);
@@ -84,7 +86,17 @@ namespace SGBD.Presentacion
 
         private void botonAgregar_Click(object sender, EventArgs e)
         {
+            var entidadActual = seleccionEntidad.SelectedItem as Entidad;
+            List<Control> controls = new List<Control>();
 
+            foreach(Control control in panelDatos.Controls)
+            {
+                if(control.AccessibleName != "label")
+                {
+                    controls.Add(control);
+                }
+            }
+            diccionarioDatos.AltaDato(entidadActual, controls);
         }
     }
 }

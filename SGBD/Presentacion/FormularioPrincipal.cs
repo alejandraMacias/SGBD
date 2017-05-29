@@ -46,9 +46,23 @@ namespace SGBD
                 {
                     nodo.Nodes.Add(atributo.ToString());
                 }
+                elementosDiccionario.NodeMouseDoubleClick += elementosDiccionario_Click;
                 elementosDiccionario.Nodes.Add(nodo);
                 elementosDiccionario.ExpandAll();
             }
+        }
+
+        void elementosDiccionario_Click(object sender, EventArgs e)
+        {
+            var nombreEntidad = elementosDiccionario.SelectedNode.Text;
+            var entidad = diccionario.Entidades.Find(ent => ent.Nombre == nombreEntidad);
+
+            if( entidad != null)
+            {
+                dataGridDatos.DataSource = diccionario.ConsultaTodo(entidad);
+                dataGridDatos.ClearSelection();
+            }
+            elementosDiccionario.ExpandAll();
         }
 
         /// <summary>
@@ -188,6 +202,12 @@ namespace SGBD
             AltaDato dialogo = new AltaDato();
 
             dialogo.ShowDialog();
+        }
+
+        private void botonConsulta_Click(object sender, EventArgs e)
+        {
+            dataGridDatos.DataSource = diccionario.Consulta(consultasSQL.Text);
+            dataGridDatos.ClearSelection();
         }
     }
 }
