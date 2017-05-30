@@ -34,6 +34,7 @@
             this.seleccionDato = new System.Windows.Forms.ComboBox();
             this.botonAceptar = new System.Windows.Forms.Button();
             this.botonCancelar = new System.Windows.Forms.Button();
+            this.panelDatos = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // seleccionEntidad
@@ -70,11 +71,14 @@
             this.seleccionDato.Name = "seleccionDato";
             this.seleccionDato.Size = new System.Drawing.Size(339, 21);
             this.seleccionDato.TabIndex = 5;
+            this.seleccionDato.SelectedIndexChanged += new System.EventHandler(this.seleccionDato_SelectedIndexChanged);
             // 
             // botonAceptar
             // 
+            this.botonAceptar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.botonAceptar.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.botonAceptar.Location = new System.Drawing.Point(13, 128);
+            this.botonAceptar.Location = new System.Drawing.Point(13, 346);
             this.botonAceptar.Name = "botonAceptar";
             this.botonAceptar.Size = new System.Drawing.Size(75, 23);
             this.botonAceptar.TabIndex = 6;
@@ -84,26 +88,45 @@
             // 
             // botonCancelar
             // 
+            this.botonCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.botonCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.botonCancelar.Location = new System.Drawing.Point(274, 128);
+            this.botonCancelar.Location = new System.Drawing.Point(297, 346);
             this.botonCancelar.Name = "botonCancelar";
             this.botonCancelar.Size = new System.Drawing.Size(75, 23);
             this.botonCancelar.TabIndex = 6;
             this.botonCancelar.Text = "Cancelar";
             this.botonCancelar.UseVisualStyleBackColor = true;
             // 
+            // panelDatos
+            // 
+            this.panelDatos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelDatos.AutoScroll = true;
+            this.panelDatos.Enabled = false;
+            this.panelDatos.Location = new System.Drawing.Point(10, 117);
+            this.panelDatos.Name = "panelDatos";
+            this.panelDatos.Size = new System.Drawing.Size(357, 215);
+            this.panelDatos.TabIndex = 11;
+            // 
             // BajaDato
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(361, 163);
+            this.ClientSize = new System.Drawing.Size(384, 381);
+            this.Controls.Add(this.panelDatos);
             this.Controls.Add(this.botonCancelar);
             this.Controls.Add(this.botonAceptar);
             this.Controls.Add(this.seleccionDato);
             this.Controls.Add(this.etiquetaId);
             this.Controls.Add(this.seleccionEntidad);
             this.Controls.Add(this.etiquetaEntidad);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "BajaDato";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "BajaDato";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -118,5 +141,6 @@
         private System.Windows.Forms.ComboBox seleccionDato;
         private System.Windows.Forms.Button botonAceptar;
         private System.Windows.Forms.Button botonCancelar;
+        private System.Windows.Forms.Panel panelDatos;
     }
 }

@@ -81,23 +81,28 @@
             this.panelDatos.AutoScroll = true;
             this.panelDatos.Location = new System.Drawing.Point(15, 125);
             this.panelDatos.Name = "panelDatos";
-            this.panelDatos.Size = new System.Drawing.Size(357, 245);
+            this.panelDatos.Size = new System.Drawing.Size(357, 215);
             this.panelDatos.TabIndex = 10;
             // 
             // botonAceptar
             // 
+            this.botonAceptar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.botonAceptar.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.botonAceptar.Location = new System.Drawing.Point(12, 376);
+            this.botonAceptar.Location = new System.Drawing.Point(12, 346);
             this.botonAceptar.Name = "botonAceptar";
             this.botonAceptar.Size = new System.Drawing.Size(75, 23);
             this.botonAceptar.TabIndex = 11;
             this.botonAceptar.Text = "Aceptar";
             this.botonAceptar.UseVisualStyleBackColor = true;
+            this.botonAceptar.Click += new System.EventHandler(this.botonAceptar_Click);
             // 
             // botonCancelar
             // 
+            this.botonCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.botonCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.botonCancelar.Location = new System.Drawing.Point(297, 376);
+            this.botonCancelar.Location = new System.Drawing.Point(297, 346);
             this.botonCancelar.Name = "botonCancelar";
             this.botonCancelar.Size = new System.Drawing.Size(75, 23);
             this.botonCancelar.TabIndex = 12;
@@ -108,7 +113,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 411);
+            this.ClientSize = new System.Drawing.Size(384, 381);
             this.Controls.Add(this.botonCancelar);
             this.Controls.Add(this.botonAceptar);
             this.Controls.Add(this.panelDatos);
@@ -116,7 +121,11 @@
             this.Controls.Add(this.etiquetaId);
             this.Controls.Add(this.seleccionEntidad);
             this.Controls.Add(this.etiquetaEntidad);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ModificaDato";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ModificaDato";
             this.ResumeLayout(false);
             this.PerformLayout();
