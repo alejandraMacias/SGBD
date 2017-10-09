@@ -426,7 +426,7 @@ namespace SGBD.Datos
                 cmd.Dispose();
                 return ds.Tables[0];
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
