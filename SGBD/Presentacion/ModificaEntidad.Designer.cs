@@ -41,9 +41,9 @@
             this.etiquetaEntidad.AutoSize = true;
             this.etiquetaEntidad.Location = new System.Drawing.Point(9, 9);
             this.etiquetaEntidad.Name = "etiquetaEntidad";
-            this.etiquetaEntidad.Size = new System.Drawing.Size(44, 13);
+            this.etiquetaEntidad.Size = new System.Drawing.Size(100, 13);
             this.etiquetaEntidad.TabIndex = 0;
-            this.etiquetaEntidad.Text = "Nombre";
+            this.etiquetaEntidad.Text = "Nombre A Modificar";
             // 
             // botonModifica
             // 
@@ -86,9 +86,9 @@
             this.etiquetaNuevoNombre.AutoSize = true;
             this.etiquetaNuevoNombre.Location = new System.Drawing.Point(12, 73);
             this.etiquetaNuevoNombre.Name = "etiquetaNuevoNombre";
-            this.etiquetaNuevoNombre.Size = new System.Drawing.Size(44, 13);
+            this.etiquetaNuevoNombre.Size = new System.Drawing.Size(81, 13);
             this.etiquetaNuevoNombre.TabIndex = 6;
-            this.etiquetaNuevoNombre.Text = "Nombre";
+            this.etiquetaNuevoNombre.Text = "Nuwvo Nombre";
             // 
             // ModificaEntidad
             // 
@@ -105,7 +105,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ModificaEntidad";
-            this.Text = "ModificaEntidad";
+            this.Text = "Modifica Tabla";
             this.Load += new System.EventHandler(this.ModificaEntidad_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

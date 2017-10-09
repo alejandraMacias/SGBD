@@ -40,7 +40,6 @@
             this.claveNO = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Cadena = new System.Windows.Forms.RadioButton();
-            this.opcionCaracter = new System.Windows.Forms.RadioButton();
             this.opcionFlotante = new System.Windows.Forms.RadioButton();
             this.opcionEntero = new System.Windows.Forms.RadioButton();
             this.etiquetaEntidadReferenciada = new System.Windows.Forms.Label();
@@ -122,7 +121,7 @@
             // claveForanea
             // 
             this.claveForanea.AutoSize = true;
-            this.claveForanea.Location = new System.Drawing.Point(123, 12);
+            this.claveForanea.Location = new System.Drawing.Point(196, 12);
             this.claveForanea.Name = "claveForanea";
             this.claveForanea.Size = new System.Drawing.Size(64, 17);
             this.claveForanea.TabIndex = 15;
@@ -134,7 +133,7 @@
             // clavePrimaria
             // 
             this.clavePrimaria.AutoSize = true;
-            this.clavePrimaria.Location = new System.Drawing.Point(55, 12);
+            this.clavePrimaria.Location = new System.Drawing.Point(90, 11);
             this.clavePrimaria.Name = "clavePrimaria";
             this.clavePrimaria.Size = new System.Drawing.Size(62, 17);
             this.clavePrimaria.TabIndex = 14;
@@ -158,7 +157,6 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.Cadena);
-            this.groupBox2.Controls.Add(this.opcionCaracter);
             this.groupBox2.Controls.Add(this.opcionFlotante);
             this.groupBox2.Controls.Add(this.opcionEntero);
             this.groupBox2.Location = new System.Drawing.Point(13, 99);
@@ -180,22 +178,10 @@
             this.Cadena.UseVisualStyleBackColor = true;
             this.Cadena.CheckedChanged += new System.EventHandler(this.Cadena_CheckedChanged);
             // 
-            // opcionCaracter
-            // 
-            this.opcionCaracter.AutoSize = true;
-            this.opcionCaracter.Location = new System.Drawing.Point(140, 13);
-            this.opcionCaracter.Name = "opcionCaracter";
-            this.opcionCaracter.Size = new System.Drawing.Size(65, 17);
-            this.opcionCaracter.TabIndex = 9;
-            this.opcionCaracter.TabStop = true;
-            this.opcionCaracter.Text = "Carácter";
-            this.opcionCaracter.UseVisualStyleBackColor = true;
-            this.opcionCaracter.CheckedChanged += new System.EventHandler(this.opcionCaracter_CheckedChanged);
-            // 
             // opcionFlotante
             // 
             this.opcionFlotante.AutoSize = true;
-            this.opcionFlotante.Location = new System.Drawing.Point(71, 13);
+            this.opcionFlotante.Location = new System.Drawing.Point(89, 13);
             this.opcionFlotante.Name = "opcionFlotante";
             this.opcionFlotante.Size = new System.Drawing.Size(63, 17);
             this.opcionFlotante.TabIndex = 8;
@@ -265,9 +251,9 @@
             this.etiquetaEntidad.AutoSize = true;
             this.etiquetaEntidad.Location = new System.Drawing.Point(12, 9);
             this.etiquetaEntidad.Name = "etiquetaEntidad";
-            this.etiquetaEntidad.Size = new System.Drawing.Size(43, 13);
+            this.etiquetaEntidad.Size = new System.Drawing.Size(34, 13);
             this.etiquetaEntidad.TabIndex = 21;
-            this.etiquetaEntidad.Text = "Entidad";
+            this.etiquetaEntidad.Text = "Tabla";
             // 
             // AltaAtributo
             // 
@@ -293,7 +279,7 @@
             this.MinimizeBox = false;
             this.Name = "AltaAtributo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "AltaAtributo";
+            this.Text = "Alta Atributo";
             ((System.ComponentModel.ISupportInitialize)(this.longitud)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -318,7 +304,6 @@
         private System.Windows.Forms.RadioButton claveNO;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton Cadena;
-        private System.Windows.Forms.RadioButton opcionCaracter;
         private System.Windows.Forms.RadioButton opcionFlotante;
         private System.Windows.Forms.RadioButton opcionEntero;
         private System.Windows.Forms.Label etiquetaEntidadReferenciada;

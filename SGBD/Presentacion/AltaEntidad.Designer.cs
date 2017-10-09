@@ -85,7 +85,7 @@
             this.MinimizeBox = false;
             this.Name = "AltaEntidad";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "AltaEntidad";
+            this.Text = "Alta Tabla";
             this.ResumeLayout(false);
             this.PerformLayout();
 

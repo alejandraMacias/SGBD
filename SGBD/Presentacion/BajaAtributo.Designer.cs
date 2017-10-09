@@ -43,7 +43,7 @@
             this.botonBaja.Name = "botonBaja";
             this.botonBaja.Size = new System.Drawing.Size(75, 23);
             this.botonBaja.TabIndex = 0;
-            this.botonBaja.Text = "Baja";
+            this.botonBaja.Text = "Elimina";
             this.botonBaja.UseVisualStyleBackColor = true;
             this.botonBaja.Click += new System.EventHandler(this.botonBaja_Click);
             // 
@@ -62,9 +62,9 @@
             this.etiquetaAtributo.AutoSize = true;
             this.etiquetaAtributo.Location = new System.Drawing.Point(12, 9);
             this.etiquetaAtributo.Name = "etiquetaAtributo";
-            this.etiquetaAtributo.Size = new System.Drawing.Size(43, 13);
+            this.etiquetaAtributo.Size = new System.Drawing.Size(34, 13);
             this.etiquetaAtributo.TabIndex = 2;
-            this.etiquetaAtributo.Text = "Entidad";
+            this.etiquetaAtributo.Text = "Tabla";
             // 
             // seleccionEntidad
             // 
@@ -108,7 +108,7 @@
             this.MinimizeBox = false;
             this.Name = "BajaAtributo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "BajaAtributo";
+            this.Text = "Elimina Atributo";
             this.ResumeLayout(false);
             this.PerformLayout();
 

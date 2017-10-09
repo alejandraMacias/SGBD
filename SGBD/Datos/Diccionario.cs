@@ -179,14 +179,14 @@ namespace SGBD.Datos
             if (entidadAEliminar != null)
             {
                 StringBuilder cadenaSentencia = new StringBuilder();
-                //SqlCommand sentencia;
+                OleDbCommand sentencia;
 
                 // Construcción de la cadena empleada para eliminar la entidad.
                 cadenaSentencia.Append("DROP TABLE {0}");
                 // Inicialización de los comandos empleados para eliminar la entidad.
-                //sentencia = new SqlCommand(string.Format(cadenaSentencia.ToString(), nombre), coneccion);
+                sentencia = new OleDbCommand(string.Format(cadenaSentencia.ToString(), nombre), coneccion);
                 // Ejecución de sentencias.
-                //sentencia.ExecuteNonQuery();
+                sentencia.ExecuteNonQuery();
 
                 listaEntidad.Remove(entidadAEliminar);
                 resultado = true;

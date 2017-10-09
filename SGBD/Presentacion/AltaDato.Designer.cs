@@ -40,9 +40,9 @@
             this.etiquetaEntidad.AutoSize = true;
             this.etiquetaEntidad.Location = new System.Drawing.Point(13, 15);
             this.etiquetaEntidad.Name = "etiquetaEntidad";
-            this.etiquetaEntidad.Size = new System.Drawing.Size(43, 13);
+            this.etiquetaEntidad.Size = new System.Drawing.Size(34, 13);
             this.etiquetaEntidad.TabIndex = 0;
-            this.etiquetaEntidad.Text = "Enitdad";
+            this.etiquetaEntidad.Text = "Tabla";
             // 
             // seleccionEntidad
             // 

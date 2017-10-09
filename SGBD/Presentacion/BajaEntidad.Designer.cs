@@ -41,7 +41,7 @@
             this.butonBaja.Name = "butonBaja";
             this.butonBaja.Size = new System.Drawing.Size(75, 23);
             this.butonBaja.TabIndex = 0;
-            this.butonBaja.Text = "Baja";
+            this.butonBaja.Text = "Elimina";
             this.butonBaja.UseVisualStyleBackColor = true;
             this.butonBaja.Click += new System.EventHandler(this.butonBaja_Click);
             // 
@@ -86,7 +86,7 @@
             this.MinimizeBox = false;
             this.Name = "BajaEntidad";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "BajaEntidad";
+            this.Text = "Elimina Tabla";
             this.Load += new System.EventHandler(this.BajaEntidad_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
