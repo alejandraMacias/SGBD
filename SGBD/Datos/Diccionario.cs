@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.OleDb;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -52,7 +52,7 @@ namespace SGBD.Datos
         private static readonly Lazy<Diccionario> lazy = new Lazy<Diccionario>(() => new Diccionario());
         public static Diccionario Instancia { get { return lazy.Value; } }
 
-        private SqlConnection coneccion;        
+        private OleDbConnection coneccion;        
         private List<Entidad> listaEntidad;
         private string nombre;
 
@@ -94,11 +94,11 @@ namespace SGBD.Datos
 
         private Diccionario()
         {
+            // string to create our database
+            string db = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Alessandro\Documents\Visual Studio 2015\Projects\BaseDatos\SGBD\ArchivosDatos\basedatos.accdb;";
+
             listaEntidad = new List<Entidad>();
-            // Data Source=AM-PC;Initial Catalog=Database;Integrated Security=True;
-            // Data Source=BECARIOS-PC\SQLEXPRESS;Initial Catalog=Database;Integrated Security=True;
-            // Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True
-            coneccion = new SqlConnection(@"Data Source=DESKTOP-VQ4NJNJ;Initial Catalog=Database;Integrated Security=True;");
+            coneccion = new OleDbConnection(db);
             coneccion.Open();
         }
 
@@ -138,23 +138,10 @@ namespace SGBD.Datos
 
         public void Crear(string nombre)
         {
-            StringBuilder cadenaEliminacionEsquema = new StringBuilder();
-            SqlCommand sentenciaEliminarEsquema;
-            SqlCommand sentenciaCrearEsquema;
-
-            // Construcción de la cadena empleada para eliminar el diccionario de datos en caso de existir.
-            cadenaEliminacionEsquema.Append("IF EXISTS (SELECT * FROM sys.schemas WHERE name = '{0}')");
-            cadenaEliminacionEsquema.Append("BEGIN EXEC('DROP SCHEMA {0}') END");
-            // Inicialización de los comandos empleados para crear el diccionario.
-            sentenciaEliminarEsquema = new SqlCommand(string.Format(cadenaEliminacionEsquema.ToString(), nombre), coneccion);
-            sentenciaCrearEsquema = new SqlCommand(string.Format("create schema {0}", nombre), coneccion);
             // Asignación del nombre del diccionario.
             this.nombre = nombre;
             // Eliminacón de entidades de la lista.
             listaEntidad.Clear();
-            // Ejecución de sentencias.
-            sentenciaEliminarEsquema.ExecuteNonQuery();
-            sentenciaCrearEsquema.ExecuteNonQuery();
         }
 
         /// <summary>
@@ -164,12 +151,12 @@ namespace SGBD.Datos
         {
             bool resultado;
             StringBuilder cadenaSentencia = new StringBuilder();
-            SqlCommand sentencia;
+            OleDbCommand sentencia;
             
             // Construcción de la cadena empleada para crear la entidad.
-            cadenaSentencia.Append("CREATE TABLE {0}(_id bigint identity)");
+            cadenaSentencia.Append("CREATE TABLE {0}");
             // Inicialización de los comandos empleados para crear la entidad.
-            sentencia = new SqlCommand(string.Format(cadenaSentencia.ToString(), nombre), coneccion);
+            sentencia = new OleDbCommand(string.Format(cadenaSentencia.ToString(), nombre), coneccion);
             // Ejecución de sentencias.
             sentencia.ExecuteNonQuery();
             // Adición de entidad a la lista de entidades.
@@ -192,14 +179,14 @@ namespace SGBD.Datos
             if (entidadAEliminar != null)
             {
                 StringBuilder cadenaSentencia = new StringBuilder();
-                SqlCommand sentencia;
+                //SqlCommand sentencia;
 
                 // Construcción de la cadena empleada para eliminar la entidad.
                 cadenaSentencia.Append("DROP TABLE {0}");
                 // Inicialización de los comandos empleados para eliminar la entidad.
-                sentencia = new SqlCommand(string.Format(cadenaSentencia.ToString(), nombre), coneccion);
+                //sentencia = new SqlCommand(string.Format(cadenaSentencia.ToString(), nombre), coneccion);
                 // Ejecución de sentencias.
-                sentencia.ExecuteNonQuery();
+                //sentencia.ExecuteNonQuery();
 
                 listaEntidad.Remove(entidadAEliminar);
                 resultado = true;
@@ -224,14 +211,14 @@ namespace SGBD.Datos
             if (entidadAModificar != null)
             {
                 StringBuilder cadenaSentencia = new StringBuilder();
-                SqlCommand sentencia;
+                //SqlCommand sentencia;
 
                 // Construcción de la cadena empleada para modificar la entidad.
                 cadenaSentencia.Append("EXEC sp_rename '{0}', '{1}'");
                 // Inicialización de los comandos empleados para modificar la entidad.
-                sentencia = new SqlCommand(string.Format(cadenaSentencia.ToString(), nombre, nuevoNombre), coneccion);
+                //sentencia = new SqlCommand(string.Format(cadenaSentencia.ToString(), nombre, nuevoNombre), coneccion);
                 // Ejecución de sentencias.
-                sentencia.ExecuteNonQuery();
+                //sentencia.ExecuteNonQuery();
 
                 entidadAModificar.Nombre = nuevoNombre;
                 resultado = true;
@@ -253,14 +240,14 @@ namespace SGBD.Datos
             bool resultado;
             Atributo atributoNuevo = null;
             StringBuilder cadenaSentencia = new StringBuilder();
-            SqlCommand sentencia;
+            OleDbCommand sentencia;
 
             switch (tipoAtributo)
             {
                 case TipoAtributo.Entero:
                     atributoNuevo = new Entero(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
                     // Construcción de la cadena empleada para agregar el atributo.
-                    cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD {1} bigint {2}",
+                    cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD {1} NUMBER {2}",
                         entidadActual.Nombre,
                         nombreAtributo,
                         clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : ""
@@ -275,14 +262,14 @@ namespace SGBD.Datos
                             nombreAtributo
                             );
                     }
-                    sentencia = new SqlCommand(cadenaSentencia.ToString(), coneccion);
+                    sentencia = new OleDbCommand(cadenaSentencia.ToString(), coneccion);
                     // Ejecución de sentencias.
                     sentencia.ExecuteNonQuery();
                     break;
                 case TipoAtributo.Flotante:
                     atributoNuevo = new Flotante(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
                     // Construcción de la cadena empleada para agregar el atributo.
-                    cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD {1} decimal {2}",
+                    cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD {1} CURRENCY {2}",
                         entidadActual.Nombre,
                         nombreAtributo,
                         clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : ""
@@ -297,14 +284,14 @@ namespace SGBD.Datos
                             nombreAtributo
                             );
                     }
-                    sentencia = new SqlCommand(cadenaSentencia.ToString(), coneccion);
+                    sentencia = new OleDbCommand(cadenaSentencia.ToString(), coneccion);
                     // Ejecución de sentencias.
                     sentencia.ExecuteNonQuery();
                     break;
                 case TipoAtributo.Caracter:
                     atributoNuevo = new Caracter(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
                     // Construcción de la cadena empleada para agregar el atributo.
-                    cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD {1} nvarchar(1) {2}",
+                    cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD {1} TEXT {2}",
                         entidadActual.Nombre,
                         nombreAtributo,
                         clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : ""
@@ -319,18 +306,17 @@ namespace SGBD.Datos
                             nombreAtributo
                             );
                     }
-                    sentencia = new SqlCommand(cadenaSentencia.ToString(), coneccion);
+                    sentencia = new OleDbCommand(cadenaSentencia.ToString(), coneccion);
                     // Ejecución de sentencias.
                     sentencia.ExecuteNonQuery();
                     break;
                 case TipoAtributo.Cadena:
                     atributoNuevo = new Cadena(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
                     // Construcción de la cadena empleada para agregar el atributo.
-                    cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD {1}  nvarchar({3}) {2}",
+                    cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD {1}  TEXT {2}",
                         entidadActual.Nombre,
                         nombreAtributo,
-                        clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : "",
-                        longitud
+                        clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : ""
                         );
                     if (entidadClave != null)
                     {
@@ -342,7 +328,7 @@ namespace SGBD.Datos
                             nombreAtributo
                             );
                     }
-                    sentencia = new SqlCommand(cadenaSentencia.ToString(), coneccion);
+                    sentencia = new OleDbCommand(cadenaSentencia.ToString(), coneccion);
                     // Ejecución de sentencias.
                     sentencia.ExecuteNonQuery();
                     break;
@@ -360,14 +346,14 @@ namespace SGBD.Datos
         {
             bool resultado;
             StringBuilder cadenaSentencia = new StringBuilder();
-            SqlCommand sentencia;
+            //SqlCommand sentencia;
 
             // Construcción de la cadena empleada para modificar la entidad.
             cadenaSentencia.Append("ALTER TABLE {0} DROP COLUMN {1} ");
             // Inicialización de los comandos empleados para modificar la entidad.
-            sentencia = new SqlCommand(string.Format(cadenaSentencia.ToString(), entidadActual.Nombre, atributoAEliminar.Nombre), coneccion);
+            //sentencia = new SqlCommand(string.Format(cadenaSentencia.ToString(), entidadActual.Nombre, atributoAEliminar.Nombre), coneccion);
             // Ejecución de sentencias.
-            sentencia.ExecuteNonQuery();
+            //sentencia.ExecuteNonQuery();
 
             entidadActual.Atributos.Remove(atributoAEliminar);
             resultado = true;
@@ -394,7 +380,7 @@ namespace SGBD.Datos
         {
             bool resultado;
             StringBuilder cadenaSentencia = new StringBuilder();
-            SqlCommand sentencia;
+            OleDbCommand sentencia;
 
             // Construcción de la cadena empleada para modificar la entidad.
             cadenaSentencia.Append("INSERT INTO {0} VALUES (");
@@ -414,7 +400,7 @@ namespace SGBD.Datos
             cadenaSentencia.Remove(cadenaSentencia.Length - 1, 1);
             cadenaSentencia.Append(")");
             // Inicialización de los comandos empleados para modificar la entidad.
-            sentencia = new SqlCommand(string.Format(cadenaSentencia.ToString(), entidad.Nombre), coneccion);
+            sentencia = new OleDbCommand(string.Format(cadenaSentencia.ToString(), entidad.Nombre), coneccion);
             // Ejecución de sentencias.
             sentencia.ExecuteNonQuery();
 
@@ -425,21 +411,22 @@ namespace SGBD.Datos
         public DataTable ConsultaTodo(Entidad entidad)
         {
             StringBuilder consulta = new StringBuilder();
-            SqlDataAdapter adaptador = new SqlDataAdapter();
+            OleDbDataAdapter adaptador = new OleDbDataAdapter();
             DataSet ds = new DataSet();
 
             consulta.AppendFormat("SELECT * FROM {0}", entidad.Nombre);
-            SqlCommand cmd = new SqlCommand(consulta.ToString(), coneccion);
+            OleDbCommand cmd = coneccion.CreateCommand();
 
             try
             {
+                cmd.CommandText = consulta.ToString();
                 adaptador.SelectCommand = cmd;
                 adaptador.Fill(ds);
                 adaptador.Dispose();
                 cmd.Dispose();
                 return ds.Tables[0];
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return null;
             }
@@ -447,16 +434,16 @@ namespace SGBD.Datos
 
         public DataTable Consulta(string consulta)
         {
-            SqlDataAdapter adaptador = new SqlDataAdapter();
+            //SqlDataAdapter adaptador = new SqlDataAdapter();
             DataSet ds = new DataSet();
-            SqlCommand cmd = new SqlCommand(consulta, coneccion);
+            //SqlCommand cmd = new SqlCommand(consulta, coneccion);
 
             try
             {
-                adaptador.SelectCommand = cmd;
+                /*adaptador.SelectCommand = cmd;
                 adaptador.Fill(ds);
                 adaptador.Dispose();
-                cmd.Dispose();
+                cmd.Dispose();*/
                 return ds.Tables[0];
             }
             catch (Exception)
@@ -467,12 +454,12 @@ namespace SGBD.Datos
 
         public bool Sentencia(string sentencia)
         {
-            SqlDataAdapter adaptador = new SqlDataAdapter();
-            SqlCommand cmd = new SqlCommand(sentencia, coneccion);
+            //SqlDataAdapter adaptador = new SqlDataAdapter();
+            //SqlCommand cmd = new SqlCommand(sentencia, coneccion);
 
             try
             {
-                cmd.ExecuteNonQuery();
+               // cmd.ExecuteNonQuery();
                 return true;
             }
             catch (Exception)
