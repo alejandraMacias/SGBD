@@ -125,9 +125,6 @@ namespace SGBD.Presentacion
                     case Diccionario.TipoAtributo.Flotante:
                         opcionFlotante.Checked = true;
                         break;
-                    case Diccionario.TipoAtributo.Caracter:
-                        opcionCaracter.Checked = true;
-                        break;
                     case Diccionario.TipoAtributo.Cadena:
                         Cadena.Checked = true;
                         break;

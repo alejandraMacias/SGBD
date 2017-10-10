@@ -211,14 +211,14 @@ namespace SGBD.Datos
             if (entidadAModificar != null)
             {
                 StringBuilder cadenaSentencia = new StringBuilder();
-                //SqlCommand sentencia;
+                OleDbCommand sentencia;
 
                 // Construcción de la cadena empleada para modificar la entidad.
                 cadenaSentencia.Append("EXEC sp_rename '{0}', '{1}'");
                 // Inicialización de los comandos empleados para modificar la entidad.
-                //sentencia = new SqlCommand(string.Format(cadenaSentencia.ToString(), nombre, nuevoNombre), coneccion);
+                sentencia = new OleDbCommand(string.Format(cadenaSentencia.ToString(), nombre, nuevoNombre), coneccion);
                 // Ejecución de sentencias.
-                //sentencia.ExecuteNonQuery();
+                sentencia.ExecuteNonQuery();
 
                 entidadAModificar.Nombre = nuevoNombre;
                 resultado = true;
@@ -346,14 +346,14 @@ namespace SGBD.Datos
         {
             bool resultado;
             StringBuilder cadenaSentencia = new StringBuilder();
-            //SqlCommand sentencia;
+            OleDbCommand sentencia;
 
             // Construcción de la cadena empleada para modificar la entidad.
             cadenaSentencia.Append("ALTER TABLE {0} DROP COLUMN {1} ");
             // Inicialización de los comandos empleados para modificar la entidad.
-            //sentencia = new SqlCommand(string.Format(cadenaSentencia.ToString(), entidadActual.Nombre, atributoAEliminar.Nombre), coneccion);
+            sentencia = new OleDbCommand(string.Format(cadenaSentencia.ToString(), entidadActual.Nombre, atributoAEliminar.Nombre), coneccion);
             // Ejecución de sentencias.
-            //sentencia.ExecuteNonQuery();
+            sentencia.ExecuteNonQuery();
 
             entidadActual.Atributos.Remove(atributoAEliminar);
             resultado = true;
@@ -434,16 +434,16 @@ namespace SGBD.Datos
 
         public DataTable Consulta(string consulta)
         {
-            //SqlDataAdapter adaptador = new SqlDataAdapter();
+            OleDbDataAdapter adaptador = new OleDbDataAdapter();
             DataSet ds = new DataSet();
-            //SqlCommand cmd = new SqlCommand(consulta, coneccion);
+            OleDbCommand cmd = new OleDbCommand(consulta, coneccion);
 
             try
             {
-                /*adaptador.SelectCommand = cmd;
+                adaptador.SelectCommand = cmd;
                 adaptador.Fill(ds);
                 adaptador.Dispose();
-                cmd.Dispose();*/
+                cmd.Dispose();
                 return ds.Tables[0];
             }
             catch (Exception)
@@ -454,12 +454,12 @@ namespace SGBD.Datos
 
         public bool Sentencia(string sentencia)
         {
-            //SqlDataAdapter adaptador = new SqlDataAdapter();
-            //SqlCommand cmd = new SqlCommand(sentencia, coneccion);
+            OleDbDataAdapter adaptador = new OleDbDataAdapter();
+            OleDbCommand cmd = new OleDbCommand(sentencia, coneccion);
 
             try
             {
-               // cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
                 return true;
             }
             catch (Exception)
