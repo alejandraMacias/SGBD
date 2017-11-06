@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -466,6 +467,74 @@ namespace SGBD.Datos
             {
                 return false;
             }
+        }
+
+        
+        /// <summary>
+        /// Funcion en donde se validan las consultas
+        /// </summary>
+        /// <param name="consulta"></param>
+        /// <returns></returns>
+        public string ValidaConsulta(string consulta)
+        {
+            string resultado = "Consulta no válida";
+            string entrada = new Regex(@"[\s]{1,}").Replace(consulta, " ");
+            string patron = @"SELECT \* FROM " + ObtenEntidades();
+
+            if(Regex.IsMatch(entrada.ToUpper(), patron.ToUpper()))
+            { 
+                resultado = string.Empty;
+            }
+            else
+            {
+                var atributos = ObtenAtributos("alumno");
+                patron = @"SELECT (" + atributos + @")(,(" + atributos + "))* FROM " + ObtenEntidades();
+                if (Regex.IsMatch(entrada.ToUpper(), patron.ToUpper()))
+                {
+                    resultado = string.Empty;
+                }
+            }
+                
+            return resultado;
+        }
+        
+        /// <summary>
+        /// Funcion en donde se obtiene la entdad que se va a comparar al validar la consultas 
+        /// select * From nombreTabla
+        /// </summary>
+        /// <returns></returns>
+        private string ObtenEntidades()
+        {
+            string resultado = string.Empty;
+
+            foreach(var entidad in listaEntidad)
+            {
+                resultado += entidad.Nombre + @"|";
+            }
+            resultado = resultado.Substring(0, resultado.Length - 1);
+            return resultado;
+        }
+  
+        /// <summary>
+        /// Funcion en donde se obiene el atributo para la comparacion de al validar la consulta
+        /// SELECT (lista de columnas1, lista de columnas2) FROM NombreTabla
+        /// </summary>
+        /// <param name="nombreEntidad"></param>
+        /// <returns></returns>
+        private string ObtenAtributos(string nombreEntidad)
+        {
+            string resultado = string.Empty;
+            var entidad = listaEntidad.FirstOrDefault(m => m.Nombre.ToUpper() == nombreEntidad.ToUpper());
+
+            if(entidad != null)
+            {
+                foreach (var atributo in entidad.Atributos)
+                {
+                    resultado += atributo.Nombre + @"|";
+                }
+            }
+            resultado = resultado.Substring(0, resultado.Length - 1);
+            return resultado;
         }
 
         /// <summary>

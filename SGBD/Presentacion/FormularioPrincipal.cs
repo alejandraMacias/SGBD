@@ -206,8 +206,16 @@ namespace SGBD
 
         private void botonConsulta_Click(object sender, EventArgs e)
         {
-            dataGridDatos.DataSource = diccionario.Consulta(consultasSQL.Text);
-            dataGridDatos.ClearSelection();
+            var validacion = diccionario.ValidaConsulta(consultasSQL.Text);
+            if (validacion != string.Empty)
+            {
+                MessageBox.Show(validacion, "Error de validacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                dataGridDatos.DataSource = diccionario.Consulta(consultasSQL.Text);
+                dataGridDatos.ClearSelection();
+            }
         }
 
         private void bajaDato_Click(object sender, EventArgs e)
