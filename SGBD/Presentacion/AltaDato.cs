@@ -84,6 +84,7 @@ namespace SGBD.Presentacion
             }
         }
 
+
         private void botonAgregar_Click(object sender, EventArgs e)
         {
             var entidadActual = seleccionEntidad.SelectedItem as Entidad;

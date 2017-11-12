@@ -21,10 +21,16 @@ namespace SGBD.Presentacion
             seleccionEntidad.DataSource = diccionarioDatos.Entidades;
         }
 
+
+        /// <summary>
+        /// Seleccion el id del a dar de baja
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void seleccionEntidad_SelectedIndexChanged(object sender, EventArgs e)
         {
             var entidad = seleccionEntidad.SelectedItem as Entidad;
-            DataRowCollection datos = diccionarioDatos.Consulta(string.Format("SELECT _id from {0}", entidad.Nombre)).Rows;
+            DataRowCollection datos = diccionarioDatos.Consulta(string.Format("SELECT [_id] from {0}", entidad.Nombre)).Rows;
 
             seleccionDato.Items.Clear();
             foreach (DataRow renglon in datos)
@@ -34,20 +40,32 @@ namespace SGBD.Presentacion
             }
         }
 
+
+        /// <summary>
+        /// Boton que da de baja un dato
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void botonAceptar_Click(object sender, EventArgs e)
         {
             var entidad = seleccionEntidad.SelectedItem as Entidad;
             var dato = seleccionDato.SelectedItem.ToString();
             
-            diccionarioDatos.Sentencia(string.Format("DELETE FROM {0} WHERE _id = {1}", entidad.Nombre, dato));
+            diccionarioDatos.Sentencia(string.Format("DELETE FROM {0} WHERE [_id] = {1}", entidad.Nombre, dato));
         }
 
+
+        /// <summary>
+        /// Eliminacion del dato que se selecciono
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void seleccionDato_SelectedIndexChanged(object sender, EventArgs e)
         {
             var entidadActual = seleccionEntidad.SelectedItem as Entidad;
             var atributoActual = seleccionDato.SelectedItem.ToString();
             var posicionX = 5;
-            var registro = diccionarioDatos.Consulta(string.Format("SELECT * FROM {0} WHERE _id = {1}", entidadActual.Nombre, atributoActual)).Rows[0];
+            var registro = diccionarioDatos.Consulta(string.Format("SELECT * FROM {0} WHERE [_id] = {1}", entidadActual.Nombre, atributoActual)).Rows[0];
             var elemento = 1;
 
             panelDatos.Controls.Clear();

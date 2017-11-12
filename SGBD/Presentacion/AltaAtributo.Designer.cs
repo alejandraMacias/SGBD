@@ -133,7 +133,7 @@
             // clavePrimaria
             // 
             this.clavePrimaria.AutoSize = true;
-            this.clavePrimaria.Location = new System.Drawing.Point(90, 11);
+            this.clavePrimaria.Location = new System.Drawing.Point(91, 11);
             this.clavePrimaria.Name = "clavePrimaria";
             this.clavePrimaria.Size = new System.Drawing.Size(62, 17);
             this.clavePrimaria.TabIndex = 14;
@@ -181,7 +181,7 @@
             // opcionFlotante
             // 
             this.opcionFlotante.AutoSize = true;
-            this.opcionFlotante.Location = new System.Drawing.Point(89, 13);
+            this.opcionFlotante.Location = new System.Drawing.Point(90, 13);
             this.opcionFlotante.Name = "opcionFlotante";
             this.opcionFlotante.Size = new System.Drawing.Size(63, 17);
             this.opcionFlotante.TabIndex = 8;

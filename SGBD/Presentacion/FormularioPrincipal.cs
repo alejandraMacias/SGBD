@@ -231,5 +231,10 @@ namespace SGBD
 
             dialogo.ShowDialog();
         }
+
+        private void dataGridDatos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
