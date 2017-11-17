@@ -90,6 +90,8 @@ namespace SGBD
             diccionario.Abrir(abrirArchivo.SafeFileName.Replace(".db", ""), (List<Entidad>)formatter.Deserialize(stream));
             AcualizaTreeView();
             stream.Close();
+            dataGridDatos.DataSource = null;
+            dataGridDatos.ClearSelection();
         }
 
         /// <summary>
@@ -116,6 +118,8 @@ namespace SGBD
             diccionario.Crear(pathDiccionario[pathDiccionario.Length - 1].Replace(".db", ""));
             AcualizaTreeView();
             GuardaDiccionario();
+            dataGridDatos.DataSource = null;
+            dataGridDatos.ClearSelection();
         }
 
         /// <summary>
@@ -191,7 +195,7 @@ namespace SGBD
         /// </summary>
         private void GuardaDiccionario()
         {
-            Stream stream = File.Open(diccionario.Nombre + ".db", FileMode.Create, FileAccess.Write, FileShare.None);
+            Stream stream = File.Open(diccionario.Nombre + "/" + diccionario.Nombre + ".db", FileMode.Create, FileAccess.Write, FileShare.None);
             BinaryFormatter formatter = new BinaryFormatter();
             formatter.Serialize(stream, diccionario.Entidades);
             stream.Close();
@@ -235,6 +239,25 @@ namespace SGBD
         private void dataGridDatos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void eliminarMenuItem_Click(object sender, EventArgs e)
+        {
+            eliminaArchivo.AddExtension = true;
+            eliminaArchivo.DefaultExt = ".db";
+            eliminaArchivo.Filter = "Diccionario (*.db)|*.db";
+            eliminaArchivo.InitialDirectory = Application.StartupPath;
+            eliminaArchivo.ShowDialog();
+        }
+
+        private void eliminaArchivo_FileOk(object sender, CancelEventArgs e)
+        {
+            string[] pathDiccionario = eliminaArchivo.FileName.Split('\\');
+
+            diccionario.Eliminar(pathDiccionario[pathDiccionario.Length - 1].Replace(".db", ""));
+            AcualizaTreeView();
+            dataGridDatos.DataSource = null;
+            dataGridDatos.ClearSelection();
         }
     }
 }

@@ -123,7 +123,7 @@ namespace SGBD.Presentacion
                 }
             }
             sentencia.Remove(sentencia.Length - 1, 1);
-            sentencia.AppendFormat(" WHERE _id = {0}", seleccionDato.SelectedItem.ToString());
+            sentencia.AppendFormat(" WHERE [_id] = {0}", seleccionDato.SelectedItem.ToString());
             diccionarioDatos.Sentencia(sentencia.ToString());
         }
     }

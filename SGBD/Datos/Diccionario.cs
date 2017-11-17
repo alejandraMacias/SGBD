@@ -92,15 +92,14 @@ namespace SGBD.Datos
         /// Provocado al actualizarse una entidad en el diccionario.
         /// </summary>
         public event EventHandler<ActualizacionAtributoEventArgs> ActualizacionAtributo;
+        /// <summary>
+        /// Database conection String.
+        /// </summary>
+        private string db;
 
         private Diccionario()
         {
-            // string to create our database
-            string db = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Alessandro\Documents\Visual Studio 2015\Projects\BaseDatos\SGBD\ArchivosDatos\basedatos.accdb;";
-
             listaEntidad = new List<Entidad>();
-            coneccion = new OleDbConnection(db);
-            coneccion.Open();
         }
 
         /// <summary>
@@ -129,21 +128,76 @@ namespace SGBD.Datos
             }
         }
 
+
+        /// <summary>
+        /// Abre un archivo existente
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <param name="entidades"></param>
         public void Abrir(string nombre, List<Entidad> entidades)
         {
+            TryColse();
             // Asignación del nombre del diccionario.
             this.nombre = nombre;
             // Asignación de entidades.
             listaEntidad = entidades;
+            // Abrir conexion a la BD.
+            db = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + nombre + "/basedatos.accdb;";
+            coneccion = new OleDbConnection(db);
+            coneccion.Open();
         }
 
+
+        /// <summary>
+        /// Crea un nuevo archivo
+        /// </summary>
+        /// <param name="nombre"></param>
         public void Crear(string nombre)
         {
+            bool exists = System.IO.Directory.Exists(nombre);
+
+            TryColse();
+            if (exists)
+            {
+                System.IO.Directory.Delete(nombre, true);
+            }
+            System.IO.Directory.CreateDirectory(nombre);
+            System.IO.File.Copy("basedatos.accdb", nombre + "/basedatos.accdb", true);
             // Asignación del nombre del diccionario.
             this.nombre = nombre;
             // Eliminacón de entidades de la lista.
             listaEntidad.Clear();
+            // Abrir conexion a la BD.
+            db = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + nombre + "/basedatos.accdb;";
+            coneccion = new OleDbConnection(db);
+            coneccion.Open();
         }
+
+
+        /// <summary>
+        /// Elimina un archivo existente
+        /// </summary>
+        /// <param name="nombre"></param>
+        public void Eliminar(string nombre)
+        {
+            bool exists = System.IO.Directory.Exists(nombre);
+
+            if (exists)
+            {
+                if(nombre == this.nombre)
+                {
+                    TryColse();
+                }
+                System.IO.Directory.Delete(nombre, true);
+            }
+            if (nombre == this.nombre)
+            {
+                // Asignación del nombre del diccionario.
+                this.nombre = string.Empty;
+                // Eliminacón de entidades de la lista.
+                listaEntidad.Clear();
+            }
+         }
 
         /// <summary>
         ///  Funcion que da de alta una entidad y la añade a una lista de entidades
@@ -155,7 +209,7 @@ namespace SGBD.Datos
             OleDbCommand sentencia;
             
             // Construcción de la cadena empleada para crear la entidad.
-            cadenaSentencia.Append("CREATE TABLE {0}(_id COUNTER)");
+            cadenaSentencia.Append("CREATE TABLE {0}([_id] COUNTER)");
             // Inicialización de los comandos empleados para crear la entidad.
             sentencia = new OleDbCommand(string.Format(cadenaSentencia.ToString(), nombre), coneccion);
             // Ejecución de sentencias.
@@ -400,7 +454,7 @@ namespace SGBD.Datos
             OleDbCommand sentencia;
 
             // Construcción de la cadena empleada para modificar la entidad.
-            cadenaSentencia.Append("INSERT INTO {0} ([Col1],[Col2],...,[Coln]) VALUES (");
+            cadenaSentencia.Append("INSERT INTO {0} (" + ParametrisaAtributos(entidad.Nombre) + ") VALUES (");
             foreach(Control control in controles)
             {
                 if(control is TextBox) 
@@ -583,13 +637,46 @@ namespace SGBD.Datos
             return resultado;
         }
 
+        private string ParametrisaAtributos(string nombreEntidad)
+        {
+            string resultado = string.Empty;
+            var entidad = listaEntidad.FirstOrDefault(m => m.Nombre.ToUpper() == nombreEntidad.ToUpper());
+
+            if (entidad != null)
+            {
+                foreach (var atributo in entidad.Atributos)
+                {
+                    resultado += "[" + atributo.Nombre + @"],";
+                }
+            }
+            if(resultado != string.Empty)
+            {
+                resultado = resultado.Substring(0, resultado.Length - 1);
+            }
+            return resultado;
+        }
+
         /// <summary>
         /// Libera todos los recursos utilizados por el objeto
         /// </summary>
         public void Dispose()
         {
-            coneccion.Close();
-            coneccion.Dispose();
+            try
+            {
+                coneccion.Close();
+                coneccion.Dispose();
+            }
+            catch (Exception) { }
+        }
+
+        private void TryColse()
+        {
+            try
+            {
+                coneccion.Close();
+                coneccion.Dispose();
+            }
+            catch (Exception) { }
         }
     }
 }

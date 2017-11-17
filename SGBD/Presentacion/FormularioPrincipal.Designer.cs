@@ -33,6 +33,7 @@
             this.abrirSGBDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.crearSGBDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eliminarMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.entidadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.altaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -59,6 +60,8 @@
             this.botonConsulta = new System.Windows.Forms.Button();
             this.consultasSQL = new System.Windows.Forms.TextBox();
             this.nuevoArchivo = new System.Windows.Forms.SaveFileDialog();
+            this.eliminaArchivo = new System.Windows.Forms.OpenFileDialog();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainContainer)).BeginInit();
             this.mainContainer.Panel1.SuspendLayout();
@@ -91,7 +94,9 @@
             this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.abrirSGBDToolStripMenuItem,
             this.toolStripSeparator1,
-            this.crearSGBDToolStripMenuItem});
+            this.crearSGBDToolStripMenuItem,
+            this.toolStripSeparator8,
+            this.eliminarMenuItem});
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
             this.archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.archivoToolStripMenuItem.Text = "Archivo";
@@ -99,21 +104,28 @@
             // abrirSGBDToolStripMenuItem
             // 
             this.abrirSGBDToolStripMenuItem.Name = "abrirSGBDToolStripMenuItem";
-            this.abrirSGBDToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.abrirSGBDToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.abrirSGBDToolStripMenuItem.Text = "Abrir ";
             this.abrirSGBDToolStripMenuItem.Click += new System.EventHandler(this.abrirSGBDToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(106, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // crearSGBDToolStripMenuItem
             // 
             this.crearSGBDToolStripMenuItem.Name = "crearSGBDToolStripMenuItem";
-            this.crearSGBDToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.crearSGBDToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.crearSGBDToolStripMenuItem.Text = "Nuevo";
             this.crearSGBDToolStripMenuItem.Click += new System.EventHandler(this.crearSGBDToolStripMenuItem_Click);
+            // 
+            // eliminarMenuItem
+            // 
+            this.eliminarMenuItem.Name = "eliminarMenuItem";
+            this.eliminarMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.eliminarMenuItem.Text = "Eliminar";
+            this.eliminarMenuItem.Click += new System.EventHandler(this.eliminarMenuItem_Click);
             // 
             // entidadToolStripMenuItem
             // 
@@ -130,31 +142,31 @@
             // altaToolStripMenuItem
             // 
             this.altaToolStripMenuItem.Name = "altaToolStripMenuItem";
-            this.altaToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.altaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.altaToolStripMenuItem.Text = "Alta";
             this.altaToolStripMenuItem.Click += new System.EventHandler(this.altaEntidad);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(141, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             // 
             // bajaToolStripMenuItem
             // 
             this.bajaToolStripMenuItem.Name = "bajaToolStripMenuItem";
-            this.bajaToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.bajaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.bajaToolStripMenuItem.Text = "Baja";
             this.bajaToolStripMenuItem.Click += new System.EventHandler(this.bajaEntidad);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(141, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
             // modificacionToolStripMenuItem
             // 
             this.modificacionToolStripMenuItem.Name = "modificacionToolStripMenuItem";
-            this.modificacionToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.modificacionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.modificacionToolStripMenuItem.Text = "Modificacion";
             this.modificacionToolStripMenuItem.Click += new System.EventHandler(this.modificacionEntidad);
             // 
@@ -336,6 +348,16 @@
             // 
             this.nuevoArchivo.FileOk += new System.ComponentModel.CancelEventHandler(this.nuevoArchivo_FileOk);
             // 
+            // eliminaArchivo
+            // 
+            this.eliminaArchivo.FileName = "eliminaArchivo";
+            this.eliminaArchivo.FileOk += new System.ComponentModel.CancelEventHandler(this.eliminaArchivo_FileOk);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(149, 6);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -397,6 +419,9 @@
         private System.Windows.Forms.ToolStripMenuItem bajaDato;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem modificaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem eliminarMenuItem;
+        private System.Windows.Forms.OpenFileDialog eliminaArchivo;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
     }
 }
 
