@@ -68,6 +68,7 @@
             // 
             // entidades
             // 
+            this.entidades.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.entidades.FormattingEnabled = true;
             this.entidades.Location = new System.Drawing.Point(12, 34);
             this.entidades.Name = "entidades";
@@ -86,9 +87,9 @@
             this.etiquetaNuevoNombre.AutoSize = true;
             this.etiquetaNuevoNombre.Location = new System.Drawing.Point(12, 73);
             this.etiquetaNuevoNombre.Name = "etiquetaNuevoNombre";
-            this.etiquetaNuevoNombre.Size = new System.Drawing.Size(81, 13);
+            this.etiquetaNuevoNombre.Size = new System.Drawing.Size(79, 13);
             this.etiquetaNuevoNombre.TabIndex = 6;
-            this.etiquetaNuevoNombre.Text = "Nuwvo Nombre";
+            this.etiquetaNuevoNombre.Text = "Nuevo Nombre";
             // 
             // ModificaEntidad
             // 

@@ -37,7 +37,10 @@ namespace SGBD.Presentacion
         /// </summary>
         private void butonBaja_Click(object sender, EventArgs e)
         {
-            diccionario.BajaEntidad(entidades.SelectedItem.ToString());
+            if (!diccionario.BajaEntidad(entidades.SelectedItem.ToString()))
+            {
+                MessageBox.Show("No se pudo eliminar la tabla, Verifique que no existen tablas referenciando a esta tabla", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

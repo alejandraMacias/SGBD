@@ -55,6 +55,7 @@
             // 
             // seleccionEntidad
             // 
+            this.seleccionEntidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.seleccionEntidad.FormattingEnabled = true;
             this.seleccionEntidad.Location = new System.Drawing.Point(13, 26);
             this.seleccionEntidad.Name = "seleccionEntidad";
@@ -90,6 +91,7 @@
             // 
             // seleccionEntidadReferencia
             // 
+            this.seleccionEntidadReferencia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.seleccionEntidadReferencia.FormattingEnabled = true;
             this.seleccionEntidadReferencia.Location = new System.Drawing.Point(13, 254);
             this.seleccionEntidadReferencia.Name = "seleccionEntidadReferencia";

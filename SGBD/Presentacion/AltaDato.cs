@@ -97,7 +97,10 @@ namespace SGBD.Presentacion
                     controls.Add(control);
                 }
             }
-            diccionarioDatos.AltaDato(entidadActual, controls);
+            if (!diccionarioDatos.AltaDato(entidadActual, controls))
+            {
+                MessageBox.Show("No se pudo agregar el dato, verifique su información", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

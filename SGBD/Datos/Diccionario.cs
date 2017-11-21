@@ -207,18 +207,26 @@ namespace SGBD.Datos
             bool resultado;
             StringBuilder cadenaSentencia = new StringBuilder();
             OleDbCommand sentencia;
-            
-            // Construcción de la cadena empleada para crear la entidad.
-            cadenaSentencia.Append("CREATE TABLE {0}([_id] COUNTER)");
-            // Inicialización de los comandos empleados para crear la entidad.
-            sentencia = new OleDbCommand(string.Format(cadenaSentencia.ToString(), nombre), coneccion);
-            // Ejecución de sentencias.
-            sentencia.ExecuteNonQuery();
-            // Adición de entidad a la lista de entidades.
-            listaEntidad.Add(new Entidad(nombre));
 
-            resultado = true;
-            OnActualizacionEntidad(new ActualizacionEntidadEventArgs(string.Format("Entidad {0} agregada", nombre)));
+            try
+            {
+                // Construcción de la cadena empleada para crear la entidad.
+                cadenaSentencia.Append("CREATE TABLE {0}([_id] COUNTER)");
+                // Inicialización de los comandos empleados para crear la entidad.
+                sentencia = new OleDbCommand(string.Format(cadenaSentencia.ToString(), nombre), coneccion);
+                // Ejecución de sentencias.
+                sentencia.ExecuteNonQuery();
+                // Adición de entidad a la lista de entidades.
+                listaEntidad.Add(new Entidad(nombre));
+
+                resultado = true;
+                OnActualizacionEntidad(new ActualizacionEntidadEventArgs(string.Format("Entidad {0} agregada", nombre)));
+            }
+            catch(Exception)
+            {
+                resultado = false;
+                // MessageBox.Show("No se pudo crear la tabla, verifique su existencia", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             return resultado;
         }
 
@@ -230,28 +238,34 @@ namespace SGBD.Datos
         {
             bool resultado;
             Entidad entidadAEliminar = listaEntidad.Find(e => e.Nombre == nombre);
-
-            if (entidadAEliminar != null)
+            try
             {
-                StringBuilder cadenaSentencia = new StringBuilder();
-                OleDbCommand sentencia;
+                if (entidadAEliminar != null)
+                {
+                    StringBuilder cadenaSentencia = new StringBuilder();
+                    OleDbCommand sentencia;
 
-                // Construcción de la cadena empleada para eliminar la entidad.
-                cadenaSentencia.Append("DROP TABLE {0}");
-                // Inicialización de los comandos empleados para eliminar la entidad.
-                sentencia = new OleDbCommand(string.Format(cadenaSentencia.ToString(), nombre), coneccion);
-                // Ejecución de sentencias.
-                sentencia.ExecuteNonQuery();
+                    // Construcción de la cadena empleada para eliminar la entidad.
+                    cadenaSentencia.Append("DROP TABLE {0}");
+                    // Inicialización de los comandos empleados para eliminar la entidad.
+                    sentencia = new OleDbCommand(string.Format(cadenaSentencia.ToString(), nombre), coneccion);
+                    // Ejecución de sentencias.
+                    sentencia.ExecuteNonQuery();
 
-                listaEntidad.Remove(entidadAEliminar);
-                resultado = true;
+                    listaEntidad.Remove(entidadAEliminar);
+                    resultado = true;
+                }
+                else
+                {
+                    resultado = false;
+                }
+
+                OnActualizacionEntidad(new ActualizacionEntidadEventArgs(string.Format("Entidad {0} eliminada", nombre)));
             }
-            else
+            catch (Exception)
             {
                 resultado = false;
             }
-
-            OnActualizacionEntidad(new ActualizacionEntidadEventArgs(string.Format("Entidad {0} eliminada", nombre)));
             return resultado;
         }
 
@@ -263,28 +277,35 @@ namespace SGBD.Datos
             bool resultado;
             Entidad entidadAModificar = listaEntidad.Find(e => e.Nombre == nombre);
 
-            if (entidadAModificar != null)
+            try
             {
-                StringBuilder cadenaSentencia = new StringBuilder();
-                OleDbCommand sentencia;
+                if (entidadAModificar != null)
+                {
+                    StringBuilder cadenaSentencia = new StringBuilder();
+                    OleDbCommand sentencia;
 
-                // Construcción de la cadena empleada para modificar la entidad.
-                cadenaSentencia.Append("EXEC sp_rename '{0}', '{1}'");
-                // Inicialización de los comandos empleados para modificar la entidad.
-                sentencia = new OleDbCommand(string.Format(cadenaSentencia.ToString(), nombre, nuevoNombre), coneccion);
-                // Ejecución de sentencias.
-                sentencia.ExecuteNonQuery();
+                    // Construcción de la cadena empleada para modificar la entidad.
+                    cadenaSentencia.Append("EXEC sp_rename '{0}', '{1}'");
+                    // Inicialización de los comandos empleados para modificar la entidad.
+                    sentencia = new OleDbCommand(string.Format(cadenaSentencia.ToString(), nombre, nuevoNombre), coneccion);
+                    // Ejecución de sentencias.
+                    sentencia.ExecuteNonQuery();
 
-                entidadAModificar.Nombre = nuevoNombre;
-                resultado = true;
+                    entidadAModificar.Nombre = nuevoNombre;
+                    resultado = true;
+                }
+                else
+                {
+                    resultado = false;
+                }
+
+                OnActualizacionEntidad(new ActualizacionEntidadEventArgs(string.Format("Entidad {0} modificada", nombre)));
             }
-            else
+            catch (Exception)
             {
                 resultado = false;
             }
-
-            OnActualizacionEntidad(new ActualizacionEntidadEventArgs(string.Format("Entidad {0} modificada", nombre)));
-            return resultado;
+                return resultado;
         }
 
         /// <summary>
@@ -297,117 +318,126 @@ namespace SGBD.Datos
             StringBuilder cadenaSentencia = new StringBuilder();
             OleDbCommand sentencia;
 
-            switch (tipoAtributo)
+            #region Seleccion de tipo de atributo e inserccion de datos a la BD
+            try
             {
-                case TipoAtributo.Entero:
-                    atributoNuevo = new Entero(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
-                    // Construcción de la cadena empleada para agregar el atributo.
-                    cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD {1} NUMBER {2}",
-                        entidadActual.Nombre,
-                        nombreAtributo,
-                        clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : ""
-                        );
-                    sentencia = new OleDbCommand(cadenaSentencia.ToString(), coneccion);
-                    // Ejecución de sentencias.
-                    sentencia.ExecuteNonQuery();
-                    if (entidadClave != null)
-                    {
-                        cadenaSentencia.Clear();
-                        cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD FOREIGN KEY ({4}) REFERENCES {2}({3})",
+                switch (tipoAtributo)
+                {
+                    case TipoAtributo.Entero:
+                        atributoNuevo = new Entero(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
+                        // Construcción de la cadena empleada para agregar el atributo.
+                        cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD {1} NUMBER {2}",
                             entidadActual.Nombre,
                             nombreAtributo,
-                            entidadClave.Nombre,
-                            entidadClave.Atributos.FirstOrDefault(a => a.TipoClave == ClaveAtributo.Primaria).Nombre,
-                            nombreAtributo
+                            clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : ""
                             );
                         sentencia = new OleDbCommand(cadenaSentencia.ToString(), coneccion);
                         // Ejecución de sentencias.
                         sentencia.ExecuteNonQuery();
-                    }
-                    break;
-                case TipoAtributo.Flotante:
-                    atributoNuevo = new Flotante(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
-                    // Construcción de la cadena empleada para agregar el atributo.
-                    cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD {1} CURRENCY {2}",
-                        entidadActual.Nombre,
-                        nombreAtributo,
-                        clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : ""
-                        );
-                    sentencia = new OleDbCommand(cadenaSentencia.ToString(), coneccion);
-                    // Ejecución de sentencias.
-                    sentencia.ExecuteNonQuery();
-                    if (entidadClave != null)
-                    {
-                        cadenaSentencia.Clear();
-                        cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD FOREIGN KEY ({4}) REFERENCES {2}({3})",
+                        if (entidadClave != null)
+                        {
+                            cadenaSentencia.Clear();
+                            cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD FOREIGN KEY ({4}) REFERENCES {2}({3})",
+                                entidadActual.Nombre,
+                                nombreAtributo,
+                                entidadClave.Nombre,
+                                entidadClave.Atributos.FirstOrDefault(a => a.TipoClave == ClaveAtributo.Primaria).Nombre,
+                                nombreAtributo
+                                );
+                            sentencia = new OleDbCommand(cadenaSentencia.ToString(), coneccion);
+                            // Ejecución de sentencias.
+                            sentencia.ExecuteNonQuery();
+                        }
+                        break;
+                    case TipoAtributo.Flotante:
+                        atributoNuevo = new Flotante(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
+                        // Construcción de la cadena empleada para agregar el atributo.
+                        cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD {1} CURRENCY {2}",
                             entidadActual.Nombre,
                             nombreAtributo,
-                            entidadClave.Nombre,
-                            entidadClave.Atributos.FirstOrDefault(a => a.TipoClave == ClaveAtributo.Primaria).Nombre,
-                            nombreAtributo
+                            clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : ""
                             );
                         sentencia = new OleDbCommand(cadenaSentencia.ToString(), coneccion);
                         // Ejecución de sentencias.
                         sentencia.ExecuteNonQuery();
-                    }
-                    break;
-                case TipoAtributo.Caracter:
-                    atributoNuevo = new Caracter(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
-                    // Construcción de la cadena empleada para agregar el atributo.
-                    cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD {1} TEXT {2}",
-                        entidadActual.Nombre,
-                        nombreAtributo,
-                        clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : ""
-                        );
-                    sentencia = new OleDbCommand(cadenaSentencia.ToString(), coneccion);
-                    // Ejecución de sentencias.
-                    sentencia.ExecuteNonQuery();
-                    if (entidadClave != null)
-                    {
-                        cadenaSentencia.Clear();
-                        cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD FOREIGN KEY ({4}) REFERENCES {2}({3})",
+                        if (entidadClave != null)
+                        {
+                            cadenaSentencia.Clear();
+                            cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD FOREIGN KEY ({4}) REFERENCES {2}({3})",
+                                entidadActual.Nombre,
+                                nombreAtributo,
+                                entidadClave.Nombre,
+                                entidadClave.Atributos.FirstOrDefault(a => a.TipoClave == ClaveAtributo.Primaria).Nombre,
+                                nombreAtributo
+                                );
+                            sentencia = new OleDbCommand(cadenaSentencia.ToString(), coneccion);
+                            // Ejecución de sentencias.
+                            sentencia.ExecuteNonQuery();
+                        }
+                        break;
+                    case TipoAtributo.Caracter:
+                        atributoNuevo = new Caracter(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
+                        // Construcción de la cadena empleada para agregar el atributo.
+                        cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD {1} TEXT {2}",
                             entidadActual.Nombre,
                             nombreAtributo,
-                            entidadClave.Nombre,
-                            entidadClave.Atributos.FirstOrDefault(a => a.TipoClave == ClaveAtributo.Primaria).Nombre,
-                            nombreAtributo
+                            clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : ""
                             );
                         sentencia = new OleDbCommand(cadenaSentencia.ToString(), coneccion);
                         // Ejecución de sentencias.
                         sentencia.ExecuteNonQuery();
-                    }
-                    break;
-                case TipoAtributo.Cadena:
-                    atributoNuevo = new Cadena(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
-                    // Construcción de la cadena empleada para agregar el atributo.
-                    cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD {1}  TEXT {2}",
-                        entidadActual.Nombre,
-                        nombreAtributo,
-                        clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : ""
-                        );
-                    sentencia = new OleDbCommand(cadenaSentencia.ToString(), coneccion);
-                    // Ejecución de sentencias.
-                    sentencia.ExecuteNonQuery();
-                    if (entidadClave != null)
-                    {
-                        cadenaSentencia.Clear();
-                        cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD FOREIGN KEY ({4}) REFERENCES {2}({3})",
+                        if (entidadClave != null)
+                        {
+                            cadenaSentencia.Clear();
+                            cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD FOREIGN KEY ({4}) REFERENCES {2}({3})",
+                                entidadActual.Nombre,
+                                nombreAtributo,
+                                entidadClave.Nombre,
+                                entidadClave.Atributos.FirstOrDefault(a => a.TipoClave == ClaveAtributo.Primaria).Nombre,
+                                nombreAtributo
+                                );
+                            sentencia = new OleDbCommand(cadenaSentencia.ToString(), coneccion);
+                            // Ejecución de sentencias.
+                            sentencia.ExecuteNonQuery();
+                        }
+                        break;
+                    case TipoAtributo.Cadena:
+                        atributoNuevo = new Cadena(nombreAtributo, tipoAtributo, clave, longitud, entidadClave);
+                        // Construcción de la cadena empleada para agregar el atributo.
+                        cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD {1}  TEXT {2}",
                             entidadActual.Nombre,
                             nombreAtributo,
-                            entidadClave.Nombre,
-                            entidadClave.Atributos.FirstOrDefault(a => a.TipoClave == ClaveAtributo.Primaria).Nombre,
-                            nombreAtributo
+                            clave == ClaveAtributo.Primaria ? "PRIMARY KEY" : ""
                             );
                         sentencia = new OleDbCommand(cadenaSentencia.ToString(), coneccion);
                         // Ejecución de sentencias.
                         sentencia.ExecuteNonQuery();
-                    }
-                    break;
+                        if (entidadClave != null)
+                        {
+                            cadenaSentencia.Clear();
+                            cadenaSentencia.AppendFormat("ALTER TABLE {0} ADD FOREIGN KEY ({4}) REFERENCES {2}({3})",
+                                entidadActual.Nombre,
+                                nombreAtributo,
+                                entidadClave.Nombre,
+                                entidadClave.Atributos.FirstOrDefault(a => a.TipoClave == ClaveAtributo.Primaria).Nombre,
+                                nombreAtributo
+                                );
+                            sentencia = new OleDbCommand(cadenaSentencia.ToString(), coneccion);
+                            // Ejecución de sentencias.
+                            sentencia.ExecuteNonQuery();
+                        }
+                        break;
+                }
+                #endregion
+                entidadActual.Atributos.AddLast(atributoNuevo);
+                resultado = true;
+                OnActualizacionAtributo(new ActualizacionAtributoEventArgs(string.Format("Atributo {0} agregado", nombreAtributo)));
             }
-            entidadActual.Atributos.AddLast(atributoNuevo);
-            resultado = true;
-            OnActualizacionAtributo(new ActualizacionAtributoEventArgs(string.Format("Atributo {0} agregado", nombreAtributo)));
-            return resultado;
+            catch (Exception)
+            {
+                resultado = false;
+            }
+                return resultado;
         }
 
         /// <summary>
@@ -419,17 +449,24 @@ namespace SGBD.Datos
             StringBuilder cadenaSentencia = new StringBuilder();
             OleDbCommand sentencia;
 
-            // Construcción de la cadena empleada para modificar la entidad.
-            cadenaSentencia.Append("ALTER TABLE {0} DROP COLUMN {1} ");
-            // Inicialización de los comandos empleados para modificar la entidad.
-            sentencia = new OleDbCommand(string.Format(cadenaSentencia.ToString(), entidadActual.Nombre, atributoAEliminar.Nombre), coneccion);
-            // Ejecución de sentencias.
-            sentencia.ExecuteNonQuery();
+            try
+            {
+                // Construcción de la cadena empleada para modificar la entidad.
+                cadenaSentencia.Append("ALTER TABLE {0} DROP COLUMN {1} ");
+                // Inicialización de los comandos empleados para modificar la entidad.
+                sentencia = new OleDbCommand(string.Format(cadenaSentencia.ToString(), entidadActual.Nombre, atributoAEliminar.Nombre), coneccion);
+                // Ejecución de sentencias.
+                sentencia.ExecuteNonQuery();
 
-            entidadActual.Atributos.Remove(atributoAEliminar);
-            resultado = true;
-            OnActualizacionAtributo(new ActualizacionAtributoEventArgs(string.Format("Atributo {0} eliminado", atributoAEliminar.Nombre)));
-            return resultado;
+                entidadActual.Atributos.Remove(atributoAEliminar);
+                resultado = true;
+                OnActualizacionAtributo(new ActualizacionAtributoEventArgs(string.Format("Atributo {0} eliminado", atributoAEliminar.Nombre)));
+            }
+            catch (Exception)
+            {
+                resultado = false;
+            }
+                return resultado;
         }
 
         /// <summary>
@@ -439,11 +476,18 @@ namespace SGBD.Datos
         {
             bool resultado;
 
-            this.BajaAtributo(entidadActual, atributoAModificar);
-            this.AltaAtributo(entidadActual, atributoAModificar.Nombre, tipoAtributo, clave, entidadClave, longitud);
+            try
+            {
+                this.BajaAtributo(entidadActual, atributoAModificar);
+                this.AltaAtributo(entidadActual, atributoAModificar.Nombre, tipoAtributo, clave, entidadClave, longitud);
 
-            resultado = true;
-            OnActualizacionAtributo(new ActualizacionAtributoEventArgs(string.Format("Atributo {0} modificado", atributoAModificar.Nombre)));
+                resultado = true;
+                OnActualizacionAtributo(new ActualizacionAtributoEventArgs(string.Format("Atributo {0} modificado", atributoAModificar.Nombre)));
+            }
+            catch (Exception)
+            {
+                resultado = false;
+            }
             return resultado;
         }
 
@@ -453,29 +497,35 @@ namespace SGBD.Datos
             StringBuilder cadenaSentencia = new StringBuilder();
             OleDbCommand sentencia;
 
-            // Construcción de la cadena empleada para modificar la entidad.
-            cadenaSentencia.Append("INSERT INTO {0} (" + ParametrisaAtributos(entidad.Nombre) + ") VALUES (");
-            foreach(Control control in controles)
+            try
             {
-                if(control is TextBox) 
+                // Construcción de la cadena empleada para modificar la entidad.
+                cadenaSentencia.Append("INSERT INTO {0} (" + ParametrisaAtributos(entidad.Nombre) + ") VALUES (");
+                foreach (Control control in controles)
                 {
-                    var valor = (control as TextBox).Text;
-                    cadenaSentencia.Append("'" + valor + "',");
+                    if (control is TextBox)
+                    {
+                        var valor = (control as TextBox).Text;
+                        cadenaSentencia.Append("'" + valor + "',");
+                    }
+                    else if (control is NumericUpDown)
+                    {
+                        var valor = (control as NumericUpDown).Value.ToString();
+                        cadenaSentencia.Append("'" + valor + "',");
+                    }
                 }
-                else if (control is NumericUpDown)
-                {
-                    var valor = (control as NumericUpDown).Value.ToString();
-                    cadenaSentencia.Append("'" + valor + "',");
-                }
+                cadenaSentencia.Remove(cadenaSentencia.Length - 1, 1);
+                cadenaSentencia.Append(")");
+                // Inicialización de los comandos empleados para modificar la entidad.
+                sentencia = new OleDbCommand(string.Format(cadenaSentencia.ToString(), entidad.Nombre), coneccion);
+                // Ejecución de sentencias.
+                sentencia.ExecuteNonQuery();
+                resultado = true;
             }
-            cadenaSentencia.Remove(cadenaSentencia.Length - 1, 1);
-            cadenaSentencia.Append(")");
-            // Inicialización de los comandos empleados para modificar la entidad.
-            sentencia = new OleDbCommand(string.Format(cadenaSentencia.ToString(), entidad.Nombre), coneccion);
-            // Ejecución de sentencias.
-            sentencia.ExecuteNonQuery();
-
-            resultado = true;
+            catch (Exception)
+            {
+                resultado = false;
+            }
             return resultado;
         }
 

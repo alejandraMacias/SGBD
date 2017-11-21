@@ -66,6 +66,7 @@
             // 
             // entidades
             // 
+            this.entidades.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.entidades.FormattingEnabled = true;
             this.entidades.Location = new System.Drawing.Point(12, 38);
             this.entidades.Name = "entidades";

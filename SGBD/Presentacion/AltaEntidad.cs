@@ -25,7 +25,10 @@ namespace SGBD.Presentacion
         {
             Diccionario diccionario = Diccionario.Instancia;
 
-            diccionario.AltaEntidad(textoEntidad.Text);
+            if (!diccionario.AltaEntidad(textoEntidad.Text))
+            {
+                MessageBox.Show("No se pudo crear la tabla, verifique su existencia", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

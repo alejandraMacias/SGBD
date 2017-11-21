@@ -51,7 +51,10 @@ namespace SGBD.Presentacion
             var entidad = seleccionEntidad.SelectedItem as Entidad;
             var dato = seleccionDato.SelectedItem.ToString();
             
-            diccionarioDatos.Sentencia(string.Format("DELETE FROM {0} WHERE [_id] = {1}", entidad.Nombre, dato));
+            if(!diccionarioDatos.Sentencia(string.Format("DELETE FROM {0} WHERE [_id] = {1}", entidad.Nombre, dato)))
+            {
+                MessageBox.Show("No se pudo eliminar el dato, verifique referencias hacia este dato", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 

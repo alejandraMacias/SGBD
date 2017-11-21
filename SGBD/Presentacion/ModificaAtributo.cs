@@ -82,7 +82,11 @@ namespace SGBD.Presentacion
             {
                 entidadClave = null;
             }
-            diccionarioDatos.ModificaAtributo(entidadActual, seleccionAtributo.SelectedItem as Atributo, tipoAtributo, claveAtributo, entidadClave, (int)longitud.Value);
+
+            if(!diccionarioDatos.ModificaAtributo(entidadActual, seleccionAtributo.SelectedItem as Atributo, tipoAtributo, claveAtributo, entidadClave, (int)longitud.Value))
+            {
+                MessageBox.Show("No se pudo modificar, verifique el nombre del atributo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void seleccionEntidadReferencia_SelectedIndexChanged(object sender, EventArgs e)

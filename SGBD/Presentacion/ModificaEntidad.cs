@@ -28,7 +28,11 @@ namespace SGBD.Presentacion
 
         private void botonModifica_Click(object sender, EventArgs e)
         {
-            diccionario.ModificaEntidad(entidades.SelectedItem.ToString(), nuevoNombre.Text);
+            if(!diccionario.ModificaEntidad(entidades.SelectedItem.ToString(), nuevoNombre.Text))
+            {
+                MessageBox.Show("No se pudo modificar la tabla", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           
         }
     }
 }
