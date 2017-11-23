@@ -285,7 +285,15 @@ namespace SGBD.Datos
                     OleDbCommand sentencia;
 
                     // Construcción de la cadena empleada para modificar la entidad.
-                    cadenaSentencia.Append("EXEC sp_rename '{0}', '{1}'");
+                    cadenaSentencia.Append("SELECT * INTO {1} FROM {0}");
+                    // Inicialización de los comandos empleados para modificar la entidad.
+                    sentencia = new OleDbCommand(string.Format(cadenaSentencia.ToString(), nombre, nuevoNombre), coneccion);
+                    // Ejecución de sentencias.
+                    sentencia.ExecuteNonQuery();
+
+                    // Construcción de la cadena empleada para modificar la entidad.
+                    cadenaSentencia = new StringBuilder();
+                    cadenaSentencia.Append("DROP TABLE {0}");
                     // Inicialización de los comandos empleados para modificar la entidad.
                     sentencia = new OleDbCommand(string.Format(cadenaSentencia.ToString(), nombre, nuevoNombre), coneccion);
                     // Ejecución de sentencias.
@@ -303,9 +311,29 @@ namespace SGBD.Datos
             }
             catch (Exception)
             {
+                EliminaTablaTemporal(nuevoNombre);
                 resultado = false;
             }
                 return resultado;
+        }
+
+        private void EliminaTablaTemporal(string nombre)
+        {
+            Entidad entidadAModificar = listaEntidad.Find(e => e.Nombre == nombre);
+
+            try
+            {
+                StringBuilder cadenaSentencia = new StringBuilder();
+                OleDbCommand sentencia;
+
+                // Construcción de la cadena empleada para modificar la entidad.
+                cadenaSentencia.Append("DROP TABLE {0}");
+                // Inicialización de los comandos empleados para modificar la entidad.
+                sentencia = new OleDbCommand(string.Format(cadenaSentencia.ToString(), nombre), coneccion);
+                // Ejecución de sentencias.
+                sentencia.ExecuteNonQuery();
+            }
+            catch (Exception) { }
         }
 
         /// <summary>
