@@ -50,7 +50,7 @@ namespace SGBD.Datos
 
     class Diccionario: IDisposable
     {
-        private static readonly Lazy<Diccionario> lazy = new Lazy<Diccionario>(() => new Diccionario());
+        private static readonly Lazy<Diccionario> lazy = new Lazy<Diccionario>(() => new Diccionario()); // Indica que es un solo objeto(singleton)
         public static Diccionario Instancia { get { return lazy.Value; } }
 
         private OleDbConnection coneccion;        
@@ -103,7 +103,7 @@ namespace SGBD.Datos
         }
 
         /// <summary>
-        /// Provocado al actualizarse una entidad en el diccionario de datos.
+        /// Evento activado al actualizarse una entidad en el diccionario de datos.
         /// </summary>
         /// <param name="e"></param>
         protected virtual void OnActualizacionEntidad(ActualizacionEntidadEventArgs e)
@@ -116,7 +116,7 @@ namespace SGBD.Datos
         }
 
         /// <summary>
-        /// Provocado al actualizarse una entidad en el diccionario de datos.
+        /// Evento activado al actualizarse un atributo en el diccionario de datos.
         /// </summary>
         /// <param name="e"></param>
         protected virtual void OnActualizacionAtributo(ActualizacionAtributoEventArgs e)
@@ -627,7 +627,7 @@ namespace SGBD.Datos
         {
             string resultado = "Consulta no válida, error léxico";
             string entrada = new Regex(@"[\s]{1,}").Replace(consulta, " ");
-            string patron = @"^SELECT \* FROM (" + ObtenEntidades() + ")$";
+            string patron = @"^SELECT \* FROM (" + ObtenEntidades() + ")$"; 
 
             if(Regex.IsMatch(entrada.ToUpper(), patron.ToUpper()))
             { 
@@ -643,8 +643,7 @@ namespace SGBD.Datos
                 }
                 else
                 {
-                    var clavesPrimarias = ObtenAtributosPrimarios();
-                    patron = @"^SELECT (" + atributos + @")(,(" + atributos + "))* FROM (" + ObtenEntidades() + @") WHERE (" + clavesPrimarias + @") = [0-9]+$";
+                    patron = @"^SELECT (" + atributos + @")(,(" + atributos + "))* FROM (" + ObtenEntidades() + @") WHERE (" + atributos + ") [=] (.)+$";
                     if (Regex.IsMatch(entrada.ToUpper(), patron.ToUpper()))
                     {
                         resultado = string.Empty;

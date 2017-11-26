@@ -87,7 +87,6 @@
             // 
             // botonAgregar
             // 
-            this.botonAgregar.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.botonAgregar.Location = new System.Drawing.Point(12, 335);
             this.botonAgregar.Name = "botonAgregar";
             this.botonAgregar.Size = new System.Drawing.Size(75, 23);
