@@ -56,18 +56,14 @@
             // 
             // panelDatos
             // 
-            this.panelDatos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelDatos.AutoScroll = true;
-            this.panelDatos.Location = new System.Drawing.Point(13, 63);
+            this.panelDatos.Location = new System.Drawing.Point(13, 62);
             this.panelDatos.Name = "panelDatos";
             this.panelDatos.Size = new System.Drawing.Size(359, 246);
             this.panelDatos.TabIndex = 2;
             // 
             // botonAgregar
             // 
-            this.botonAgregar.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.botonAgregar.Location = new System.Drawing.Point(13, 326);
             this.botonAgregar.Name = "botonAgregar";
             this.botonAgregar.Size = new System.Drawing.Size(75, 23);

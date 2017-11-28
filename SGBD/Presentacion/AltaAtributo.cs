@@ -21,11 +21,26 @@ namespace SGBD.Presentacion
         public AltaAtributo()
         {
             InitializeComponent();
+
             seleccionEntidad.DataSource = diccionarioDatos.Entidades;
+            
             seleccionEntidadReferencia.DataSource = diccionarioDatos.Entidades.FindAll(entidad => entidad.Atributos.
                 FirstOrDefault(a => a.TipoClave == Diccionario.ClaveAtributo.Primaria) != null );
             longitud.Enabled = false;
-            seleccionEntidadReferencia.Enabled = false;
+            seleccionEntidadReferencia.Visible = atributoPrimario.Visible = claveForanea.Checked;
+        }
+
+        public AltaAtributo(string entidadActual)
+        {
+            InitializeComponent();
+
+            seleccionEntidad.DataSource = diccionarioDatos.Entidades;
+            var entidadSeleccionada = diccionarioDatos.Entidades.Where(x => x.Nombre == entidadActual).FirstOrDefault(); 
+            seleccionEntidad.SelectedItem = entidadSeleccionada;
+            seleccionEntidadReferencia.DataSource = diccionarioDatos.Entidades.FindAll(entidad => entidad.Atributos.
+                FirstOrDefault(a => a.TipoClave == Diccionario.ClaveAtributo.Primaria) != null);
+            longitud.Enabled = false;
+            seleccionEntidadReferencia.Visible = atributoPrimario.Visible = claveForanea.Checked;
         }
 
         /// <summary>
@@ -65,7 +80,7 @@ namespace SGBD.Presentacion
         {
             tipoAtributo = Diccionario.TipoAtributo.Cadena;
             longitud.Value = 30;
-            longitud.Enabled = true;
+            longitud.Enabled = Cadena.Checked;
         }
 
         /// <summary>
@@ -74,7 +89,7 @@ namespace SGBD.Presentacion
         private void claveNO_CheckedChanged(object sender, EventArgs e)
         {
             claveAtributo = Diccionario.ClaveAtributo.SinClave;
-            seleccionEntidadReferencia.Enabled = claveForanea.Checked;
+            seleccionEntidadReferencia.Visible = atributoPrimario.Visible = claveForanea.Checked;
         }
 
         /// <summary>
@@ -83,7 +98,7 @@ namespace SGBD.Presentacion
         private void clavePrimaria_CheckedChanged(object sender, EventArgs e)
         {
             claveAtributo = Diccionario.ClaveAtributo.Primaria;
-            seleccionEntidadReferencia.Enabled = claveForanea.Checked;
+            seleccionEntidadReferencia.Visible = atributoPrimario.Visible = claveForanea.Checked;
         }
 
         /// <summary>
@@ -92,7 +107,7 @@ namespace SGBD.Presentacion
         private void claveForanea_CheckedChanged(object sender, EventArgs e)
         {
             claveAtributo = Diccionario.ClaveAtributo.Foranea;
-            seleccionEntidadReferencia.Enabled = claveForanea.Checked;
+            seleccionEntidadReferencia.Visible = atributoPrimario.Visible = claveForanea.Checked;
         }
 
         /// <summary>
@@ -107,6 +122,14 @@ namespace SGBD.Presentacion
                 entidadClave = null;
             }
             diccionarioDatos.AltaAtributo(entidadActual, nombreAtributo.Text, tipoAtributo, claveAtributo, entidadClave, (int)longitud.Value);
+            MessageBox.Show("Atributo agregado", "", MessageBoxButtons.OK);
+            nombreAtributo.Clear();
+            opcionEntero.Checked = false;
+            opcionFlotante.Checked = false;
+            Cadena.Checked = false;
+            claveForanea.Checked = false;
+            clavePrimaria.Checked = false;
+            claveNO.Checked = false;
         }
 
         private void seleccionEntidadReferencia_SelectedIndexChanged(object sender, EventArgs e)
@@ -121,8 +144,9 @@ namespace SGBD.Presentacion
         private void seleccionEntidad_SelectedIndexChanged(object sender, EventArgs e)
         {
             var entidadActual = seleccionEntidad.SelectedItem as Entidad;
+       
             Atributo atributoPrimario = entidadActual.Atributos.FirstOrDefault(a => a.TipoClave == Diccionario.ClaveAtributo.Primaria);
-
+            
             if (atributoPrimario != null)
             {
                 clavePrimaria.Enabled = false;

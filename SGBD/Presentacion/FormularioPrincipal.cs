@@ -157,7 +157,8 @@ namespace SGBD
         /// </summary>
         private void altaAtributo(object sender, EventArgs e)
         {
-            AltaAtributo dialogo = new AltaAtributo();
+            var entidadActual = elementosDiccionario.SelectedNode.Text;
+            AltaAtributo dialogo = new AltaAtributo(entidadActual);
 
             dialogo.ShowDialog();
         }

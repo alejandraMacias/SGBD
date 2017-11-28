@@ -94,13 +94,18 @@ namespace SGBD.Presentacion
             {
                 if(control.AccessibleName != "label")
                 {
-                    controls.Add(control);
+                    controls.Add(control);  
                 }
             }
             if (!diccionarioDatos.AltaDato(entidadActual, controls))
             {
-                MessageBox.Show("No se pudo agregar el dato, verifique su información", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se pudo agregar el dato, ya existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            else
+            {
+                MessageBox.Show("Dato agregado", "", MessageBoxButtons.OK);
+            }
+            seleccionEntidad_SelectedIndexChanged(this, null);
         }
     }
 }
